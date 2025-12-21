@@ -1,0 +1,149 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $n$ be the number of participants.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given variable from the problem setup.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "We are interested in the number of pairs of participants who are not acquainted with each other but have a common acquaintance.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the exact quantity being asked about in the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "Let $G$ be a graph with $n$ vertices representing the participants.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Constructs a graph model to represent the situation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "An edge between two vertices exists if the corresponding participants are acquainted.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the meaning of edges in the model (acquaintance relation).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "We are looking for the maximum number of pairs of vertices $(u,v)$ such that there is no edge between $u$ and $v$, but there exists a vertex $w$ such that there is an edge between $u$ and $w$ and between $v$ and $w$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the target condition in graph-theoretic terms.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 6,
+    "sentence": "Let $N(v)$ be the set of neighbors of $v$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for neighbors of a vertex.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "The number of pairs of vertices $(u,v)$ such that $u$ and $v$ are not acquainted but have a common acquaintance is\n$$ \\sum_{v} \\binom{|N(v)|}{2} - \\sum_{u \\neq v} I(\\text{no edge between } u \\text{ and } v) \\cdot I(\\exists w: uw, vw \\text{ are edges}) $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up an explicit counting expression/equation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "Consider the case where the graph is a complete bipartite graph with parts of size $\\lfloor \\frac{n}{2} \\rfloor$ and $\\lceil \\frac{n}{2} \\rceil$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses a specific candidate extremal configuration to examine.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 9,
+    "sentence": "Let $k = \\lfloor \\frac{n}{2} \\rfloor$ and $l = \\lceil \\frac{n}{2} \\rceil$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces concrete notation for the bipartition sizes.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "The number of non-adjacent pairs is $kl$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a (claimed) count for a pair type in the chosen graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "The number of adjacent pairs is 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs another (claimed) count for a pair type.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "For any non-adjacent pair $(u,v)$, we need to check if there is a common acquaintance.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next step to check the common acquaintance property.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 13,
+    "sentence": "Since $u$ and $v$ are in the same part, they have an acquaintance with all the vertices in the other part.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a logical consequence from the bipartite structure.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "Thus, every pair of vertices in the same part has a common acquaintance.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the property for same-part pairs based on prior reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "The number of pairs in the first part is $\\binom{k}{2} = \\frac{k(k-1)}{2}$, and the number of pairs in the second part is $\\binom{l}{2} = \\frac{l(l-1)}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the number of pairs within each part.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "The total number of pairs who are not acquainted but have a common acquaintance is\n$$ \\binom{k}{2} + \\binom{l}{2} = \\frac{k(k-1) + l(l-1)}{2} = \\frac{k^2 - k + l^2 - l}{2} = \\frac{k^2+l^2 - (k+l)}{2} = \\frac{k^2+l^2 - n}{2} $$\nSince $l = n-k$, we have\n$$ \\frac{k^2 + (n-k)^2 - n}{2} = \\frac{k^2 + n^2 - 2nk + k^2 - n}{2} = \\frac{2k^2 - 2nk + n^2 - n}{2} = k^2 - nk + \\frac{n^2-n}{2} $$\nTo maximize this, we can complete the square: $(k - \\frac{n}{2})^2 - \\frac{n^2}{4} + \\frac{n^2-n}{2} = (k - \\frac{n}{2})^2 + \\frac{2n^2-4n-n^2}{4} = (k - \\frac{n}{2})^2 + \\frac{n^2-2n}{4}$\nThis is maximized when $k$ is far from $\\frac{n}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out algebraic summation, substitution, and optimization steps.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "However, $k = \\lfloor \\frac{n}{2} \\rfloor$ and $l = \\lceil \\frac{n}{2} \\rceil$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls the constraint tying k and l to n via floor/ceil.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "When $n$ is even, $k = l = \\frac{n}{2}$, so we have $\\frac{2 (\\frac{n}{2})(\\frac{n}{2}-1)}{2} = \\frac{n}{2} (\\frac{n}{2} - 1) = \\frac{n^2}{4} - \\frac{n}{2} = \\frac{n^2-2n}{4}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the value in the even n case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "When $n$ is odd, $k = \\frac{n-1}{2}$ and $l = \\frac{n+1}{2}$, so we have\n$\\frac{(\\frac{n-1}{2})(\\frac{n-3}{2}) + (\\frac{n+1}{2})(\\frac{n-1}{2})}{2} = \\frac{(\\frac{n-1}{2})(\\frac{n-3+n+1}{2})}{2} = \\frac{(\\frac{n-1}{2})(\\frac{2n-2}{2})}{2} = \\frac{(n-1)^2}{4} = \\frac{n^2-2n+1}{4}$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the value in the odd n case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "$\\lfloor \\frac{n^2}{4} \\rfloor$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final maximum in closed form.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 21,
+    "sentence": "Final Answer: The final answer is $\\boxed{\\lfloor \\frac{n^2}{4} \\rfloor}$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "It explicitly states the final result to the problem.",
+    "sentence-category": "Answer"
+  }
+]

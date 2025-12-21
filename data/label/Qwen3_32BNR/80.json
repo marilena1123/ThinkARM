@@ -1,0 +1,429 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are given a party with $ n $ people, and we are to consider the relationships between them: for any two people, they are either **acquainted** or **not acquainted**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem setup about acquaintances among n people.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "The question is: > What is the **maximum possible number** of **unordered pairs** $ (A, B) $ such that:\n- $ A $ and $ B $ are **not acquainted**, but\n- They have **at least one common acquaintance**?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the exact question asking for the maximum number of such unordered pairs.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "This is a classic problem in **graph theory**, and the goal is to maximize the number of such pairs under the constraint that the graph is **undirected** and has **$ n $ vertices**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Frames the problem in graph theory terms and clarifies the objective without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "### Step 1: Model the problem as a graph",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to model the problem as a graph.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 5,
+    "sentence": "Let\u2019s represent the party as a graph $ G = (V, E) $, where: - Each person is a **vertex** in $ V $, with $ |V| = n $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces graph notation and maps people to vertices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "- An **edge** between two vertices means the two people are **acquainted**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines edges as acquaintance within the chosen model.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "- A **non-edge** means they are **not acquainted**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines non-edges as non-acquaintance within the model.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "We are to count the number of **unordered pairs** $ (A, B) $ such that: - There is **no edge** between $ A $ and $ B $ (i.e., they are **not directly connected**),\n- But they **have at least one common neighbor** (i.e., there is some vertex $ C $ such that both $ (A, C) $ and $ (B, C) $ are edges).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the target pairs in graph-theoretic terms (non-edge with common neighbor).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "Let\u2019s denote this number as $ M $, and we are to find the **maximum possible value** of $ M $ over all graphs with $ n $ vertices.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation M for the quantity to maximize and states the objective.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "### Step 2: Understand the meaning of $ M $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the next step to interpret M.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 11,
+    "sentence": "Let\u2019s denote: - $ \\binom{n}{2} $: the total number of unordered pairs of people.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines total number of unordered pairs using binomial coefficient.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "- $ E $: the number of edges (i.e., pairs of people who are acquainted).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines E as the number of edges (acquaintances).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "- So the number of **non-adjacent** (i.e., unacquainted) pairs is $ \\binom{n}{2} - E $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the number of non-adjacent pairs as a formula.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "We want to count how many of those unacquainted pairs have **at least one common acquaintance**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the counting objective among non-adjacent pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "Let\u2019s denote this number as $ M $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation M for the desired count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "So: $$\nM = \\text{number of unacquainted pairs with at least one common acquaintance}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives a defining equation for M in words.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "### Step 3: Use graph theory to compute $ M $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to compute M using graph theory.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 18,
+    "sentence": "Let\u2019s denote: - $ N = \\binom{n}{2} $: total number of unordered pairs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation N for total pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "- $ E $: number of edges (acquainted pairs).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates E as number of edges.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "- $ \\overline{E} = N - E $: number of non-edges (unacquainted pairs).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the number of non-edges as N - E.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "We are to find the **maximum** value of $ M $, the number of non-edges that have at least one common neighbor.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of maximizing M without proposing a method.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 22,
+    "sentence": "Let\u2019s define: - For a pair $ (u, v) $, let $ N(u) $ be the set of neighbors of $ u $, and $ N(v) $ be the set of neighbors of $ v $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation and definitions for neighbors of vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "- Then $ (u, v) $ has a common neighbor if $ N(u) \\cap N(v) \\neq \\emptyset $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Logical characterization of a common neighbor using set intersection.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "So we are to count the number of non-edges $ (u, v) $ such that $ N(u) \\cap N(v) \\neq \\emptyset $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the counting target using the previously defined condition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "This is equivalent to: $$\nM = \\text{number of non-edges } (u, v) \\text{ such that } |N(u) \\cap N(v)| \\geq 1\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States an equivalent formal definition of M based on intersection size.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "### Step 4: Use the **Tur\u00e1n graph** to maximize $ M $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the strategy to use the Tur\u00e1n graph to maximize M.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "This problem is well-known in extremal graph theory, and the graph that **maximizes** the number of such non-edges with a common neighbor is the **Tur\u00e1n graph** $ T(n, 2) $, which is a **complete bipartite graph** $ K_{\\lfloor n/2 \\rfloor, \\lceil n/2 \\rceil} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Claims and identifies the optimal graph structure and describes it.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 28,
+    "sentence": "Let\u2019s explain why this is the case.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces intent to justify the optimality claim.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 29,
+    "sentence": "### Step 5: Why the Tur\u00e1n graph is optimal",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Section heading indicating a forthcoming justification.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 30,
+    "sentence": "The **Tur\u00e1n graph** $ T(n, 2) $ is the complete bipartite graph with partitions of size as equal as possible: $ \\lfloor n/2 \\rfloor $ and $ \\lceil n/2 \\rceil $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the Tur\u00e1n graph T(n,2) with its partition sizes.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "In this graph: - Every pair of people from **opposite partitions** are **acquainted**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a property of edges between opposite partitions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "- Every pair of people from the **same partition** are **not acquainted**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a property of non-edges within the same partition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 33,
+    "sentence": "Now consider a non-edge $ (u, v) $: these must be in the **same partition**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces that any non-edge must lie within a partition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 34,
+    "sentence": "Now, any person in the **other partition** is a common acquaintance of $ u $ and $ v $, since both are connected to all people in the other partition.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains why nodes in the other partition are common neighbors.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 35,
+    "sentence": "So, for **every** non-edge $ (u, v) $, there are $ \\lfloor n/2 \\rfloor $ common neighbors (if both are in the smaller partition), or $ \\lceil n/2 \\rceil $ (if both are in the larger one).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives counts of common neighbors for non-edges depending on partition sizes.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "Thus, **every non-edge** in the Tur\u00e1n graph has **at least one common neighbor**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes that every non-edge has at least one common neighbor.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 37,
+    "sentence": "Hence, in the Tur\u00e1n graph: $$\nM = \\text{number of non-edges} = \\binom{\\lfloor n/2 \\rfloor}{2} + \\binom{\\lceil n/2 \\rceil}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes M explicitly as the total number of non-edges in the Tur\u00e1n graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "### Step 6: Final formula",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Section heading signaling the presentation of the final formula.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 39,
+    "sentence": "Let\u2019s write this in a more compact form.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States intention to rewrite the result more compactly.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 40,
+    "sentence": "Let: - $ a = \\lfloor n/2 \\rfloor $\n- $ b = \\lceil n/2 \\rceil $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces shorthand variables for floor(n/2) and ceil(n/2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "Then: $$\nM = \\binom{a}{2} + \\binom{b}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the explicit formula for M using previously defined a and b; this is a concrete mathematical step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "But since $ a + b = n $, and $ b = n - a $, we can write: $$\nM = \\binom{a}{2} + \\binom{n - a}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites the formula using a+b=n and b=n\u2212a; algebraic manipulation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": "Let\u2019s simplify this: $$\n\\binom{a}{2} + \\binom{n - a}{2}\n= \\frac{a(a - 1)}{2} + \\frac{(n - a)(n - a - 1)}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins and performs the algebraic expansion to simplify the expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 44,
+    "sentence": "$$\n= \\frac{1}{2} \\left[ a(a - 1) + (n - a)(n - a - 1) \\right]\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues the algebraic simplification with an explicit rewritten form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "$$\n= \\frac{1}{2} \\left[ a^2 - a + n^2 - 2na + a^2 + n - a - na + a \\right]\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Further expands the expression with concrete algebraic terms.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "Wait \u2014 this is messy.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A brief self-monitoring comment indicating a shift in approach.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 47,
+    "sentence": "Instead, let\u2019s just **evaluate** the expression for a few small values of $ n $, and find a pattern.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a new strategy to evaluate small cases and look for a pattern.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 48,
+    "sentence": "### Step 7: Try small values of $ n $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the step of trying small values, indicating intended action.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 49,
+    "sentence": "Let\u2019s compute $ M $ for small $ n $, using the Tur\u00e1n graph.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intention to compute M for small n using a specific model.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 50,
+    "sentence": "#### Case $ n = 2 $: - $ G = K_{1,1} $\n- $ \\binom{1}{2} + \\binom{1}{2} = 0 + 0 = 0 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation for n=2 with concrete values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "#### Case $ n = 3 $: - $ G = K_{1,2} $\n- $ \\binom{1}{2} + \\binom{2}{2} = 0 + 1 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation for n=3 with concrete values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "#### Case $ n = 4 $: - $ G = K_{2,2} $\n- $ \\binom{2}{2} + \\binom{2}{2} = 1 + 1 = 2 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation for n=4 with concrete values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "#### Case $ n = 5 $: - $ G = K_{2,3} $\n- $ \\binom{2}{2} + \\binom{3}{2} = 1 + 3 = 4 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation for n=5 with concrete values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 54,
+    "sentence": "#### Case $ n = 6 $: - $ G = K_{3,3} $\n- $ \\binom{3}{2} + \\binom{3}{2} = 3 + 3 = 6 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation for n=6 with concrete values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "#### Case $ n = 7 $: - $ G = K_{3,4} $\n- $ \\binom{3}{2} + \\binom{4}{2} = 3 + 6 = 9 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation for n=7 with concrete values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "Now observe the pattern: | $ n $ | $ M $ |\n|--------|--------|\n| 2      | 0      |\n| 3      | 1      |\n| 4      | 2      |\n| 5      | 4      |\n| 6      | 6      |\n| 7      | 9      |",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes results to observe a pattern; moves from data to pattern recognition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 57,
+    "sentence": "This is the sequence of **triangular numbers**, starting from index 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the observed sequence as triangular numbers; conceptual inference.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 58,
+    "sentence": "Let\u2019s define $ a = \\lfloor n/2 \\rfloor $, $ b = \\lceil n/2 \\rceil $, and write: $$\nM = \\binom{a}{2} + \\binom{b}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Re-establishes notation and restates the general expression for M.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 59,
+    "sentence": "This is the **maximum** number of pairs of unacquainted people who have a common acquaintance.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates and asserts that the expression gives the maximum; confirmation of optimality.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 60,
+    "sentence": "### \u2705 Final Answer: $$\n\\boxed{\\binom{\\left\\lfloor \\frac{n}{2} \\right\\rfloor}{2} + \\binom{\\left\\lceil \\frac{n}{2} \\right\\rceil}{2}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the final boxed formula as the solution.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 61,
+    "sentence": "This is the **maximum possible number** of pairs of people who are **not acquainted** but have **at least one common acquaintance**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "It states the final conclusion about the maximum number, summarizing the result.",
+    "sentence-category": "Answer"
+  }
+]

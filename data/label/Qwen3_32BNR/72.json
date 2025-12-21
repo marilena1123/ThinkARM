@@ -1,0 +1,296 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are given a set $ S = \\{1, 2, \\dots, n\\} $, and we consider all permutations $ \\pi $ of this set.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given set and scope of permutations from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "A **local maximum** in a permutation is defined as follows: - At position $ k = 1 $, a local maximum occurs if $ \\pi(1) > \\pi(2) $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the definition of a local maximum at k=1 from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "- At position $ k = n $, a local maximum occurs if $ \\pi(n-1) < \\pi(n) $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the definition of a local maximum at k=n from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "- At any interior position $ 1 < k < n $, a local maximum occurs if $ \\pi(k-1) < \\pi(k) $ and $ \\pi(k) > \\pi(k+1) $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the definition of a local maximum for interior positions.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "We are to compute the **expected number** (i.e., average) of **local maxima** over all permutations of $ S $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal: compute the expected number of local maxima.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 6,
+    "sentence": "### Step 1: Define the random variable",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step of the solution method.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 7,
+    "sentence": "Let $ X $ be the **random variable** representing the **number of local maxima** in a random permutation $ \\pi $ of $ S $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces and defines the random variable X (setting notation).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "We want to compute: $$\n\\mathbb{E}[X] = \\text{Expected number of local maxima in a random permutation of } S\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the objective to compute the expectation, outlining the task.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 9,
+    "sentence": "Let us define indicator random variables for each position: - For each $ k = 1, 2, \\dots, n $, define an indicator variable $ I_k $ such that:\n  $$\n  I_k = \n  \\begin{cases}\n  1 & \\text{if } \\pi \\text{ has a local maximum at position } k \\\\\n  0 & \\text{otherwise}\n  \\end{cases}\n  $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines indicator variables I_k (setting up notation).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "Then,\n$$\nX = I_1 + I_2 + \\dots + I_n\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expresses X as a sum of indicators, a concrete formulation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "So, the expected value becomes:\n$$\n\\mathbb{E}[X] = \\mathbb{E}[I_1] + \\mathbb{E}[I_2] + \\dots + \\mathbb{E}[I_n]\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies linearity to express E[X] as sum of expectations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "We now compute $ \\mathbb{E}[I_k] $ for each $ k $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the plan to compute each E[I_k].",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 13,
+    "sentence": "### Step 2: Compute $ \\mathbb{E}[I_k] $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Section heading indicating the next computation step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 14,
+    "sentence": "We consider the three different cases for $ k $: #### Case 1: $ k = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines a case-by-case approach and starts Case 1.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 15,
+    "sentence": "We need $ \\pi(1) > \\pi(2) $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the condition for a local maximum at k=1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "In a random permutation, $ \\pi(1) $ and $ \\pi(2) $ are distinct and equally likely to be in any order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a probabilistic property about the order of two entries.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "So: $$\n\\mathbb{P}(\\pi(1) > \\pi(2)) = \\frac{1}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability for the condition at k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "Thus, $ \\mathbb{E}[I_1] = \\frac{1}{2} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the expected value of the indicator at k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "#### Case 2: $ k = n $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces Case 2: k = n as the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 20,
+    "sentence": "We need $ \\pi(n-1) < \\pi(n) $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the condition for a local maximum at k=n.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 21,
+    "sentence": "Again, in a random permutation, the values at positions $ n-1 $ and $ n $ are distinct and equally likely to be in any order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a property of random permutations to justify a probability.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "So: $$\n\\mathbb{P}(\\pi(n-1) < \\pi(n)) = \\frac{1}{2}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and states the probability value explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 23,
+    "sentence": "Thus, $ \\mathbb{E}[I_n] = \\frac{1}{2} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the expectation for I_n from the computed probability.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "#### Case 3: $ 1 < k < n $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next case to consider (interior positions).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 25,
+    "sentence": "We need $ \\pi(k-1) < \\pi(k) $ and $ \\pi(k) > \\pi(k+1) $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the condition defining a local maximum at an interior position.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 26,
+    "sentence": "We now compute the probability that this occurs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intention to compute the probability.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "In a random permutation, the values at positions $ k-1, k, k+1 $ are all distinct and equally likely to be in any order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the uniform randomness of three adjacent positions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 28,
+    "sentence": "There are $ 3! = 6 $ possible orderings of three distinct values.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete counting computation (3! = 6).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "We count how many of them satisfy $ \\pi(k-1) < \\pi(k) $ and $ \\pi(k) > \\pi(k+1) $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the plan to count favorable orderings.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 30,
+    "sentence": "Let\u2019s denote the values at positions $ k-1, k, k+1 $ as $ a, b, c $, and we want to count the number of permutations such that $ a < b > c $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation (a, b, c) to proceed with counting.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 31,
+    "sentence": "This is the number of **permutations of three distinct numbers** where the middle one is a **local maximum**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Conceptually reframes the counting target (middle is a local maximum).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "There are exactly **2** such permutations out of the 6 possible orderings: - $ a < b > c $: e.g., $ 1 < 3 > 2 $\n- $ c < b > a $: e.g., $ 2 < 3 > 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts and lists the favorable permutations explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "So there are 2 such permutations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the counted number of favorable permutations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "Therefore: $$\n\\mathbb{P}(\\pi(k-1) < \\pi(k) > \\pi(k+1)) = \\frac{2}{6} = \\frac{1}{3}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability from the count (2/6 = 1/3).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "Thus, for each interior position $ k $, $ \\mathbb{E}[I_k] = \\frac{1}{3} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the expectation for an interior indicator from the probability.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 36,
+    "sentence": "### Step 3: Add up the expectations",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to sum expectations.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 37,
+    "sentence": "We now sum up the expectations: - $ \\mathbb{E}[I_1] = \\frac{1}{2} $\n- $ \\mathbb{E}[I_n] = \\frac{1}{2} $\n- For each of the $ n - 2 $ interior positions, $ \\mathbb{E}[I_k] = \\frac{1}{3} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the component expectations to be summed.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "So,",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Transitional interjection leading into the summation.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 39,
+    "sentence": "$$\n\\mathbb{E}[X] = \\frac{1}{2} + \\frac{1}{2} + (n - 2) \\cdot \\frac{1}{3} = 1 + \\frac{n - 2}{3}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the summation to get E[X] in unsimplified form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "Simplify: $$\n\\mathbb{E}[X] = \\frac{n + 1}{3}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the final simplified expected value.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 41,
+    "sentence": "### \u2705 Final Answer: $$\n\\boxed{\\frac{n + 1}{3}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Directly presents the final numerical expression for the requested quantity.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 42,
+    "sentence": "This is the **average number of local maxima** in a random permutation of $ \\{1, 2, \\dots, n\\} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates and identifies the result as the desired average, summarizing the conclusion.",
+    "sentence-category": "Answer"
+  }
+]

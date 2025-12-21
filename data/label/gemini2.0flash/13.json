@@ -1,0 +1,268 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $A = (a_{ij})_{2n \\times 2n}$ be a $2n \\times 2n$ matrix with entries chosen independently at random from $\\{0,1\\}$, each with probability $1/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given matrix setup and distribution from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "Let $B = A - A^t$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a new variable B as A - A^t, setting notation to proceed.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 3,
+    "sentence": "Then $B = (b_{ij})$, where $b_{ij} = a_{ij} - a_{ji}$ for $1 \\le i,j \\le 2n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies entries of B in terms of A's entries, operationalizing the definition.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 4,
+    "sentence": "Note that $b_{ji} = a_{ji} - a_{ij} = -b_{ij}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the relation b_ji = -b_ij from the definition; property deduction.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "Thus, $B$ is a skew-symmetric matrix, i.e., $B^t = -B$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes B is skew-symmetric based on the previous inference.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "Also, $b_{ii} = a_{ii} - a_{ii} = 0$ for all $i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes diagonal entries b_ii explicitly to be zero.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "We want to find the expected value of $\\det(B)$, where $B = A - A^t$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal to find the expected determinant.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "Since $B$ is a $2n \\times 2n$ skew-symmetric matrix, we have $\\det(B) = \\det(B^t) = \\det(-B) = (-1)^{2n} \\det(B) = \\det(B)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses determinant properties under transpose and scaling; conceptual inference.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "We know that for a skew-symmetric matrix $B$ of even size, $\\det(B)$ is a perfect square, i.e., $\\det(B) = \\text{Pf}(B)^2$, where $\\text{Pf}(B)$ is the Pfaffian of $B$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls theorem relating determinant of skew-symmetric matrices to the Pfaffian.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "When $B$ is a skew-symmetric matrix of size $2n$, we have $\\det(B) = (\\text{Pf}(B))^2$, where $\\text{Pf}(B)$ is the Pfaffian.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the Pfaffian-determinant relation for size 2n; conceptual recall.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "Since $B = A - A^t$, the entries $b_{ij} = a_{ij} - a_{ji}$ can take values in $\\{-1, 0, 1\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers possible values of b_ij from the definition B = A - A^t.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Also, $P(b_{ij} = -1) = P(a_{ij} = 0, a_{ji} = 1) = \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates probability that b_ij = -1 from independent Bernoulli entries.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "$P(b_{ij} = 0) = P(a_{ij} = 0, a_{ji} = 0) + P(a_{ij} = 1, a_{ji} = 1) = \\frac{1}{2} \\cdot \\frac{1}{2} + \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4} + \\frac{1}{4} = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates probability that b_ij = 0 via two cases.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "$P(b_{ij} = 1) = P(a_{ij} = 1, a_{ji} = 0) = \\frac{1}{2} \\cdot \\frac{1}{2} = \\frac{1}{4}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates probability that b_ij = 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "It is a known result that if $B$ is a $2n \\times 2n$ skew-symmetric matrix whose entries are independent with $E[b_{ij}] = 0$ and $E[b_{ij}^2] = 1$ for $i < j$, then $E[\\det(B)] = 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cites a known result about E[det(B)] under independence and moment conditions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "In our case, $E[b_{ij}] = (-1) \\cdot \\frac{1}{4} + 0 \\cdot \\frac{1}{2} + 1 \\cdot \\frac{1}{4} = -\\frac{1}{4} + \\frac{1}{4} = 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes E[b_ij] for the current distribution to be zero.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "However, $E[b_{ij}^2] = (-1)^2 \\cdot \\frac{1}{4} + 0^2 \\cdot \\frac{1}{2} + 1^2 \\cdot \\frac{1}{4} = \\frac{1}{4} + \\frac{1}{4} = \\frac{1}{2} \\neq 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes E[b_ij^2] and notes it equals 1/2, not 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "Also, the entries are not independent.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Observes that the entries are not independent, assessing applicability of the cited result.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 19,
+    "sentence": "However, we know that if $A$ is a skew-symmetric matrix of size $2n$ with entries $a_{ij} \\in \\mathbb{R}$ for $i < j$, then $\\det(A) = \\text{Pf}(A)^2$, where $\\text{Pf}(A)$ is the Pfaffian of $A$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reasserts the determinant-Pfaffian square relation for skew-symmetric matrices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 20,
+    "sentence": "The Pfaffian of $A$ is a homogeneous polynomial of degree $n$ in the variables $a_{ij}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls that the Pfaffian is a homogeneous polynomial of degree n.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 21,
+    "sentence": "For $n=1$, $A = \\begin{pmatrix} 0 & a_{12} \\\\ -a_{12} & 0 \\end{pmatrix}$, $\\det(A) = a_{12}^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out a case setup and computes the determinant for n=1 explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "$E[\\det(A)] = E[a_{12}^2] = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the expectation of the determinant for the n=1 case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 23,
+    "sentence": "For $n=2$, $A = \\begin{pmatrix} 0 & a_{12} & a_{13} & a_{14} \\\\ -a_{12} & 0 & a_{23} & a_{24} \\\\ -a_{13} & -a_{23} & 0 & a_{34} \\\\ -a_{14} & -a_{24} & -a_{34} & 0 \\end{pmatrix}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Constructs the explicit 4x4 skew-symmetric matrix for n=2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "$\\det(A) = (a_{12}a_{34} - a_{13}a_{24} + a_{14}a_{23})^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the computed determinant expression (square of a Pfaffian) for the n=2 case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "Let $n=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets n=1 to proceed with a concrete calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 26,
+    "sentence": "Then $A = \\begin{pmatrix} a_{11} & a_{12} \\\\ a_{21} & a_{22} \\end{pmatrix}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the explicit 2x2 matrix entries to set up the calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 27,
+    "sentence": "$A^t = \\begin{pmatrix} a_{11} & a_{21} \\\\ a_{12} & a_{22} \\end{pmatrix}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the transpose of the matrix explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "$A - A^t = \\begin{pmatrix} 0 & a_{12} - a_{21} \\\\ a_{21} - a_{12} & 0 \\end{pmatrix}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the difference A - A^t explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "$\\det(A - A^t) = (a_{12} - a_{21})^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the determinant of A - A^t in the 2x2 case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 30,
+    "sentence": "$E[\\det(A - A^t)] = E[(a_{12} - a_{21})^2] = E[a_{12}^2 - 2a_{12}a_{21} + a_{21}^2] = E[a_{12}^2] - 2E[a_{12}a_{21}] + E[a_{21}^2] = (\\frac{1}{2}) - 2(\\frac{1}{4}) + (\\frac{1}{2}) = 1 - \\frac{1}{2} = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the expectation calculation step-by-step to obtain 1/2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 31,
+    "sentence": "If $n \\ge 1$, then $E[\\det(A - A^t)] = 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general claim about the expected determinant for all n \u2265 1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "If $A$ is a $2n \\times 2n$ matrix such that the entries are i.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces general assumptions (leading into i.i.d.) to state a theoretical result.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 33,
+    "sentence": "i.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A fragment without substantive content, serving as a pause in the statement.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 34,
+    "sentence": "d.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A fragment without substantive content, serving as a pause in the statement.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 35,
+    "sentence": "with $E[a_{ij}] = 0$ and $E[a_{ij}^2] = 1$, then $E[\\det(A - A^t)] = 0$ for $n > 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general theorem/result under certain moment conditions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "If $A$ has entries in $\\{0,1\\}$ with probability $\\frac{1}{2}$ each, then $E[a_{ij}] = \\frac{1}{2}$ and $E[a_{ij}^2] = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes mean and second moment for Bernoulli(1/2) entries.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "Also, $E[a_{ij} a_{kl}] = E[a_{ij}] E[a_{kl}] = \\frac{1}{4}$ if $ij \\ne kl$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses independence to compute product expectation for distinct indices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "Final Answer: The final answer is $\\boxed{0}$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the final answer explicitly.",
+    "sentence-category": "Answer"
+  }
+]

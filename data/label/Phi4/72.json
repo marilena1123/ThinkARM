@@ -1,0 +1,121 @@
+[
+  {
+    "index": 1,
+    "sentence": "To find the average number of local maxima in a permutation of \\( S = \\{1, 2, \\ldots, n\\} \\), we first define an indicator random variable \\( X_k \\) for each position \\( k \\) in the permutation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the method and defines an indicator variable to set up the solution framework.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 2,
+    "sentence": "Specifically, \\( X_k = 1 \\) if there is a local maximum at position \\( k \\), and \\( X_k = 0 \\) otherwise.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the formal definition of the indicator variable.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 3,
+    "sentence": "The total number of local maxima in a permutation is given by the sum: \\[\nX = X_1 + X_2 + \\cdots + X_n.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Establishes the relationship that the total count is the sum of indicators.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "We aim to find the expected value \\( \\mathbb{E}[X] \\), which is: \\[\n\\mathbb{E}[X] = \\mathbb{E}[X_1] + \\mathbb{E}[X_2] + \\cdots + \\mathbb{E}[X_n].",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies linearity of expectation to express E[X] as a sum.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "We will calculate \\( \\mathbb{E}[X_k] \\) for each \\( k \\) based on the conditions for a local maximum: 1. **For \\( k = 1 \\):** A local maximum occurs if \\( \\pi(1) > \\pi(2) \\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the plan to compute each E[X_k] via case analysis.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 6,
+    "sentence": "Since \\( \\pi(1) \\) and \\( \\pi(2) \\) are two distinct elements chosen randomly from \\( S \\), each of the \\( n(n-1) \\) possible pairs \\((\\pi(1), \\pi(2))\\) is equally likely.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates the total number of ordered pairs for positions 1 and 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "There are \\( \\frac{n(n-1)}{2} \\) pairs where \\( \\pi(1) > \\pi(2) \\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts the favorable pairs where \u03c0(1) > \u03c0(2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "Thus, the probability that \\( \\pi(1) > \\pi(2) \\) is: \\[\n   \\mathbb{P}(X_1 = 1) = \\frac{n(n-1)/2}{n(n-1)} = \\frac{1}{2}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability for k=1 from counts.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "2. **For \\( 1 < k < n \\):** A local maximum occurs if \\( \\pi(k-1) < \\pi(k) > \\pi(k+1) \\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the condition for a local maximum at an interior position.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "For a fixed \\( k \\), the values \\( \\pi(k-1), \\pi(k), \\pi(k+1) \\) are distinct and can be any permutation of three distinct elements from \\( S \\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the sample space of three adjacent values as permutations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "There are \\( 3! = 6 \\) permutations of these three elements, and the permutations where \\( \\pi(k-1) < \\pi(k) > \\pi(k+1) \\) are \\( (a, c, b) \\) and \\( (b, c, a) \\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts total and favorable permutations for the interior case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "Thus, the probability is: \\[\n   \\mathbb{P}(X_k = 1) = \\frac{2}{6} = \\frac{1}{3}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability for interior positions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "3. **For \\( k = n \\):** A local maximum occurs if \\( \\pi(n-1) < \\pi(n) \\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the condition for a local maximum at the last position.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "Similar to the case for \\( k = 1 \\), the probability is: \\[\n   \\mathbb{P}(X_n = 1) = \\frac{1}{2}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the probability for the last position by analogy to the first.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Now, we compute the expected value \\( \\mathbb{E}[X] \\): \\[\n\\mathbb{E}[X] = \\mathbb{E}[X_1] + \\sum_{k=2}^{n-1} \\mathbb{E}[X_k] + \\mathbb{E}[X_n] = \\frac{1}{2} + (n-2) \\cdot \\frac{1}{3} + \\frac{1}{2}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Combines the expectations across positions into a single expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "Simplifying, we have: \\[\n\\mathbb{E}[X] = \\frac{1}{2} + \\frac{n-2}{3} + \\frac{1}{2} = 1 + \\frac{n-2}{3} = \\frac{3}{3} + \\frac{n-2}{3} = \\frac{n+1}{3}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Algebraically simplifies the expression for the expected value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "Thus, the average number of local maxima in a permutation of \\( S \\) is: \\[\n\\boxed{\\frac{n+1}{3}}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final result for the average number of local maxima.",
+    "sentence-category": "Answer"
+  }
+]

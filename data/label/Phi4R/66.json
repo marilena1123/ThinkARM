@@ -1,0 +1,2494 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are asked: \"Let $n$ be a positive integer.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the problem setup from the prompt.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "$n$ people take part in a certain party.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Continues restating given information from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "For any pair of the participants, either the two are acquainted with each other or they are not.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the condition about acquaintances directly from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "What is the maximum possible number of the pairs for which the two are not acquainted but have a common acquaintance among the participants?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the exact question to be answered.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "We have n people.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Reiterates the given number of people.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 6,
+    "sentence": "For any pair of participants, either they are acquainted or they are not.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Reiterates the acquaintance condition.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 7,
+    "sentence": "We are to find maximum possible number of pairs of persons for which: (i) the two are not acquainted, and (ii) they have a common acquaintance among the participants.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the objective of the problem in words.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "We want to maximize the number of pairs (i,j) such that: (i) persons i and j are not acquainted, but there exists a person k (common acquaintance) such that persons i and k are acquainted, and persons j and k are acquainted.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Formalizes the objective using variables and conditions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "So we want to maximize \"2-path\" in the graph complement structure.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Interprets the objective in graph-theoretic terms (inference).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "Let's denote acquaintances as edges in a graph G on n vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces graph notation to model acquaintances.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "The problem is to maximize number of pairs {i, j} such that i and j are not adjacent in G, but they have a common neighbor in G.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Reframes the goal in the established graph model.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "That is \"non-adjacent pairs with a common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Paraphrases the target property in graph terms.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "We want to choose graph on n vertices (some graph on vertex set [n]) such that the number of pairs of non-adjacent vertices with a common neighbor is as large as possible.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the optimization goal for a graph on n vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "Let's denote A is graph, with vertex set V with |V| = n, and E is set of edges representing acquaintances.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets specific notation for the graph and its components.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Then for any pair of vertices i and j, they either are adjacent or not.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a basic property within the graph model.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "Let M be the number of pairs (i, j) such that i, j are non-adjacent, but there exists some vertex k with edges i-k and j-k.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Defines M as a quantity to be maximized (notation setup).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "We want maximum possible M.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the optimization target in terms of M.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "I recall similar problem: \"Given a graph on n vertices, what is maximum number of pairs of nonadjacent vertices that have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Recalls a related known problem formulation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 19,
+    "sentence": "\" Possibly best structure is the \"friendship graph\" or \"windmill graph\" i.e., a collection of triangles sharing a common vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Suggests a possible optimal structure with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 20,
+    "sentence": "But let's check.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Signals intent to check the proposed idea.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 21,
+    "sentence": "Consider the \"friendship graph\" constructed by taking a vertex v, and partitioning the remaining n-1 vertices into disjoint pairs (or if n-1 odd, then one triple, but then you can join triangles around v).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes a specific structure to consider as a strategy for maximizing the count.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 22,
+    "sentence": "But actually, known friendship graph: \"windmill graph\" F_n: It consists of n triangles sharing a common vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Recalls and defines the windmill (friendship) graph concept relevant to the problem.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "Then total vertices is 2n - 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Derives and states a concrete property (vertex count) of the windmill graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "But wait, n is given, and structure is that there is one universal vertex that is connected to all others, and then pairs among the others might be arranged as triangles with the universal vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes how the given n relates to a universal-vertex structure and possible pairing among others.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "But careful: friendship graph is the graph that is the unique graph with the property that every pair of vertices has exactly one common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a known property/definition of the friendship graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "But here we want maximize non-adjacent pairs with a common acquaintance.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Clarifies the optimization objective in analytical terms.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 27,
+    "sentence": "Let's denote the graph: one vertex is adjacent to all others, and then make all other vertices adjacent in pairs in such a way to maximize common neighbors for non-adjacent pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Lays out a planned construction strategy (universal vertex with paired others).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 28,
+    "sentence": "But let\u2019s check: In \"windmill\" graph, every pair of vertices is either adjacent, or nonadjacent and their common neighbor is the central vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Checks the property of the windmill graph against the goal.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 29,
+    "sentence": "Wait: In the friendship graph (windmill graph), the structure is: there is a vertex v, and then the remaining vertices are partitioned into n-1 pairs, each pair forming a triangle with v.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes the structural details of the friendship graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 30,
+    "sentence": "But that graph has total vertices 2n - 1, but here n is given.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Observes the mismatch between the windmill vertex count and the given n.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "So if n is not necessarily 2n-1, but we want to maximize the pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Refocuses on the goal given that n need not match the windmill form.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "Let's try to derive expression.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the intention to derive an expression next.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 33,
+    "sentence": "Let G be graph on n vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets notation by defining G as a graph on n vertices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "For every pair of nonadjacent vertices (i, j), count the number of common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Outlines the procedural step to count common neighbors for each nonadjacent pair.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 35,
+    "sentence": "We want to maximize total count among pairs with common neighbor at least 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the optimization target to maximize qualifying pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "So maximize sum_{i<j} [common neighbor count >= 1] (but we want count pairs, not sum of counts).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Formulates the objective using a mathematical indicator expression.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 37,
+    "sentence": "But wait, the question: \"What is the maximum possible number of pairs for which the two are not acquainted but have a common acquaintance among the participants?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the core question from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 38,
+    "sentence": "\" So for each pair that is not acquainted, if there exists at least one common neighbor, count that pair.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Paraphrases the counting criterion directly from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 39,
+    "sentence": "We want maximum possible such pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Reiterates the goal from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 40,
+    "sentence": "We can consider complement of G: then pairs that are not acquainted correspond to edges in complement.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces considering the complement graph as an analytical approach.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 41,
+    "sentence": "We want pairs that have a common neighbor in G.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the goal of the problem in terms of graph pairs with a common neighbor.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 42,
+    "sentence": "But that's not standard.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Meta-comment expressing reflection without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 43,
+    "sentence": "Alternate approach: Let graph G be chosen to maximize the number of pairs (i, j) where i and j are not adjacent but share a neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces an approach to maximize the desired pairs by choosing G accordingly.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 44,
+    "sentence": "We are free to choose any graph on n vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes the problem constraint that any graph on n vertices can be chosen.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 45,
+    "sentence": "Let's denote the degrees d_i.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces notation for degrees, a setup step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "For a vertex v, the pairs that have v as a common neighbor are pairs chosen from its neighbors, so number is C(d(v), 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a combinatorial count for each vertex's contribution C(d(v),2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 47,
+    "sentence": "But if a pair has two common neighbors, it will be counted twice if we sum C(d(v),2) over vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains overcounting when summing contributions, a logical deduction.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 48,
+    "sentence": "But we want each pair counted only once.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the requirement to avoid double counting.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 49,
+    "sentence": "But we want maximum number of pairs with at least one common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the optimization goal of the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 50,
+    "sentence": "So essentially we want as many pairs of non-adjacent vertices to share at least one common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Rephrases the target condition for pairs to count.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 51,
+    "sentence": "So if we can cover as many pairs as possible among the non-adjacent pairs with at least one vertex v such that v is adjacent to both.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes the goal as covering non-adjacent pairs via shared neighbors.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 52,
+    "sentence": "So essentially we want to maximize union of all pairs among neighbors of vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Frames the objective as maximizing the union of pair sets from neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 53,
+    "sentence": "We are allowed to choose graph G arbitrarily.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the freedom to choose any graph, reflecting problem conditions.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 54,
+    "sentence": "We want maximum number of pairs (i, j) that are not adjacent but share a common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the exact type of pairs to maximize.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 55,
+    "sentence": "Let\u2019s denote A = set of all pairs of vertices (i, j) with i < j, not adjacent in G, and that have at least one common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Defines a set A with precise notation for the counted pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "We want maximize |A|.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the goal to maximize the size of A.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 57,
+    "sentence": "Let\u2019s consider the extreme: what if we take graph G that is a complete graph?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a hypothetical extreme case to try, indicating exploratory thinking.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 58,
+    "sentence": "Then no pair is non-adjacent, so count=0.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Computes the outcome for the complete graph case (count = 0).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "So that's not good.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates that the previous case does not help maximize the count.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 60,
+    "sentence": "What if we take graph G that is empty (no edges)?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses another extreme case to try (empty graph).",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 61,
+    "sentence": "Then no pair is adjacent, but also then no pair has a common neighbor because for any two vertices, they don't share a neighbor because there are no edges.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deduction about properties of the empty graph leading to no common neighbors.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 62,
+    "sentence": "So count=0.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the computed count for the empty graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "So we need a mix.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets strategic direction to consider mixed edge structures.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 64,
+    "sentence": "I suspect the answer is something like: maximum possible number is (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Tentative conjecture of the final formula.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 65,
+    "sentence": "But let's test small cases.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the next step to test small cases.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 66,
+    "sentence": "For n=3: Possibilities: Graph on 3 vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets up case analysis for n=3.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 67,
+    "sentence": "How many pairs are nonadjacent with a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the target question for the n=3 case.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 68,
+    "sentence": "If we have a triangle (complete), then no nonadjacent pairs exist.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes a specific configuration (triangle) and its implication.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 69,
+    "sentence": "If we have a \"V\" shape, i.e., one vertex adjacent to the other two, and the edge between the other two is missing.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Enumerates a specific graph configuration to examine.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 70,
+    "sentence": "Then nonadjacent pair is the two leaves, and they have the common neighbor (the central vertex).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains the property of the chosen configuration regarding common neighbor.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 71,
+    "sentence": "So count=1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Gives the numerical count for the configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 72,
+    "sentence": "Can we get more?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Expresses uncertainty and seeks whether improvement is possible.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 73,
+    "sentence": "If we have one edge only, then nonadjacent pairs: one pair is not adjacent, but no common neighbor because the central vertex is not connected to both leaves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes another configuration and explains why no common neighbor exists.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 74,
+    "sentence": "So maximum is 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes the maximal count for n=3 from examined cases.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "And (3-1)(3-2)/2 = (2*1)/2=1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a calculation to compare with the conjectured formula.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 76,
+    "sentence": "So that fits.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Confirms the small case matches the conjecture.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 77,
+    "sentence": "For n=4: Let's try candidate: Consider graph with a universal vertex v and then connect others in pairs?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes and tentatively explores a candidate structure for n=4.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 78,
+    "sentence": "Let's try: vertices: v, a, b, c.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets notation for vertices to proceed with construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 79,
+    "sentence": "Let v be adjacent to a, b, c.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Specifies edges from the universal vertex in the candidate graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 80,
+    "sentence": "And suppose a, b are adjacent (to create a triangle with v) and also b, c are adjacent, and a, c not adjacent?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Further specifies edges/non-edges in the candidate construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 81,
+    "sentence": "But then nonadjacent pairs: (a, c) have common neighbor b?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a tentative question about a specific common neighbor, indicating uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 82,
+    "sentence": "But also (a, c) have common neighbor v?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Suggests another possible common neighbor with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 83,
+    "sentence": "Wait, check: v is adjacent to a and c, so they share v.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explicitly checks and confirms the shared neighbor using 'Wait, check'.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 84,
+    "sentence": "So (a, c) qualifies.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes that the pair meets the criterion based on the check.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 85,
+    "sentence": "Also (a, b) are adjacent, so ignore.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Applies the rule to exclude an adjacent pair from counting.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 86,
+    "sentence": "(b, c) are adjacent, so ignore.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Applies the rule to exclude another adjacent pair from counting.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 87,
+    "sentence": "So only pair is (a, c).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Summarizes the result of the filtering for this configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 88,
+    "sentence": "That's 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the computed count for the configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 89,
+    "sentence": "But can we do better?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Raises the possibility of improving the count; exploratory prompt.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 90,
+    "sentence": "What about making a graph that is a windmill structure: For n=4, windmill graph is like: central vertex v connected to everyone, then pair up the remaining vertices to form a triangle with v.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes an alternative (windmill) structure to try, exploring options.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 91,
+    "sentence": "But with 4 vertices, we can have one triangle plus an isolated vertex?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Questions feasibility for n=4, showing uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 92,
+    "sentence": "Wait, let\u2019s consider: Let vertex 1 be the central vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the next step/setup to consider a specific configuration.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 93,
+    "sentence": "Then for vertices 2,3,4, we want to create as many triangles as possible that share vertex 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Outlines the objective for constructing the configuration.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 94,
+    "sentence": "So connect vertex 1 to all others.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Executes the plan by specifying edges to add.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 95,
+    "sentence": "And then for pairs among {2,3,4}, if we add an edge, then that pair becomes adjacent, which doesn't count because we only count nonadjacent pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains the consequence of adding edges among the remaining vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 96,
+    "sentence": "But if we don't add the edge, then they are nonadjacent but share vertex 1 as common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers the consequence of not adding those edges.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 97,
+    "sentence": "So then all pairs among {2,3,4} are nonadjacent and share vertex 1, so that gives 3 pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Computes the resulting number of qualifying pairs (3).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 98,
+    "sentence": "Additionally, what about pairs (vertex 1, some vertex)?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Raises an additional case to consider; exploratory question.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 99,
+    "sentence": "They are adjacent, so not count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Applies the rule to exclude pairs involving the central vertex.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 100,
+    "sentence": "So total count=3.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the total count for the considered configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 101,
+    "sentence": "Can we add more?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a tentative question about increasing the count, showing uncertainty and idea generation.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 102,
+    "sentence": "Possibly if we add some additional edges among the leaves, then some pairs become adjacent, so they don't count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Speculative reasoning about the effect of adding edges, marked by uncertainty ('Possibly').",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 103,
+    "sentence": "So maximum is 3.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the computed result for the n=4 case as a conclusion of prior steps.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 104,
+    "sentence": "And formula (n-1)(n-2)/2 for n=4 gives (3*2)/2 = 3.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a substitution into the formula and computes the value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 105,
+    "sentence": "So that fits.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Checks that the computed value matches the formula; a consistency check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 106,
+    "sentence": "For n=5: Consider taking one vertex v as universal, and making the rest nonadjacent among themselves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes a construction to test for n=5, indicating the intended approach.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 107,
+    "sentence": "Then nonadjacent pairs among the other 4 vertices are all pairs, which number 6, and each of them has v as common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Counts the relevant pairs and asserts they have a common neighbor; concrete calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 108,
+    "sentence": "And any other pair that involves v is adjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains a property of the constructed graph without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 109,
+    "sentence": "So count=6.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes the numeric count for the n=5 case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 110,
+    "sentence": "(n-1)(n-2)/2 = (4*3)/2 = 6.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Direct computation of the formula's value for n=5.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 111,
+    "sentence": "So that pattern suggests the answer is (n-1 choose 2) i.e. (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers a general answer from observed pattern with tentative language ('suggests').",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 112,
+    "sentence": "But can we do better by adding additional edges among leaves?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Asks whether an alternative could yield better results; exploratory question.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 113,
+    "sentence": "What if we add some edges among leaves, they become adjacent, so they no longer count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Speculative 'what if' about adding edges and its effect; exploratory.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 114,
+    "sentence": "But maybe adding edges can cause some pairs that were previously nonadjacent to become adjacent, which is not good.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Continues speculative reasoning about potential negative effects of adding edges.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 115,
+    "sentence": "So maximum is achieved by having one universal vertex connected to all others, and making all other pairs nonadjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the deduced optimal structure achieving the maximum.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 116,
+    "sentence": "This graph is known as a star plus isolated vertices among leaves (i.e. no edges among leaves).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Provides explanatory identification/naming of the proposed optimal graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 117,
+    "sentence": "In that graph, the only pairs that are not acquainted are the pairs among the leaves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes which pairs are nonadjacent in the proposed structure.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 118,
+    "sentence": "And each such pair has the central vertex as a common acquaintance.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes that those nonadjacent pairs share the central neighbor.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 119,
+    "sentence": "So count = C(n-1, 2) = (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Gives the final numeric expression for the maximal count.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 120,
+    "sentence": "Wait: But is this maximum?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Questions whether the obtained value is indeed maximal; a correctness check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 121,
+    "sentence": "Let's check.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Brief interjection indicating a check/transition with no substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 122,
+    "sentence": "Suppose we have two universal vertices and then all others?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a hypothetical configuration to explore alternatives.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 123,
+    "sentence": "But then, if two vertices are universal, they are acquainted with everyone, so that doesn't matter because we only count nonadjacent pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deductive reasoning about the consequence of having two universal vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 124,
+    "sentence": "And then consider pair of non-universal vertices: They might have more than one common neighbor if we add additional edges.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Speculative statement about adding edges and possible multiple common neighbors.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 125,
+    "sentence": "But then they become adjacent if we add edge among them, so not count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Logical consequence that added edges make the pair adjacent.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 126,
+    "sentence": "So indeed, best is to keep leaves not adjacent among themselves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluative conclusion about the best structural choice in this context.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 127,
+    "sentence": "Wait, consider possibility: What if we take a graph that is the union of disjoint cliques?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces another possible structure to consider.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 128,
+    "sentence": "Then pairs inside a clique are adjacent, so not count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes properties of pairs within a clique.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 129,
+    "sentence": "Pairs from different cliques are nonadjacent, but do they have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Questions whether cross-clique pairs have a common neighbor, showing uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 130,
+    "sentence": "They might if there is some vertex that is adjacent to vertices from both cliques.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Speculates that a common neighbor might exist under certain conditions.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 131,
+    "sentence": "But if the cliques are disjoint, then there is no vertex that is adjacent to vertices in both cliques.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deductive statement ruling out common neighbors for disjoint cliques.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 132,
+    "sentence": "So that doesn't work.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates and rejects the disjoint cliques approach.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 133,
+    "sentence": "Alternatively, consider a graph that is the complement of a disjoint union of cliques.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes considering the complement structure as an alternative.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 134,
+    "sentence": "But then acquaintances become nonadjacent pairs inside cliques become acquaintances?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Uncertain, questioning statement about effects of taking the complement.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 135,
+    "sentence": "Not sure.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Pure expression of uncertainty without content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 136,
+    "sentence": "It appears that the structure that maximizes pairs is the star with center v and all others isolated from each other.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Judges that the star appears optimal; evaluative conclusion.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 137,
+    "sentence": "Then every pair of leaves is nonadjacent and share the common vertex v.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains a property of the star configuration.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 138,
+    "sentence": "That gives C(n-1,2) pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs the count of pairs in the star configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 139,
+    "sentence": "However, is it possible to get more pairs by not having a star?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Raises a question about improving on the star; exploring alternatives.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 140,
+    "sentence": "Consider complete bipartite graph K_{a,b} with a+b = n.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the next case to consider (complete bipartite graph).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 141,
+    "sentence": "In K_{a,b}, every vertex in one part is connected to every vertex in the other part, but there are no edges within parts.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Defines the structure of K_{a,b} without computation, explaining relevant properties.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 142,
+    "sentence": "Then for any two vertices in the same part, they are nonadjacent, and they share all vertices in the opposite part as common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers properties about nonadjacent pairs and common neighbors within K_{a,b}.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 143,
+    "sentence": "So count = C(a, 2) + C(b,2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Computes the count formula for qualifying pairs in K_{a,b}.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 144,
+    "sentence": "To maximize this sum subject to a+b = n, we want to maximize C(a,2) + C(n-a, 2) = (a(a-1) + (n-a)(n-a-1))/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the optimization task to maximize the expression under a constraint.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 145,
+    "sentence": "Let's check derivative.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the intended next step to take a derivative.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 146,
+    "sentence": "For n=5, possible splits: a=2, b=3, then count= C(2,2)+C(3,2)=1+3=4, which is less than 6 from the star.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a numerical example and compares with the star case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 147,
+    "sentence": "For n=6, best split: a=3,b=3, count= C(3,2)+C(3,2)=3+3=6, while star gives C(5,2)=10.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs another numerical comparison between bipartite and star cases.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 148,
+    "sentence": "So star is better.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates and concludes the star outperforms the bipartite option.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 149,
+    "sentence": "What about a graph that is almost complete except one edge missing?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a new possible approach to consider, showing uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 150,
+    "sentence": "In a nearly complete graph, almost every pair is acquainted, so nonadjacent pairs are few.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes why the nearly complete graph yields few qualifying pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 151,
+    "sentence": "So not that.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Rejects the considered approach based on the prior analysis.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 152,
+    "sentence": "What about a graph that is union of a star and some additional edges among leaves?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes another possible structure to consider.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 153,
+    "sentence": "That would create some pairs as adjacent, so that doesn't count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates the proposed structure and explains why it fails to help.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 154,
+    "sentence": "So star is best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes that the star configuration is optimal based on evaluations.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 155,
+    "sentence": "But wait, can we also consider the complement graph?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Suggests exploring the complement graph as another avenue.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 156,
+    "sentence": "The question asks: \"For any pair of the participants, either the two are acquainted with each other or they are not.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Quotes the problem statement to restate given conditions.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 157,
+    "sentence": "\" So it's an arbitrary graph.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates that the situation allows any arbitrary graph per the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 158,
+    "sentence": "We want the maximum possible number of pairs that are not acquainted but have a common acquaintance.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the goal of the problem directly.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 159,
+    "sentence": "The star gives (n-1 choose 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Computes the number of qualifying pairs for the star graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 160,
+    "sentence": "Is it maximum?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Questions whether the obtained structure achieves the maximum, evaluating correctness.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 161,
+    "sentence": "Let's try to prove: Let G be a graph on n vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces intention to prove and sets up the object of study.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 162,
+    "sentence": "For any vertex v, the number of pairs among its neighbors that are nonadjacent is at most C(d(v), 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a combinatorial upper bound per vertex without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 163,
+    "sentence": "So the total number of pairs that have v as a common neighbor is at most sum_{v in V} C(d(v), 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Derives a global upper bound by summing local bounds over vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 164,
+    "sentence": "But note that a pair might be counted more than once if it has two common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Notes potential double counting, an analytical consideration.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 165,
+    "sentence": "But we want to count each pair only once.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Clarifies the counting objective (unique pairs), a problem-structure analysis.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 166,
+    "sentence": "So maximum possible number of pairs is at most the maximum over graphs of the size of the union over v of pairs among N(v).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Frames the target as the size of a union across neighborhoods, an analytical reformulation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 167,
+    "sentence": "But that union might be smaller than the sum.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Observes union can be smaller than sum, an analytical caution.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 168,
+    "sentence": "However, if we want to maximize the union, we want the neighborhoods of different vertices to be as disjoint as possible, so that pairs don't get double counted.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers a strategy to maximize the union by disjointness of neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 169,
+    "sentence": "But wait, if neighborhoods are disjoint then pairs among neighbors of different vertices do not overlap, but then each vertex's contribution is disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes consequences of disjoint neighborhoods despite the transitional phrase.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 170,
+    "sentence": "But the neighborhoods are subsets of vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a basic structural fact about neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 171,
+    "sentence": "They can be chosen arbitrarily subject to each vertex v's neighborhood being some subset of V\\{v}.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes constraints on choosing neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 172,
+    "sentence": "The maximum union size is achieved if these neighborhoods are disjoint?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a tentative question about optimality, indicating uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 173,
+    "sentence": "But they must cover pairs that are nonadjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Adds a constraint about covering nonadjacent pairs, analytical refinement.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 174,
+    "sentence": "But can neighborhoods be disjoint?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Asks a feasibility question about disjoint neighborhoods, exploratory.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 175,
+    "sentence": "For a vertex v, its neighborhood is a subset of others.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the neighborhood definition structurally.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 176,
+    "sentence": "For two vertices u and v, their neighborhoods can be disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Claims possible disjointness of two neighborhoods, an analytical observation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 177,
+    "sentence": "But then the union of neighborhoods is at most sum_{v} d(v), but then pairs among each neighborhood are disjoint if neighborhoods are disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes implications for sums and disjointness of contributions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 178,
+    "sentence": "But then what is maximum possible sum?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets the next objective to determine a maximum, indicating the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 179,
+    "sentence": "Let's try: In a graph, the sum of degrees is 2|E|.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Recalls the handshaking lemma to support subsequent reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 180,
+    "sentence": "To maximize sum_{v} C(d(v), 2) subject to sum d(v)=2|E| and d(v) <= n-1, we want one vertex to have degree n-1 and others to have as small as possible.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the optimizing configuration for the degree-based sum, an analytical conclusion.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 181,
+    "sentence": "That is what the star does: one vertex has degree n-1, others have degree 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes the structural property of the star graph (degree sequence) to set up reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 182,
+    "sentence": "Then sum_{v} C(d(v), 2) = C(n-1, 2) + (n-1)*C(1,2)= C(n-1,2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs an explicit calculation of the sum of combinations from degrees.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 183,
+    "sentence": "But note that in the star, every pair among leaves is counted exactly once from the central vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains how pairs are counted exactly once via the central vertex.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 184,
+    "sentence": "And these pairs are disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a property about disjointness of counted pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 185,
+    "sentence": "So union size = C(n-1,2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes the computed union size from prior reasoning.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 186,
+    "sentence": "Can we do better than that?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a question to explore whether a better configuration exists.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 187,
+    "sentence": "Suppose we try two vertices with high degree.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes trying an alternative configuration with two high-degree vertices.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 188,
+    "sentence": "For instance, consider graph where two vertices are universal, and the rest are connected arbitrarily.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets up a specific graph configuration to test the idea.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 189,
+    "sentence": "Let's try: two vertices, call them u and v, are universal (degree n-1).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Defines the two universal vertices explicitly for the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 190,
+    "sentence": "Then the remaining n-2 vertices, what degrees?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Raises a point to analyze the degrees of the remaining vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 191,
+    "sentence": "They are adjacent to u and v.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deduces adjacency relations of the remaining vertices to the universal ones.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 192,
+    "sentence": "And we can decide among themselves to be nonadjacent or adjacent arbitrarily.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes the freedom of edge choices among the remaining vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 193,
+    "sentence": "But if we leave them nonadjacent among themselves, then each pair among the n-2 vertices will have u and v as common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers that nonadjacent leaves share the universal vertices as common neighbors.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 194,
+    "sentence": "But then a pair among the n-2 vertices gets counted twice, but we count it only once in the union.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes potential double counting and clarifies union counting.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 195,
+    "sentence": "So union size is: pairs among n-2 leaves: C(n-2, 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Computes the union size for this configuration as a combination count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 196,
+    "sentence": "Plus pairs between one of the universal vertices and a leaf?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Considers whether additional types of pairs contribute to the union.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 197,
+    "sentence": "But those pairs are adjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains why those considered pairs do not contribute since they are adjacent.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 198,
+    "sentence": "Plus pairs between the two universal vertices are adjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Notes similarly that the universal pair is adjacent and thus excluded.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 199,
+    "sentence": "So union = C(n-2,2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes the union size for the configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 200,
+    "sentence": "And C(n-2,2) = (n-2)(n-3)/2, which is smaller than (n-1)(n-2)/2 for n>3.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a calculation and inequality comparison to show the configuration is worse than the star.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 201,
+    "sentence": "What if we try three universal vertices?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a tentative idea to try a configuration (three universal vertices).",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 202,
+    "sentence": "Then union among leaves: leaves count = n-3, union = C(n-3, 2), which is even smaller.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a concrete count for that configuration and compares it.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 203,
+    "sentence": "So star is best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates and concludes optimality of the star based on prior computations.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 204,
+    "sentence": "But maybe consider a graph that is nearly complete except one vertex is isolated.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Suggests considering another possible graph structure.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 205,
+    "sentence": "Then that vertex has degree 0, and others are almost complete among themselves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes properties of the proposed structure without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 206,
+    "sentence": "Then pairs among almost complete graph: many are adjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Assesses adjacency patterns in the proposed structure.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 207,
+    "sentence": "But then pairs that involve the isolated vertex and any other vertex are nonadjacent, but do they have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Asks an exploratory question about common neighbors for the isolated-vertex case.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 208,
+    "sentence": "For vertex i and isolated vertex, is there a vertex adjacent to both?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Continues the exploratory questioning about existence of a common neighbor.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 209,
+    "sentence": "The isolated vertex is adjacent to none, so no. So that's not good.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Uses a fact to judge the approach as ineffective.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 210,
+    "sentence": "What if we consider a graph that is bipartite complete: K_{1, n-1} is star.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes considering the complete bipartite case (star) as an option.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 211,
+    "sentence": "That yields maximum count = C(n-1, 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the computed count for the star configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 212,
+    "sentence": "Now, is it possible to have a graph that yields more pairs than C(n-1, 2)?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explores whether a better configuration could exceed the current count.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 213,
+    "sentence": "Let's analyze potential double counting: For any pair of vertices that are nonadjacent, if they have a common neighbor, then that neighbor must be adjacent to both.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces and states a general principle about common neighbors and double counting.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 214,
+    "sentence": "How many pairs can possibly have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses an investigative question to guide further reasoning.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 215,
+    "sentence": "Let's denote X be the set of pairs that are nonadjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets notation for the set of nonadjacent pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 216,
+    "sentence": "We want to cover as many pairs from X as possible with neighborhoods.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Frames the objective in terms of covering pairs with neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 217,
+    "sentence": "If a vertex v has degree d(v), then it \"covers\" C(d(v), 2) pairs among its neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a general relationship between degree and covered pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 218,
+    "sentence": "But if two vertices share a common neighbor, then that pair is covered twice.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains overlap in coverage due to multiple common neighbors.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 219,
+    "sentence": "So to maximize the union, we want to have as little overlap as possible among these neighborhoods.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the chosen strategy to minimize overlap to maximize union.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 220,
+    "sentence": "But note that if two vertices u and v have high degree, then their neighborhoods might overlap a lot.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes a consequence of having high-degree vertices regarding overlap.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 221,
+    "sentence": "But maybe we want to choose degrees so that neighborhoods are almost disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Speculates about a possible strategy (making neighborhoods almost disjoint).",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 222,
+    "sentence": "However, note that if a vertex v has degree d, then its neighborhood is a subset of V\\{v}.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a basic property of neighborhoods in a graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 223,
+    "sentence": "The union of neighborhoods over all vertices is a collection of subsets of V.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes the structural setup of neighborhoods as subsets.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 224,
+    "sentence": "They can be disjoint only if for any two vertices u and v, N(u) \u2229 N(v) is empty.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Makes a logical condition about disjointness of neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 225,
+    "sentence": "But is that possible?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Questions feasibility, indicating uncertainty and exploration.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 226,
+    "sentence": "For two distinct vertices u and v, if N(u) and N(v) are disjoint, then u is not in N(v) (which is true, since no vertex is adjacent to itself) and v is not in N(u).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Draws a logical consequence about disjoint neighborhoods and adjacency.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 227,
+    "sentence": "But can they be completely disjoint?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses another exploratory question about complete disjointness.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 228,
+    "sentence": "Possibly if the graph is a matching?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Suggests a candidate structure (matching) with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 229,
+    "sentence": "Let's consider: In a matching, each edge is disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Initiates examining the matching case ('Let's consider') as a next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 230,
+    "sentence": "But then degrees are 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers a property of the matching (degrees are 1).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 231,
+    "sentence": "Then union of neighborhoods: each vertex with degree 1 gives a pair, but then no pair among leaves is covered because each vertex's neighborhood is just one vertex and they don't form a pair.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes coverage of pairs under the matching structure.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 232,
+    "sentence": "So that's not good.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates that the explored approach is ineffective.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 233,
+    "sentence": "What structure allows neighborhoods to be disjoint?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses an exploratory question to find a suitable structure.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 234,
+    "sentence": "Consider star: central vertex v has neighborhood = all other vertices, and all other vertices have neighborhood containing only v.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes to examine the star graph as the next case.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 235,
+    "sentence": "And these neighborhoods for leaves are {v}, which are identical, so they are not disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes properties of neighborhoods in the star.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 236,
+    "sentence": "But wait, that's not disjoint: Actually, N(v) for v is the set of leaves, and for each leaf, N(leaf) = {v}.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Clarifies and analyzes the precise neighborhoods in the star.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 237,
+    "sentence": "They are not disjoint with each other obviously, but that's fine because we want union of pairs among leaves, and each pair is only covered by v's neighborhood.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains why non-disjointness is acceptable and how coverage works.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 238,
+    "sentence": "So that works.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Assesses that the star structure meets the goal.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 239,
+    "sentence": "Alternatively, consider the complement of a star: that is the graph where one vertex is isolated and the rest form a complete graph.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes exploring an alternative (complement of a star).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 240,
+    "sentence": "Then nonadjacent pairs: only pairs that involve the isolated vertex with any other vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes which pairs are nonadjacent in the complement of a star.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 241,
+    "sentence": "But then do they have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a check about whether a pair has a common neighbor in the considered construction.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 242,
+    "sentence": "The isolated vertex has no neighbors, so no.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Confirms the check by reasoning that the isolated vertex has no neighbors, hence no common neighbor.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 243,
+    "sentence": "So star is promising.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates the effectiveness of the star construction as promising.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 244,
+    "sentence": "I want to try a different construction: Perhaps a graph that is a \"windmill\" graph with triangles sharing a common vertex is exactly the star with no extra edges among leaves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes and speculates about an alternative construction with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 245,
+    "sentence": "That yields C(n-1, 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the computed count yielded by the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 246,
+    "sentence": "So the answer appears to be C(n-1, 2) = (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Presents a (provisional) final answer explicitly.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 247,
+    "sentence": "But let\u2019s consider possibility: What if we take a graph that is the complement of a star?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces an alternative possibility with a 'what if' exploration.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 248,
+    "sentence": "That graph has one vertex with degree 0, and the others are all adjacent to each other.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes structural properties deduced for the complement-of-star graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 249,
+    "sentence": "Then nonadjacent pairs: only pairs involving the isolated vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Infers which pairs are nonadjacent in that structure.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 250,
+    "sentence": "And then a pair (isolated vertex, any other) - does it have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Checks whether those pairs have a common neighbor.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 251,
+    "sentence": "The isolated vertex is adjacent to no one, so no. So that's 0.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes the check, explaining why the count is zero.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 252,
+    "sentence": "Maybe consider a graph where one vertex has degree n-2 and the remaining vertex is connected to almost everyone except one pair.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Suggests trying another graph construction with tentative language.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 253,
+    "sentence": "That doesn't yield many pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates that the proposed construction is ineffective.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 254,
+    "sentence": "Let's try to formally maximize the union size.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the next step to formally maximize the union size.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 255,
+    "sentence": "Let U be the union of pairs that are nonadjacent and have a common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces a piece of notation for the union set U.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 256,
+    "sentence": "For each vertex v, let S_v = { (x, y) in [V] choose 2 such that x, y in N(v) } and they are nonadjacent?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Attempts to define a set while expressing uncertainty about the nonadjacency condition.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 257,
+    "sentence": "Actually, if x and y are both in N(v), then they are not necessarily nonadjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes and corrects the earlier notion by stating a general property.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 258,
+    "sentence": "They might be adjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Continues the logical observation about possible adjacency.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 259,
+    "sentence": "So we want only pairs x, y such that x and y are both neighbors of v and x-y is not an edge in G.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Clarifies the exact condition required for the pairs being considered.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 260,
+    "sentence": "So for each vertex v, let T(v) = { (x, y) in N(v) choose 2 such that x and y are not adjacent }.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets a precise definition/notation T(v) to capture the intended pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 261,
+    "sentence": "Then the union over v of T(v) is a superset of the pairs we want, but they might overlap if a pair (x,y) has two common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes the relationship between sets of pairs and notes potential overlaps conceptually.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 262,
+    "sentence": "We want to count each pair only once.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a methodological constraint about counting each pair once.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 263,
+    "sentence": "So we want to maximize the number of pairs (x,y) that are not adjacent and that appear in at least one T(v).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Reformulates the optimization goal in terms of T(v).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 264,
+    "sentence": "In the star graph, for the center v, T(v) = all pairs among the leaves, because in the star, leaves are not adjacent to each other.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains the structure of T(v) for the star graph's center.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 265,
+    "sentence": "And for leaves, T(leaf) is empty because each leaf has only one neighbor (the center) so no pair.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains why T(leaf) is empty in a star graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 266,
+    "sentence": "So union is exactly C(n-1, 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes a concrete count of the union as C(n-1,2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 267,
+    "sentence": "Now, can we get more than that?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses an open question to explore if a better configuration exists.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 268,
+    "sentence": "Let's consider a graph that is almost complete, except missing a matching.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes considering an alternative graph structure.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 269,
+    "sentence": "For instance, take complete graph on n vertices and remove a matching.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Constructs a specific example graph to analyze.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 270,
+    "sentence": "Then nonadjacent pairs: only the pairs in the matching are nonadjacent.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deduces which pairs are nonadjacent in the constructed graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 271,
+    "sentence": "But do they have a common neighbor?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Checks whether those pairs have a common neighbor.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 272,
+    "sentence": "For a pair of vertices that are missing an edge, since the graph is nearly complete, almost every vertex is adjacent to both, so yes they do have common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Confirms and justifies the presence of common neighbors.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 273,
+    "sentence": "But then how many pairs?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Signals the next step to count the number of such pairs.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 274,
+    "sentence": "A matching of size floor(n/2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Provides the count for the number of such pairs (size of the matching).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 275,
+    "sentence": "That is much less than C(n-1, 2) for n > 4.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates and compares this count to a previous bound.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 276,
+    "sentence": "What if we remove a star matching?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces another alternative scenario to try.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 277,
+    "sentence": "That is, remove all edges incident to one vertex?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Clarifies the construction of the proposed scenario.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 278,
+    "sentence": "That is the complement of a star, which we already saw gives 0.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Recalls and evaluates that this configuration yields zero desired pairs.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 279,
+    "sentence": "What if we remove a perfect matching from a complete graph?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses another alternative configuration to explore.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 280,
+    "sentence": "Then each missing edge is nonadjacent, but they are adjacent to almost every other vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Describes properties of the newly proposed configuration.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 281,
+    "sentence": "But then number of missing edges is floor(n/2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a concrete count of missing edges in the considered construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 282,
+    "sentence": "And each missing edge is covered by many common neighbors.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a logical property about common neighbors without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 283,
+    "sentence": "But union of missing edges is just the set of missing edges, which is floor(n/2), which is less than C(n-1,2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Computes the union size and compares it numerically to a binomial value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 284,
+    "sentence": "So star seems best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates the prior comparisons to judge the star as optimal (tentatively).",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 285,
+    "sentence": "But can we do something like: Partition the vertex set into two parts, one part of size 1 (universal vertex) and the other part of size n-1, and then add all possible edges among the n-1?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a new potential construction to try; exploratory question.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 286,
+    "sentence": "That is the complement of a star, which doesn't work.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates and rejects the proposed construction as ineffective.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 287,
+    "sentence": "So the star is the best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes (evaluates) that the star is optimal.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 288,
+    "sentence": "Wait, what if we take a graph that is the union of two disjoint stars that share one vertex?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Introduces another hypothetical construction to consider.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 289,
+    "sentence": "That is exactly the same as the star.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains that the new construction is equivalent to the star.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 290,
+    "sentence": "I suspect the maximum is indeed (n-1 choose 2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Makes a conjecture about the maximum with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 291,
+    "sentence": "Let's test for n=6: star gives 5 choose 2 = 10 pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Carries out a specific test calculation for n=6.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 292,
+    "sentence": "Could we possibly get more?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Asks if a larger value is possible; exploratory question.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 293,
+    "sentence": "What about taking a graph where two vertices are universal and then add an extra edge among the remaining vertices?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes another construction to examine.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 294,
+    "sentence": "That would yield pairs among the n-2 leaves: C(4,2)=6, plus maybe some additional pairs that involve one universal and one leaf, but those pairs are adjacent because universal vertex is adjacent to all.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Counts pairs for the proposed construction and reasons why others don't count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 295,
+    "sentence": "So union remains 6.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the computed union size as a numerical result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 296,
+    "sentence": "So star is best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluative conclusion that the star is best.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 297,
+    "sentence": "But wait: There is a nuance: the question says \"pairs for which the two are not acquainted but have a common acquaintance among the participants\".",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the exact condition from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 298,
+    "sentence": "It doesn't require that the common acquaintance be unique.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Interprets the condition about uniqueness of common acquaintance.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 299,
+    "sentence": "So if a pair has two common acquaintances, it's still counted once.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deduces the counting rule from the interpreted condition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 300,
+    "sentence": "So the star construction gives each pair among the leaves has exactly one common acquaintance (the center), and there are C(n-1,2) of them.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Applies the star construction to count pairs explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 301,
+    "sentence": "Now, could we add extra edges among the leaves and still have them be nonadjacent?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Poses a tentative possibility about modifying the graph structure.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 302,
+    "sentence": "No, because if you add an edge among leaves, they become acquainted, so they don't count.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Evaluates and rejects the explored option by explaining why it fails.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 303,
+    "sentence": "So star is optimal.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes optimality of the star structure as an evaluative judgment.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 304,
+    "sentence": "Thus answer: Maximum possible number is (n-1 choose 2) = (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the final numerical result explicitly.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 305,
+    "sentence": "But I want to double-check: In the star, all nonadjacent pairs are among the leaves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Initiates a double-check and describes a property to confirm correctness.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 306,
+    "sentence": "There are (n-1 choose 2) such pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a concrete count of the qualifying pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 307,
+    "sentence": "And each such pair has the center as a common neighbor.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Confirms the property that justifies counting those pairs.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 308,
+    "sentence": "So that's valid.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Affirms the validity of the preceding verification.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 309,
+    "sentence": "And we cannot get any pair that is nonadjacent among the leaves and then also add some other pairs that are nonadjacent among vertices that are not leaves.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Judges that additional nonadjacent pairs cannot be obtained beyond the star setting.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 310,
+    "sentence": "But if we add extra edges among leaves, then those pairs become acquainted, so they are not counted.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explains why adding edges among leaves invalidates counted pairs.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 311,
+    "sentence": "So star is the best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Reasserts the optimality of the star configuration.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 312,
+    "sentence": "Now, is it possible to get a graph that gives more pairs?",
+    "sentence-type": "think",
+    "sentence-category-reason": "Explores the possibility of a better construction.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 313,
+    "sentence": "What if we remove all edges among leaves, that is star.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Considers a 'what if' scenario, identifying it as the star.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 314,
+    "sentence": "That seems best.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Gives a tentative evaluation that the considered construction is best.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 315,
+    "sentence": "I think that's it.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Meta-comment indicating closure without new content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 316,
+    "sentence": "I want to see if any other construction might yield more pairs.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces intent to check other constructions as the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 317,
+    "sentence": "Suppose we try to have two vertices with large neighborhoods that are nearly disjoint.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Proposes trying a new candidate configuration.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 318,
+    "sentence": "But note, if two vertices have large neighborhoods, then their neighborhoods must cover almost all vertices.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Deductive reasoning about implications of large neighborhoods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 319,
+    "sentence": "But then they will have a large intersection.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Continues logical deduction about neighborhood intersections.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 320,
+    "sentence": "And then pairs among the intersection would be counted twice, but union is still the same pair.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Analyzes overlap and union effects on counting pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 321,
+    "sentence": "And then pairs that are outside the intersection, they might not be covered by one of them.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Logical observation about coverage overlap when neighborhoods intersect; part of reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 322,
+    "sentence": "So it seems the maximum union is achieved by having one vertex cover as many pairs as possible, and then all other pairs are not covered.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Tentative conclusion suggesting a strategy to maximize the union; expressed with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 323,
+    "sentence": "Wait, consider this: In any graph, each pair of nonadjacent vertices that have a common neighbor must have a vertex that is adjacent to both.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States a fundamental fact about common neighbors in a graph to ground the argument.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 324,
+    "sentence": "So if we sum over vertices v, the number of pairs among neighbors of v that are nonadjacent, that sum is at most sum_{v} C(d(v),2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Sets up an inequality by summing over vertices using degrees; theoretical reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 325,
+    "sentence": "And we want to maximize the union of these pairs, which is at most that sum.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Relates the union to the sum as an upper bound; evaluative reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 326,
+    "sentence": "And the maximum sum, given sum_{v} d(v) = 2|E|, and maximum degree is n-1, is achieved by concentrating the degree in one vertex.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Argues where the maximum of the sum occurs by concentrating degree; theoretical inference.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 327,
+    "sentence": "That is, let one vertex have degree n-1, and all others have degree 1.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Specifies the concrete degree sequence (star structure) to realize the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 328,
+    "sentence": "Then sum_{v} C(d(v),2) = C(n-1,2) + (n-1)*C(1,2)= C(n-1,2).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Performs a concrete calculation of the sum for that degree sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 329,
+    "sentence": "And that sum equals the union because the pairs from the center are all distinct and none come from the leaves (since leaves have degree 1).",
+    "sentence-type": "think",
+    "sentence-category-reason": "Checks that the sum equals the union (no double counting) for the construction.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 330,
+    "sentence": "So that's maximum.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Concludes optimality based on the verification.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 331,
+    "sentence": "Thus answer: (n-1 choose 2) = (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "States the explicit final result.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 332,
+    "sentence": "So answer: (n-1)(n-2)/2.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Restates the final numeric answer.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 333,
+    "sentence": "I should now write final answer.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces the next step to present the final answer.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 334,
+    "sentence": "I'll now produce final answer.",
+    "sentence-type": "think",
+    "sentence-category-reason": "Announces intention to output the final answer.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 335,
+    "sentence": "We wish to choose a graph on n vertices (each vertex representing a person, and an edge representing that two people are acquainted) so as to maximize the number of pairs {x, y} that",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem in graph-theoretic terms and sets the goal.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 336,
+    "sentence": "(1) are not adjacent (i.e. x and y are not acquainted), and\n\u2003\u2003(2) have at least one common neighbor (i.e. there is some person z who is acquainted with both x and y).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues restating the precise conditions from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 337,
+    "sentence": "One very natural idea is to try to \u201ccover\u201d as many non\u2010adjacent pairs as possible with a single common neighbor.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes a tentative approach (covering pairs with one neighbor).",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 338,
+    "sentence": "In fact, if one vertex is acquainted with many others, then every pair among those \u201cneighbors\u201d will have that vertex as a common acquaintance.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains why the proposed idea works by stating a certain property.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 339,
+    "sentence": "A very good candidate is the following graph (often called a \u201cstar\u201d): \u2022 Pick one vertex v (the \u201ccenter\u201d) and let it be acquainted with every other vertex.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Constructs the candidate (star) by specifying edges from the center.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 340,
+    "sentence": "\u2022 Make no other acquaintances; that is, for any two vertices other than v, do not put an edge between them.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Completes the construction by specifying no edges among the leaves.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 341,
+    "sentence": "In this graph the following happens:\n\u2003\u2013 Any pair that involves v is adjacent (so they do not count).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a deduced property of the constructed graph and its implication for counting.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 342,
+    "sentence": "\u2013 Any pair of vertices among the remaining n \u2013 1 vertices is not acquainted.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes a property of vertex pairs among the leaves in the constructed graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 343,
+    "sentence": "\u2013 Moreover, every such pair {x, y} (with x, y \u2260 v) has v as a common acquaintance.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the existence of a common neighbor for those nonadjacent pairs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 344,
+    "sentence": "How many pairs are there among the n \u2013 1 vertices?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step: counting the number of such pairs.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 345,
+    "sentence": "There are exactly",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins executing the count of pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 346,
+    "sentence": "C(n \u2013 1, 2) = (n \u2013 1)(n \u2013 2)/2",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the counting formula for the number of pairs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 347,
+    "sentence": "such pairs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Completes the counting statement referring to the computed quantity.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 348,
+    "sentence": "And each one qualifies (since v is adjacent to both x and y).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that the counted pairs satisfy the required condition.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 349,
+    "sentence": "One may wonder if any other graph could do better.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Opens consideration of alternative constructions with uncertainty.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 350,
+    "sentence": "For example, one might try to \u201cspread out\u201d the high degrees among several vertices.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes a potential alternative approach to try.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 351,
+    "sentence": "However, if two vertices both have high degree, then many of the pairs they \u201ccover\u201d (that is, pairs among their common neighbors) will be counted twice.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes why that alternative leads to overlap/double counting.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 352,
+    "sentence": "Since we count each pair only once, it turns out that concentrating the \u201ccoverage\u201d in one vertex is best.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a conclusion from the analysis favoring concentration in one vertex.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 353,
+    "sentence": "(One may also check by testing small values of n that no other construction yields more qualifying pairs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Suggests checking by small cases to validate the conclusion.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 354,
+    "sentence": "Thus, the maximum possible number of pairs of people who are not acquainted but have a common acquaintance is",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Leads into stating the final result but does not yet give the value.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 355,
+    "sentence": "(n \u2013 1)(n \u2013 2)/2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final maximal number as a value.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 356,
+    "sentence": "So the answer is (n \u2013 1 choose 2), which equals (n \u2013 1)(n \u2013 2)/2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly presents the final answer in two equivalent forms.",
+    "sentence-category": "Answer"
+  }
+]

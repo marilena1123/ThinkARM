@@ -1,0 +1,562 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $V$, $E$, and $F$ be the number of vertices, edges, and faces of the convex polyhedron $\\mathcal{P}$, respectively.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation by defining V, E, and F for the polyhedron.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "We are given $E=2022$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given information from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "First, let's establish properties of $\\mathcal{P}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the approach to establish properties; outlines next steps.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 4,
+    "sentence": "1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "List numbering without substantive content; transition marker.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 5,
+    "sentence": "**Euler's Formula**: For any convex polyhedron, $V-E+F=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general theorem relevant to the problem.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "So $V-2022+F=2$, which implies $V+F=2024$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes E=2022 into Euler's formula and simplifies.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "2.  **Planarity and Connectivity**: The graph formed by the vertices and edges of a convex polyhedron (its skeleton) is planar and 3-connected.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States structural properties (planarity and connectivity) of the polyhedron's graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "For any planar graph, $E \\le 3V-6$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Invokes a known bound for planar graphs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "Substituting $E=2022$: $2022 \\le 3V-6 \\implies 2028 \\le 3V \\implies V \\ge 676$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs substitution and algebra to derive a bound on V.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "This is a crucial lower bound for $V$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Comments on the significance of the derived bound.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "3.  **Degree Condition**: The degrees of the vertices of $\\mathcal{P}$ don't differ by more than one.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given degree condition from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 12,
+    "sentence": "This means all vertex degrees are either $d$ or $d+1$ for some integer $d \\ge 3$ (since every vertex in a polyhedron must have degree at least 3).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the possible degrees and notes minimum degree constraint.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "Let $V_d$ be the number of vertices with degree $d$, and $V_{d+1}$ be the number of vertices with degree $d+1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines auxiliary variables V_d and V_{d+1}.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "So $V = V_d + V_{d+1}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes an explicit equation relating V, V_d, and V_{d+1}.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "The sum of degrees is $2E = dV_d + (d+1)V_{d+1}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the degree-sum relation tailored to the defined variables.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "Substituting $V_d = V - V_{d+1}$ and $2E = 2 \\times 2022 = 4044$:\n    $d(V - V_{d+1}) + (d+1)V_{d+1} = 4044$\n    $dV - dV_{d+1} + dV_{d+1} + V_{d+1} = 4044$\n    $dV + V_{d+1} = 4044$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes and simplifies to obtain dV + V_{d+1} = 4044.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "Since $0 \\le V_{d+1} \\le V$, we can deduce bounds for $V$:\n    $dV \\le dV + V_{d+1} \\le dV + V$\n    $dV \\le 4044 \\le (d+1)V$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses bounds on V_{d+1} to derive inequality bounds for V.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "This implies $V \\le \\frac{4044}{d}$ and $V \\ge \\frac{4044}{d+1}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes explicit bounds on V from the inequalities.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "4.  **Coloring Condition**: The edges are coloured with $k$ colours such that for every colour $c$, and every pair of vertices $(v_1, v_2)$, there is a monochromatic path between $v_1$ and $v_2$ in colour $c$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the coloring condition as given in the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 20,
+    "sentence": "This means that for each colour $c$, the subgraph $G_c$ formed by edges of that colour must be connected and span all vertices of $\\mathcal{P}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers that each color class forms a connected spanning subgraph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 21,
+    "sentence": "A connected graph with $V$ vertices must have at least $V-1$ edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general graph theory fact used to derive bounds without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "So, if $E_c$ is the set of edges of colour $c$, then $|E_c| \\ge V-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers a bound on edges per color class from the connectivity condition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "The total number of edges is $E = \\sum_{c=1}^k |E_c|$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up the relation expressing total edges as the sum over color classes.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "Therefore, $E \\ge k(V-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Combines previous relations to obtain an inequality; a concrete derived step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "$2022 \\ge k(V-1) \\implies k \\le \\frac{2022}{V-1}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes E=2022 and algebraically rearranges to bound k.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 26,
+    "sentence": "To find the largest possible $k$, we need to minimize $V$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the strategic next step to maximize k by minimizing V.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "Let's examine the minimum possible value of $V$ based on the derived bounds:\nWe have $V \\ge 676$ (from planarity) and $V \\ge \\frac{4044}{d+1}$ (from degree conditions).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces examining the minimum V based on bounds (planning the next analysis).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 28,
+    "sentence": "The actual minimum $V$ must be the maximum of these two bounds for a given $d$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains that the minimal V is the maximum of the competing lower bounds.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 29,
+    "sentence": "*   **Case $d=3$**: $V \\ge \\frac{4044}{3+1} = \\frac{4044}{4} = 1011$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins casework and computes the bound on V for d=3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 30,
+    "sentence": "So $V \\ge \\max(676, 1011) = 1011$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the resulting maximal lower bound for V in this case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 31,
+    "sentence": "If $V=1011$, then $V_{d+1} = V_4 = 4044 - 3(1011) = 4044 - 3033 = 1011$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the number of degree-4 vertices from the degree-sum equation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 32,
+    "sentence": "This means all $V=1011$ vertices have degree 4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes all vertices have degree 4 from the computed counts.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "For $V=1011$, $k \\le \\frac{2022}{1011-1} = \\frac{2022}{1010} \\approx 2.00198$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the numerical upper bound on k for V=1011.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "Since $k$ must be an integer, $k \\le 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rounds the bound to an integer constraint on k.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "*   **Case $d=4$**: $V \\ge \\frac{4044}{4+1} = \\frac{4044}{5} = 808.8$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Starts the d=4 case and computes the bound on V.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 36,
+    "sentence": "So $V \\ge \\max(676, 808.8) = 809$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects the maximal lower bound and rounds up to get V\u2265809.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "If $V=809$, then $V_{d+1} = V_5 = 4044 - 4(809) = 4044 - 3236 = 808$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the number of degree-5 vertices from the degree-sum equation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "So $V_4 = 1$ and $V_5 = 808$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the counts of degree-4 and degree-5 vertices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 39,
+    "sentence": "(1 vertex of degree 4, 808 vertices of degree 5).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the computed degree distribution as a result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "For $V=809$, $k \\le \\frac{2022}{809-1} = \\frac{2022}{808} \\approx 2.5024$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the numerical upper bound on k for V=809.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "Since $k$ must be an integer, $k \\le 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes an integer bound from a computed value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "*   **Case $d=5$**: $V \\ge \\frac{4044}{5+1} = \\frac{4044}{6} = 674$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the case d=5 and computes the lower bound for V.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": "So $V \\ge \\max(676, 674) = 676$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the maximum of two bounds to get V \u2265 676.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 44,
+    "sentence": "If $V=676$, then $V_{d+1} = V_6 = 4044 - 5(676) = 4044 - 3380 = 664$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes V=676 and computes the number of degree-(d+1) vertices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "So $V_5 = 12$ and $V_6 = 664$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting counts of vertices by degree.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "(12 vertices of degree 5, 664 vertices of degree 6).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the vertex-degree counts as a result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 47,
+    "sentence": "For $V=676$, $k \\le \\frac{2022}{676-1} = \\frac{2022}{675} \\approx 2.9955$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the bound on k from V=676.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 48,
+    "sentence": "Since $k$ must be an integer, $k \\le 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws the integer conclusion from the decimal bound on k.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 49,
+    "sentence": "*   **Case $d \\ge 6$**: As $d$ increases, $\\frac{4044}{d+1}$ decreases.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes how the bound changes with increasing d.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 50,
+    "sentence": "For $d=6$, $\\frac{4044}{7} \\approx 577.7$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates a specific numerical bound for d=6.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "So for $d \\ge 6$, $V \\ge \\max(676, \\frac{4044}{d+1}) = 676$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Combines bounds to conclude V \u2265 676 for d \u2265 6.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "In all these cases, the minimum $V$ is $676$, leading to $k \\le \\frac{2022}{676-1} = 2.9955$, so $k \\le 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes across cases and computes the resulting bound on k.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "From all possible values of $d$, the maximum possible integer value for $k$ is 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the maximal possible integer value of k as the problem's conclusion.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 54,
+    "sentence": "Now we need to show that $k=2$ is actually achievable.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to prove achievability of k=2.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 55,
+    "sentence": "For $k=2$ to be possible, the condition $E \\ge k(V-1)$ becomes $2022 \\ge 2(V-1)$, which implies $V-1 \\le 1011$, or $V \\le 1012$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Transforms the edge-count condition into a bound on V.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "So we need to find a polyhedron $\\mathcal{P}$ such that its graph $G$ satisfies:\n(a) $E=2022$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up the construction goals/requirements for the graph.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 57,
+    "sentence": "(b) The degrees of vertices don't differ by more than one.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists a required property for the construction.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 58,
+    "sentence": "(c) $G$ is 3-connected and planar (so it can be the skeleton of a convex polyhedron).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists planarity/3-connectedness as a required property.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 59,
+    "sentence": "(d) $V \\le 1012$ (to satisfy $E \\ge 2(V-1)$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the bound on V as a requirement to meet the inequality.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 60,
+    "sentence": "Let's choose $V=1011$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses a specific value of V to proceed with the construction.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 61,
+    "sentence": "As derived above (Case $d=3$), if $V=1011$, all vertices must have degree 4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls and states a derived structural fact about vertex degrees without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 62,
+    "sentence": "So we need to determine if there exists a 4-regular, 3-connected planar graph with 1011 vertices and 2022 edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the immediate goal to check existence of a specific graph meeting properties.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 63,
+    "sentence": "*   **Property (a) and (b)**: A 4-regular graph with $V=1011$ vertices would have $E = \\frac{4V}{2} = 2V = 2(1011) = 2022$ edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete calculation of the number of edges for a 4-regular graph with 1011 vertices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "This matches the given $E$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the computed edge count agrees with the required E.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 65,
+    "sentence": "The degrees are all 4, so they differ by at most 1 (by 0, in fact).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the vertex-degree condition is satisfied.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 66,
+    "sentence": "*   **Property (d)**: $V=1011$ satisfies $V \\le 1012$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks the inequality constraint on V for property (d).",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 67,
+    "sentence": "*   **Property (c)**: We need to confirm the existence of a 4-regular, 3-connected planar graph with 1011 vertices.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next step of confirming existence for property (c).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 68,
+    "sentence": "It is a known result by Barnette (1966) that for every integer $n \\ge 6$, there exists a 4-regular, 3-connected planar graph on $n$ vertices.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a known theorem ensuring existence of such graphs for n \u2265 6.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 69,
+    "sentence": "Since $1011 \\ge 6$, such a graph exists.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the theorem to deduce existence for n = 1011.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 70,
+    "sentence": "By Steinitz's Theorem, this graph is the skeleton of a convex polyhedron.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies Steinitz's theorem to connect the graph to a convex polyhedron skeleton.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 71,
+    "sentence": "Finally, for the edge coloring (monochromatic paths):\nA graph $G$ can be edge-decomposed into $k$ edge-disjoint connected spanning subgraphs if and only if $G$ is $(k-1)$-edge-connected and $E \\ge k(V-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general decomposition criterion relating edge-connectivity and edge count.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 72,
+    "sentence": "(This result is for general $k$, but simplifies for $k=2$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the specialization of the general result to the case k = 2.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 73,
+    "sentence": "For $k=2$, this means $G$ must be 1-edge-connected (i.e., connected, which is true for a spanning graph) and $E \\ge 2(V-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the specific conditions required when k = 2.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 74,
+    "sentence": "A more precise result, by Harary and Nash-Williams (1962), states that a graph $G$ has an edge-decomposition into two edge-disjoint connected spanning subgraphs if and only if $G$ is 2-edge-connected and $|E(G)| \\ge 2(|V(G)|-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cites a sharper theorem giving necessary and sufficient conditions for k=2 decomposition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 75,
+    "sentence": "Our chosen graph $G$ is 3-connected, which implies it is 2-edge-connected.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers 2-edge-connectivity from 3-connectivity for the chosen graph.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 76,
+    "sentence": "The condition $E \\ge 2(V-1)$ for $V=1011$ is $2022 \\ge 2(1011-1) = 2(1010) = 2020$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and substitutes values to check the edge-count condition for V=1011.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 77,
+    "sentence": "This is true.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the computed inequality holds.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 78,
+    "sentence": "Thus, such an edge coloring with $k=2$ colors is possible for this polyhedron.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes that the coloring condition for k=2 is satisfied.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 79,
+    "sentence": "Since $k \\le 2$ has been proven and $k=2$ has been shown to be achievable, the largest positive integer $k$ is 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final conclusion that the maximal k equals 2.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 80,
+    "sentence": "The final answer is $\\boxed{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly presents the final answer value.",
+    "sentence-category": "Answer"
+  }
+]

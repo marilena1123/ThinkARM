@@ -1,0 +1,163 @@
+[
+  {
+    "index": 1,
+    "sentence": "To evaluate the infinite sum $S = \\sum_{n=1}^{\\infty} \\frac{n}{n^{4}+4}$, we first factor the denominator $n^4+4$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the intended first step (factor the denominator) to tackle the sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 2,
+    "sentence": "This is a standard factorization known as Sophie Germain's identity:\n$n^4+4 = (n^2+2)^2 - (2n)^2 = (n^2+2-2n)(n^2+2+2n)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls and states a known identity to factor the polynomial.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 3,
+    "sentence": "So the general term of the sum is $a_n = \\frac{n}{(n^2-2n+2)(n^2+2n+2)}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the factorization to rewrite the term explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 4,
+    "sentence": "Next, we look for a partial fraction decomposition of $a_n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next step to perform partial fraction decomposition.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 5,
+    "sentence": "Notice the relationship between the two quadratic factors:\n$(n^2+2n+2) - (n^2-2n+2) = 4n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the difference between factors to obtain an explicit relation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "This allows us to express the numerator $n$ in terms of the denominator factors:\n$n = \\frac{1}{4} [(n^2+2n+2) - (n^2-2n+2)]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Algebraically rewrites the numerator in terms of factor expressions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "Substitute this back into the expression for $a_n$:\n$a_n = \\frac{\\frac{1}{4} [(n^2+2n+2) - (n^2-2n+2)]}{(n^2-2n+2)(n^2+2n+2)}$\n$a_n = \\frac{1}{4} \\left[ \\frac{n^2+2n+2}{(n^2-2n+2)(n^2+2n+2)} - \\frac{n^2-2n+2}{(n^2-2n+2)(n^2+2n+2)} \\right]$\n$a_n = \\frac{1}{4} \\left[ \\frac{1}{n^2-2n+2} - \\frac{1}{n^2+2n+2} \\right]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the substitution and simplifies to a difference of fractions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "This form suggests a telescoping sum.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the telescoping structure from the obtained form.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "Let's define a function $f(n)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the intention to introduce a helper function.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 10,
+    "sentence": "Notice that $n^2+2n+2 = (n+1)^2+1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs an algebraic rewrite of a quadratic expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "And $n^2-2n+2 = (n-1)^2+1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs an algebraic rewrite of a quadratic expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "Let $f(n) = \\frac{1}{n^2-2n+2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the helper function explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "Then the second term $\\frac{1}{n^2+2n+2}$ can be written as $f(n+2)$:\n$f(n+2) = \\frac{1}{(n+2)^2-2(n+2)+2} = \\frac{1}{n^2+4n+4-2n-4+2} = \\frac{1}{n^2+2n+2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Shows by calculation that the second term equals f(n+2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "So, the general term $a_n$ can be written as:\n$a_n = \\frac{1}{4} [f(n) - f(n+2)]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites a_n using the defined function.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Now we can write out the partial sum $S_N = \\sum_{n=1}^{N} a_n$:\n$S_N = \\frac{1}{4} \\sum_{n=1}^{N} (f(n) - f(n+2))$\nLet's list the terms:\nFor $n=1$: $f(1) - f(3)$\nFor $n=2$: $f(2) - f(4)$\nFor $n=3$: $f(3) - f(5)$\nFor $n=4$: $f(4) - f(6)$\n...\nFor $n=N-1$: $f(N-1) - f(N+1)$\nFor $n=N$: $f(N) - f(N+2)$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Forms the partial sum and expands initial terms to reveal cancellation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "When we sum these terms, most of them cancel out (telescope):\n$S_N = \\frac{1}{4} [f(1) + f(2) - f(N+1) - f(N+2)]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies telescoping to obtain the simplified partial sum expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "Now we need to calculate $f(1)$ and $f(2)$:\n$f(1) = \\frac{1}{1^2-2(1)+2} = \\frac{1}{1-2+2} = \\frac{1}{1} = 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes f(1) explicitly, despite the introductory phrase.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "$f(2) = \\frac{1}{2^2-2(2)+2} = \\frac{1}{4-4+2} = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes f(2) explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "So, $S_N = \\frac{1}{4} \\left[ 1 + \\frac{1}{2} - f(N+1) - f(N+2) \\right]$\n$S_N = \\frac{1}{4} \\left[ \\frac{3}{2} - \\frac{1}{(N+1)^2-2(N+1)+2} - \\frac{1}{(N+2)^2-2(N+2)+2} \\right]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes computed values into S_N and simplifies.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "Finally, we take the limit as $N \\to \\infty$:\nAs $N \\to \\infty$, the terms $\\frac{1}{(N+1)^2-2(N+1)+2}$ and $\\frac{1}{(N+2)^2-2(N+2)+2}$ both approach 0, since their denominators grow quadratically with $N$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the limit step by arguing the tail terms vanish as N grows.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "$\\lim_{N \\to \\infty} f(N+1) = 0$\n$\\lim_{N \\to \\infty} f(N+2) = 0$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes limits of boundary terms as part of the calculation to evaluate the sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "Therefore, the infinite sum $S$ is:\n$S = \\lim_{N \\to \\infty} S_N = \\frac{1}{4} \\left[ \\frac{3}{2} - 0 - 0 \\right] = \\frac{1}{4} \\cdot \\frac{3}{2} = \\frac{3}{8}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the final computation of the partial sums limit to obtain the numeric value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 23,
+    "sentence": "The final answer is $\\boxed{\\frac{3}{8}}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly states the final result of the problem.",
+    "sentence-category": "Answer"
+  }
+]

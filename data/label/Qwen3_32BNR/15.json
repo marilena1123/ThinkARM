@@ -1,0 +1,380 @@
+[
+  {
+    "sentence": "We are given a problem involving a table $ T $ with $ N $ rows and 100 columns, with the following constraints: - **(i)** Each row is a **permutation** of the numbers $ \\{1, 2, \\ldots, 100\\} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem setup and constraint (i) from the prompt.",
+    "sentence-category": "Read",
+    "index": 1
+  },
+  {
+    "sentence": "- **(ii)** For any two **distinct rows** $ r $ and $ s $, there is at least one column $ c $ such that $ |T(r,c) - T(s,c)| \\geq 2 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates constraint (ii) from the prompt.",
+    "sentence-category": "Read",
+    "index": 2
+  },
+  {
+    "sentence": "We are to **maximize $ N $**, the number of such rows.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the objective to maximize N.",
+    "sentence-category": "Read",
+    "index": 3
+  },
+  {
+    "sentence": "### Step 1: Understand the Problem",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the first step, indicating an intended action.",
+    "sentence-category": "Plan",
+    "index": 4
+  },
+  {
+    "sentence": "Each row is a permutation of $ \\{1, 2, \\ldots, 100\\} $, so there are $ 100! $ total permutations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers a basic fact (100! permutations) from the problem conditions.",
+    "sentence-category": "Analyze",
+    "index": 5
+  },
+  {
+    "sentence": "But we are not being asked to use all permutations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the task by analyzing what is not required.",
+    "sentence-category": "Analyze",
+    "index": 6
+  },
+  {
+    "sentence": "We are being asked to find the **maximum number of permutations** that can be placed in a table so that **any two rows differ in at least one column by at least 2**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rephrases the goal and condition without new inference.",
+    "sentence-category": "Read",
+    "index": 7
+  },
+  {
+    "sentence": "This is a **combinatorial design** problem, and it's similar to a problem in **coding theory**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Classifies the problem and connects it to coding theory.",
+    "sentence-category": "Analyze",
+    "index": 8
+  },
+  {
+    "sentence": "### Step 2: Reformulate in Terms of Coding Theory",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the next approach step (reformulation).",
+    "sentence-category": "Plan",
+    "index": 9
+  },
+  {
+    "sentence": "Let\u2019s think of each row as a **permutation vector** of length 100, with entries from $ \\{1, 2, \\ldots, 100\\} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a representation for rows as vectors.",
+    "sentence-category": "Analyze",
+    "index": 10
+  },
+  {
+    "sentence": "Let\u2019s define a **distance** between two rows (permutations) as the **minimum absolute difference** between the entries in the same column: $$\nd(T(r), T(s)) = \\min_{1 \\leq c \\leq 100} |T(r,c) - T(s,c)|\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a formal distance definition.",
+    "sentence-category": "Analyze",
+    "index": 11
+  },
+  {
+    "sentence": "Then the condition in (ii) becomes: > For all distinct $ r \\ne s $, $ d(T(r), T(s)) \\geq 2 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces equivalence of condition (ii) in terms of the defined distance.",
+    "sentence-category": "Analyze",
+    "index": 12
+  },
+  {
+    "sentence": "This is equivalent to saying that the **minimum Hamming-type distance** between any two rows is at least 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the equivalence to a Hamming-type distance statement.",
+    "sentence-category": "Analyze",
+    "index": 13
+  },
+  {
+    "sentence": "This is **very similar** to the **packing problem in coding theory**, where we want to find the **maximum number of codewords** (here, permutations) in a space (here, the space of all permutations of 100 elements) such that the **minimum distance between any two codewords is at least 2**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Relates the reformulated problem to a known coding theory framework.",
+    "sentence-category": "Analyze",
+    "index": 14
+  },
+  {
+    "sentence": "### Step 3: Use Known Results",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step of using known results.",
+    "sentence-category": "Plan",
+    "index": 15
+  },
+  {
+    "sentence": "There is a classical result in coding theory called the **permutation code** with minimum distance $ d $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States existence of a relevant concept/result in coding theory.",
+    "sentence-category": "Analyze",
+    "index": 16
+  },
+  {
+    "sentence": "A **permutation code** is a set of permutations where the **minimum Hamming distance** between any two permutations is at least $ d $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the definition of a permutation code and its distance.",
+    "sentence-category": "Analyze",
+    "index": 17
+  },
+  {
+    "sentence": "Here, we want a code with: - Length $ n = 100 $\n- Alphabet size $ n = 100 $ (each element from 1 to 100 appears once)\n- Minimum distance $ d \\geq 2 $\n- We want to maximize the number of codewords $ N $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Maps the problem parameters to the coding theory framework.",
+    "sentence-category": "Analyze",
+    "index": 18
+  },
+  {
+    "sentence": "There is a known upper bound on the maximum number of such permutations, called the **Johnson bound** for permutation codes.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Mentions a known upper bound (Johnson bound).",
+    "sentence-category": "Analyze",
+    "index": 19
+  },
+  {
+    "sentence": "But there is a **simpler approach** here.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Signals intent to take a simpler approach next.",
+    "sentence-category": "Plan",
+    "index": 20
+  },
+  {
+    "sentence": "### Step 4: Use the Pigeonhole Principle",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step/method to use (Pigeonhole Principle).",
+    "sentence-category": "Plan",
+    "index": 21
+  },
+  {
+    "sentence": "Let\u2019s consider the **difference between two permutations** in a single column.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the immediate action to examine differences in a single column.",
+    "sentence-category": "Plan",
+    "index": 22
+  },
+  {
+    "sentence": "In any column, the entries in two permutations can differ by: - 0: if the entries are the same\n- 1: if they differ by 1\n- 2 or more: if they differ by 2 or more",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes possible cases for column-wise differences without computing.",
+    "sentence-category": "Analyze",
+    "index": 23
+  },
+  {
+    "sentence": "We are **forbidden** to have **all** column differences be 0 or 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the constraint by forbidding all differences being 0 or 1.",
+    "sentence-category": "Analyze",
+    "index": 24
+  },
+  {
+    "sentence": "So for two permutations to be **distinct**, there must be **at least one column** where the difference is at least 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a logical consequence of the constraint (existence of a diff \u2265 2).",
+    "sentence-category": "Analyze",
+    "index": 25
+  },
+  {
+    "sentence": "Let\u2019s now consider how many permutations we can have such that **no two are too similar**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intention to count how many permutations fit the constraint.",
+    "sentence-category": "Plan",
+    "index": 26
+  },
+  {
+    "sentence": "Let\u2019s define a **code** $ \\mathcal{C} $ of permutations of length 100, such that for any $ \\pi, \\sigma \\in \\mathcal{C} $, there exists some $ i \\in [100] $ with $ |\\pi(i) - \\sigma(i)| \\geq 2 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces formal notation/definition for the code with the required property.",
+    "sentence-category": "Implement",
+    "index": 27
+  },
+  {
+    "sentence": "We want to find the **maximum size** $ N = |\\mathcal{C}| $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal in terms of the newly defined notation.",
+    "sentence-category": "Read",
+    "index": 28
+  },
+  {
+    "sentence": "This is equivalent to the **maximum size of a permutation code** with **minimum difference 2**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains equivalence to a known concept (permutation code with min difference 2).",
+    "sentence-category": "Analyze",
+    "index": 29
+  },
+  {
+    "sentence": "### Step 5: Consider a Simpler Case",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a new step focusing on a simpler case.",
+    "sentence-category": "Plan",
+    "index": 30
+  },
+  {
+    "sentence": "Let\u2019s consider the case of permutations of $ \\{1, 2, \\ldots, n\\} $, and ask: what is the **maximum number of permutations** such that **any two differ in at least one position by at least 2**?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes examining the general n case and the corresponding question.",
+    "sentence-category": "Plan",
+    "index": 31
+  },
+  {
+    "sentence": "This is a known problem in **permutation codes**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Connects the problem to a known area (permutation codes).",
+    "sentence-category": "Analyze",
+    "index": 32
+  },
+  {
+    "sentence": "There is a result by **K\u00fcndgen and Mubayi (2005)** that gives an upper bound for such codes.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cites a known result providing an upper bound.",
+    "sentence-category": "Analyze",
+    "index": 33
+  },
+  {
+    "sentence": "They show that the **maximum size** of such a code is: $$\nN \\leq \\left\\lfloor \\frac{n!}{2^{n-1}} \\right\\rfloor\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the theorem/formula giving the upper bound.",
+    "sentence-category": "Analyze",
+    "index": 34
+  },
+  {
+    "sentence": "So for $ n = 100 $, we get: $$\nN \\leq \\left\\lfloor \\frac{100!}{2^{99}} \\right\\rfloor\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the formula to n = 100 (a concrete substitution).",
+    "sentence-category": "Implement",
+    "index": 35
+  },
+  {
+    "sentence": "This is an **upper bound**, and it is **very large**, but not tight.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the bound's nature (upper bound, large, not tight).",
+    "sentence-category": "Verify",
+    "index": 36
+  },
+  {
+    "sentence": "### Step 6: Use a Better Bound",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces moving to a better bound.",
+    "sentence-category": "Plan",
+    "index": 37
+  },
+  {
+    "sentence": "Let\u2019s consider a more precise construction.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Declares intent to consider a more precise construction.",
+    "sentence-category": "Plan",
+    "index": 38
+  },
+  {
+    "sentence": "Let\u2019s define a **code** where **each permutation is at Hamming distance at least 2** from all others.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a code with the desired distance property.",
+    "sentence-category": "Implement",
+    "index": 39
+  },
+  {
+    "sentence": "A better known bound is from the **Erd\u0151s\u2013R\u00e9nyi bound** for permutation codes: $$\nN \\leq \\frac{n!}{\\sum_{i=0}^{t} \\binom{n}{i} (n-i)!}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a known theoretical bound (Erd\u0151s\u2013R\u00e9nyi) relevant to the problem.",
+    "sentence-category": "Analyze",
+    "index": 40
+  },
+  {
+    "sentence": "where $ t $ is the number of positions that can be the same.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the meaning of a variable (t) within the reasoning.",
+    "sentence-category": "Analyze",
+    "index": 41
+  },
+  {
+    "sentence": "In our case, we allow at most 1 position to differ by 1, and the rest can differ by 0 or 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the constraint for the specific case and clarifies allowable differences.",
+    "sentence-category": "Analyze",
+    "index": 42
+  },
+  {
+    "sentence": "So the number of permutations at Hamming distance at most 1 from a given permutation is: - 1 for the identity permutation\n- $ n $ for the permutations that differ in exactly one position by 1 (i.e., swapping adjacent elements)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts permutations within a specified distance by enumerating cases.",
+    "sentence-category": "Implement",
+    "index": 43
+  },
+  {
+    "sentence": "So the total number is at most $ 1 + n $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the computed count from prior enumeration.",
+    "sentence-category": "Implement",
+    "index": 44
+  },
+  {
+    "sentence": "Hence, the maximum number of codewords is at most: $$\nN \\leq \\frac{100!}{1 + 100} = \\frac{100!}{101}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the counting result to bound N with a concrete calculation for n=100.",
+    "sentence-category": "Implement",
+    "index": 45
+  },
+  {
+    "sentence": "But this is still not tight.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the obtained bound as not tight.",
+    "sentence-category": "Verify",
+    "index": 46
+  },
+  {
+    "sentence": "### Step 7: Use the Known Result",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to use a known result.",
+    "sentence-category": "Plan",
+    "index": 47
+  },
+  {
+    "sentence": "This problem is well-known in the literature.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Contextualizes the problem by referencing known literature.",
+    "sentence-category": "Analyze",
+    "index": 48
+  },
+  {
+    "sentence": "A result by **K\u00fcndgen and Mubayi (2005)** states: > The maximum number of permutations of length $ n $ such that any two differ in at least one position by at least 2 is:\n$$\n\\boxed{2^{n-1}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a known theorem giving the general bound/formula.",
+    "sentence-category": "Analyze",
+    "index": 49
+  },
+  {
+    "sentence": "This is a **tight bound** and is **constructive**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assesses the stated result as tight and constructive.",
+    "sentence-category": "Verify",
+    "index": 50
+  },
+  {
+    "sentence": "### Final Answer",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A heading indicating a transition to presenting the result.",
+    "sentence-category": "Monitor",
+    "index": 51
+  },
+  {
+    "sentence": "$$\n\\boxed{N = 2^{99}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Directly presents the numerical value for N.",
+    "sentence-category": "Answer",
+    "index": 52
+  },
+  {
+    "sentence": "So the **maximum number of rows** is: $$\n\\boxed{2^{99}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the final numerical answer in words and notation.",
+    "sentence-category": "Answer",
+    "index": 53
+  },
+  {
+    "sentence": "### \u2705 Final Answer:\n$$\n\\boxed{2^{99}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly labels and presents the final answer again.",
+    "sentence-category": "Answer",
+    "index": 54
+  }
+]

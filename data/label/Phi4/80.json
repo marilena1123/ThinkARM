@@ -1,0 +1,142 @@
+[
+  {
+    "index": 1,
+    "sentence": "To solve this problem, we need to determine the maximum number of pairs \\((A, B)\\) such that \\(A\\) and \\(B\\) are not directly acquainted, but they have a common acquaintance \\(C\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of the problem in words without proposing a method.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "Consider the graph \\(G\\) where each vertex represents a participant, and an edge between two vertices indicates that the corresponding participants are acquainted.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a graph model and defines notation/representation for participants and edges.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 3,
+    "sentence": "We are interested in pairs of non-adjacent vertices \\((A, B)\\) that have a common neighbor \\(C\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Translates the target condition into graph-theoretic terms, clarifying what will be counted.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "The number of such pairs \\((A, B)\\) with a common neighbor \\(C\\) is given by the sum of \\(\\binom{d(v)}{2}\\) over all vertices \\(v\\), where \\(d(v)\\) is the degree of vertex \\(v\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general counting formula for the desired pairs based on degrees, as a logical inference.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "This is because for each vertex \\(v\\), the number of ways to choose two neighbors of \\(v\\) is \\(\\binom{d(v)}{2}\\), and each such pair forms a non-edge \\((A, B)\\) with a common neighbor \\(v\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the reasoning behind the counting formula by considering neighbor choices at a vertex.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "Thus, the total number of such pairs is: \\[\n\\sum_{v \\in V} \\binom{d(v)}{2} = \\sum_{v \\in V} \\frac{d(v)(d(v) - 1)}{2}\n\\]",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the explicit summation expression for the total count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "We aim to maximize this expression under the constraint that the sum of the degrees is \\(2e\\), where \\(e\\) is the number of edges in the graph.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the optimization objective and constraint to be used next.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 8,
+    "sentence": "This is because each edge contributes 1 to the degree of two vertices.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Justifies the degree-sum constraint by explaining edge contribution to degrees.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "To maximize \\(\\sum_{v \\in V} \\frac{d(v)(d(v) - 1)}{2}\\), we should make the degrees as unequal as possible, given the constraint \\(\\sum_{v \\in V} d(v) = 2e\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers that degree inequality maximizes the convex sum under a fixed total degree.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "This is a consequence of the convexity of the function \\(f(x) = \\binom{x}{2} = \\frac{x(x-1)}{2}\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cites convexity of the binomial function as the reason for the previous inference.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "The most unequal distribution occurs when one vertex has the maximum possible degree, and the others have the minimum possible degree.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the extremal degree distribution implied by the convexity argument.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Consider a star graph \\(K_{1, n-1}\\), where one central vertex is connected to all other \\(n-1\\) vertices, and those \\(n-1\\) vertices are not connected to each other.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses and specifies the extremal graph (star) to instantiate the configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "In this configuration:\n- The central vertex has degree \\(n-1\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the degree of the central vertex in the chosen configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "- Each of the other \\(n-1\\) vertices has degree 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the degrees of the remaining vertices in the chosen configuration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "The number of pairs \\((A, B)\\) with a common neighbor is: \\[\n\\binom{n-1}{2} = \\frac{(n-1)(n-2)}{2}\n\\]",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the number of desired pairs in the star using a combinatorial expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "This is because the central vertex provides a common neighbor for each pair of the \\(n-1\\) leaves.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains why the previous count is correct by identifying the common neighbor structure.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "To verify that this is indeed the maximum, consider any other graph configuration.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a check to confirm maximality by comparing with other configurations.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 18,
+    "sentence": "If any vertex \\(v\\) has degree greater than \\(n-1\\), it would imply more edges than possible in a simple graph with \\(n\\) vertices.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides a validating argument that degrees cannot exceed n-1, supporting the maximality check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 19,
+    "sentence": "If any vertex has degree less than \\(n-1\\), then the star configuration would have a higher count of such pairs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Argues that any deviation from the extremal degree pattern leads to a lesser count, as part of the check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 20,
+    "sentence": "Thus, the maximum number of pairs \\((A, B)\\) such that \\(A\\) and \\(B\\) are not directly acquainted but have a common acquaintance is: \\[\n\\boxed{\\frac{(n-1)(n-2)}{2}}\n\\]",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final maximal value explicitly as the conclusion to the problem.",
+    "sentence-category": "Answer"
+  }
+]

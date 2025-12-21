@@ -1,0 +1,849 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $f(n)$ be the number of nice representations of a positive integer $n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a new notation/function definition for counting representations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "A nice representation of $n$ is a sum of powers of 2 such that each power of 2 appears at most twice.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem's definition of a nice representation.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "This means that in the sum $n = \\sum_{k=0}^M c_k 2^k$, the coefficients $c_k$ must be in the set $\\{0, 1, 2\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces allowable coefficient values from the definition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "We can derive a recurrence relation for $f(n)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the intention to derive a recurrence relation.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 5,
+    "sentence": "Let $n = (c_M c_{M-1} \\dots c_1 c_0)_2$ be a nice representation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation for a generic nice representation of n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "The last digit $c_0$ determines the parity of $n$ and contributes to its value.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Observes how the least significant digit determines parity.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "1.  If $n$ is odd:\n    For $n$ to be odd, $c_0$ must be 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the odd case and infers c0 must be 1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "(If $c_0=0$ or $c_0=2$, $n$ would be even).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains why other values of c0 would make n even.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "So, $n = 1 + \\sum_{k=1}^M c_k 2^k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the explicit expression for n when c0=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "Dividing by 2, we get $(n-1)/2 = \\sum_{k=1}^M c_k 2^{k-1} = \\sum_{j=0}^{M-1} c_{j+1} 2^j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the division by 2 to transform the sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "The sum on the right is a nice representation of $(n-1)/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the transformed sum is a nice representation of (n\u22121)/2.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Therefore, for odd $n$, $f(n) = f((n-1)/2)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the recurrence relation for odd n.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "2.  If $n$ is even:\n    For $n$ to be even, $c_0$ can be 0 or 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the even case and allowable values of c0.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "a) If $c_0=0$:\n       $n = 0 + \\sum_{k=1}^M c_k 2^k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "In the c0=0 subcase, writes the explicit expression for n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Dividing by 2, we get $n/2 = \\sum_{k=1}^M c_k 2^{k-1} = \\sum_{j=0}^{M-1} c_{j+1} 2^j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs division by 2 for the c0=0 subcase.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "The sum on the right is a nice representation of $n/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the transformed sum is a nice representation of n/2.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "There are $f(n/2)$ such representations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the number of such representations equals f(n/2).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "b) If $c_0=2$:\n       $n = 2 + \\sum_{k=1}^M c_k 2^k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "In the c0=2 subcase, writes the explicit expression for n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "Dividing by 2, we get $(n-2)/2 = \\sum_{k=1}^M c_k 2^{k-1} = \\sum_{j=0}^{M-1} c_{j+1} 2^j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs division by 2 for the c0=2 subcase.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "The sum on the right is a nice representation of $(n-2)/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the transformed sum is a nice representation of (n\u22122)/2.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 21,
+    "sentence": "There are $f((n-2)/2)$ such representations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the count of representations when c0=2 without performing calculations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "Therefore, for even $n$, $f(n) = f(n/2) + f(n/2-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the recurrence relation for even n from prior case analysis.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "This recurrence holds for $n \\ge 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the applicability domain of the derived recurrence.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "To use the recurrence, we need a base case.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step of establishing a base case.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 25,
+    "sentence": "$f(1) = 1$ (the only representation is $2^0$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the base value of f with justification.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 26,
+    "sentence": "Using the formula for odd $n$: $f(1)=f((1-1)/2)=f(0)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the odd-n formula to compute an expression for f(1) in terms of f(0).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 27,
+    "sentence": "So we define $f(0)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the value of f(0) to complete the base cases.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "Let's compute the first few values of $f(n)$:\n$f(0)=1$\n$f(1)=f(0)=1$\n$f(2)=f(1)+f(0)=1+1=2$\n$f(3)=f(1)=1$\n$f(4)=f(2)+f(1)=2+1=3$\n$f(5)=f(2)=2$\n$f(6)=f(3)+f(2)=1+2=3$\n$f(7)=f(3)=1$\n$f(8)=f(4)+f(3)=3+1=4$\n$f(9)=f(4)=3$\n$f(10)=f(5)+f(4)=2+3=5$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out explicit computations of f(n) for small n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "Part a) Write down the 5 nice representations of 10.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the task for part (a) from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 30,
+    "sentence": "We found $f(10)=5$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls the computed value f(10)=5 to set up listing representations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "We use the recurrence to list them.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Declares the plan to use the recurrence to list representations.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 32,
+    "sentence": "For $n=10$, $c_0$ can be 0 or 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the parity digit options for n=10 (even), setting up cases.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 33,
+    "sentence": "1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Structural marker introducing the first case without mathematical content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 34,
+    "sentence": "$c_0=0$: This corresponds to a representation of $10/2=5$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the mapping for the case c0=0, computing n/2=5.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "The nice representations of 5 are:\n    $f(5)=f(2)=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the count for n=5 using the recurrence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 36,
+    "sentence": "Representations of 2 are $(10)_2 = 2^1$ and $(2)_2 = 2 \\cdot 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the two nice representations of 2 explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "So $f(5)$ representations:\n    1a) $5 = 2^2 + 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents a specific nice representation of 5.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "(From $2^1$, by adding $2^0$ and shifting powers: $2^1 \\rightarrow 2^2$ and $2^0 \\rightarrow 2^0$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the transformation from a representation of 2 to one of 5.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 39,
+    "sentence": "This is $(101)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Converts the representation to binary form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "To get $10$, we multiply by 2 (and add $c_0=0$):\n        $10 = 2 \\cdot (2^2+2^0) = 2^3+2^1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the operation to obtain a representation of 10 by doubling and shows the resulting sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "($ (1010)_2 $)\n    1b) $5 = 2 \\cdot 2^1 + 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a concrete decomposition of 5 (and notes a specific representation), which is an explicit construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "(From $2 \\cdot 2^0$, by adding $2^0$ and shifting powers: $2 \\cdot 2^0 \\rightarrow 2 \\cdot 2^1$ and $2^0 \\rightarrow 2^0$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the concrete transformation by adding and shifting powers using arrows.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": "This is $(21)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the explicit coded form of the representation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 44,
+    "sentence": "To get $10$, we multiply by 2 (and add $c_0=0$):\n        $10 = 2 \\cdot (2 \\cdot 2^1+2^0) = 2 \\cdot 2^2+2^1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the operation to obtain 10 and shows the resulting equation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "($ (210)_2 $)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the explicit representation notation for the constructed sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "2.  $c_0=2$: This corresponds to a representation of $(10-2)/2=4$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces the correspondence for the case c0=2 to representations of (10\u22122)/2=4.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 47,
+    "sentence": "The nice representations of 4 are:\n    $f(4)=f(2)+f(1)=2+1=3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes f(4) via the recurrence and evaluates it numerically.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 48,
+    "sentence": "$f(2)$ representations for $c_0=0$: $2 = 2^1 \\Rightarrow 4 = 2 \\cdot 2^1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Constructs representations by explicit equations for the case from f(2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 49,
+    "sentence": "$(20)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the coded representation form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 50,
+    "sentence": "$f(1)$ representations for $c_0=2$: $2 = 2 \\cdot 2^0 \\Rightarrow 4 = 2 \\cdot 2^0 \\cdot 2 = 2^1+2^0+2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Constructs another representation explicitly by equations for the f(1) case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "$(12)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the coded representation form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "Wait, these are for $m=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks and flags a mismatch/context issue in the previous step.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 53,
+    "sentence": "$f(4)$ is $f(4/2)+f(4/2-1) = f(2)+f(1)=2+1=3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recomputes f(4) via the recurrence with explicit evaluation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 54,
+    "sentence": "Representations of 4:\n    2a) $4 = 2^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists an explicit representation of 4.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "This is $(100)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the coded representation form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "To get $10$, we multiply by 2 and add $2 \\cdot 2^0$:\n        $10 = 2 \\cdot 2^2 + 2 \\cdot 2^0 = 2^3+2 \\cdot 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the operation to get 10 and writes the resulting equation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 57,
+    "sentence": "($ (1002)_2 $)\n    2b) $4 = 2 \\cdot 2^1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives an explicit representation and equation for 4.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 58,
+    "sentence": "This is $(20)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the coded representation form.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "To get $10$, we multiply by 2 and add $2 \\cdot 2^0$:\n        $10 = 2 \\cdot (2 \\cdot 2^1) + 2 \\cdot 2^0 = 2 \\cdot 2^2+2 \\cdot 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the operation to form 10 and writes the explicit result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "($ (202)_2 $)\n    2c) $4 = 2^1 + 2 \\cdot 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides an explicit representation and equation for 4.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "This is $(12)_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the binary-digit notation for the just-derived representation; a concrete step/result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 62,
+    "sentence": "To get $10$, we multiply by 2 and add $2 \\cdot 2^0$:\n        $10 = 2 \\cdot (2^1+2 \\cdot 2^0) + 2 \\cdot 2^0 = 2^2+2 \\cdot 2^1+2 \\cdot 2^0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the transformation and arithmetic to obtain a representation of 10.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "($ (122)_2 $)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the compact digit form of the obtained representation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "The 5 nice representations of 10 are:\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces and begins listing the final representations for part (a).",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 65,
+    "sentence": "$2^3+2^1$ (binary $(1010)_2$)\n2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "One of the final listed representations for 10.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 66,
+    "sentence": "$2 \\cdot 2^2+2^1$ (digits $(210)_2$)\n3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "One of the final listed representations for 10.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 67,
+    "sentence": "$2^3+2 \\cdot 2^0$ (digits $(1002)_2$)\n4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "One of the final listed representations for 10.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 68,
+    "sentence": "$2 \\cdot 2^2+2 \\cdot 2^0$ (digits $(202)_2$)\n5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "One of the final listed representations for 10.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 69,
+    "sentence": "$2^2+2 \\cdot 2^1+2 \\cdot 2^0$ (digits $(122)_2$)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "One of the final listed representations for 10.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 70,
+    "sentence": "Part b) Find all positive integers with an even number of nice representations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the task for part (b) from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 71,
+    "sentence": "We need to find $n$ such that $f(n)$ is an even number.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal in terms of f(n) being even.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 72,
+    "sentence": "Let's look at the parity of $f(n)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the approach to examine parity.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 73,
+    "sentence": "We can denote $g(n) = f(n) \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a notation g(n) for parity; setting notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 74,
+    "sentence": "$g(0)=1$ (odd)\n$g(1)=g(0)=1$ (odd)\n$g(2)=g(1)+g(0)=1+1=0$ (even)\n$g(3)=g(1)=1$ (odd)\n$g(4)=g(2)+g(1)=0+1=1$ (odd)\n$g(5)=g(2)=0$ (even)\n$g(6)=g(3)+g(2)=1+0=1$ (odd)\n$g(7)=g(3)=1$ (odd)\n$g(8)=g(4)+g(3)=1+1=0$ (even)\n$g(9)=g(4)=1$ (odd)\n$g(10)=g(5)+g(4)=0+1=1$ (odd)\n$g(11)=g(5)=0$ (even)\n$g(12)=g(6)+g(5)=1+0=1$ (odd)\n$g(13)=g(6)=1$ (odd)\n$g(14)=g(7)+g(6)=1+1=0$ (even)\n$g(15)=g(7)=1$ (odd)\n$g(16)=g(8)+g(7)=0+1=1$ (odd)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the parity values using the recurrence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "The sequence of parities for $f(n)$ for $n \\ge 0$ is: $1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, \\ldots$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes the observed parity pattern from the computations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 76,
+    "sentence": "It appears that $f(n)$ is even (i.e. $g(n)=0$) if and only if $n \\equiv 2 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Posits a conjectural pattern with tentative language.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 77,
+    "sentence": "Let's prove this by induction.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the chosen method (induction) to prove the claim.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 78,
+    "sentence": "Base cases: $g(0)=1$ ($0 \\equiv 0 \\pmod 3$), $g(1)=1$ ($1 \\equiv 1 \\pmod 3$), $g(2)=0$ ($2 \\equiv 2 \\pmod 3$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the base case checks for the induction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 79,
+    "sentence": "These match the hypothesis.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the base cases agree with the conjecture.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 80,
+    "sentence": "Assume the hypothesis holds for all $k < n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the induction hypothesis as part of carrying out the proof.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 81,
+    "sentence": "Case 1: $n$ is odd.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the first case to consider in the proof.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 82,
+    "sentence": "$n=2m+1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation for an odd integer as 2m+1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 83,
+    "sentence": "$g(n)=g(m)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the recurrence for odd n to equate g(n) with g(m).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 84,
+    "sentence": "*   If $n \\equiv 0 \\pmod 3$: $2m+1 \\equiv 0 \\pmod 3 \\implies 2m \\equiv -1 \\equiv 2 \\pmod 3 \\implies m \\equiv 1 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs modular arithmetic deductions to find the congruence class of m.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 85,
+    "sentence": "By hypothesis, $g(m)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses the induction hypothesis about g(m) for this congruence class.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 86,
+    "sentence": "So $g(n)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives g(n) from g(n)=g(m) and the hypothesis.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 87,
+    "sentence": "This matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States that the result aligns with the conjectured pattern.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 88,
+    "sentence": "*   If $n \\equiv 1 \\pmod 3$: $2m+1 \\equiv 1 \\pmod 3 \\implies 2m \\equiv 0 \\pmod 3 \\implies m \\equiv 0 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs modular deductions for the second odd subcase.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 89,
+    "sentence": "By hypothesis, $g(m)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Invokes the induction hypothesis for this m.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 90,
+    "sentence": "So $g(n)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes g(n) using the relation to g(m).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 91,
+    "sentence": "This matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms consistency with the expected pattern.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 92,
+    "sentence": "*   If $n \\equiv 2 \\pmod 3$: $2m+1 \\equiv 2 \\pmod 3 \\implies 2m \\equiv 1 \\pmod 3 \\implies m \\equiv 2 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs modular deductions for the third odd subcase.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 93,
+    "sentence": "By hypothesis, $g(m)=0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the induction hypothesis yielding g(m)=0.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 94,
+    "sentence": "So $g(n)=0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes g(n) from g(m) in this subcase.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 95,
+    "sentence": "This matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the result matches the conjecture.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 96,
+    "sentence": "Case 2: $n$ is even.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the second case to consider (even n).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 97,
+    "sentence": "$n=2m$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation for an even integer as 2m.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 98,
+    "sentence": "$g(n)=g(m)+g(m-1) \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the recurrence for even n in terms of m and m-1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 99,
+    "sentence": "*   If $n \\equiv 0 \\pmod 3$: $2m \\equiv 0 \\pmod 3 \\implies m \\equiv 0 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs modular deduction to get m \u2261 0 mod 3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 100,
+    "sentence": "Then $m=3k$ for some integer $k \\ge 1$ (since $n \\ge 2$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces k with m as a multiple of 3, based on the deduction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 101,
+    "sentence": "So $m-1=3k-1 \\equiv 2 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete modular arithmetic derivation for m-1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 102,
+    "sentence": "By hypothesis, $g(m)=g(3k)=1$ and $g(m-1)=g(3k-1)=0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the induction hypothesis to assign specific parity values to g(m) and g(m-1).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 103,
+    "sentence": "So $g(n)=1+0=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes g(n) by adding the obtained parities.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 104,
+    "sentence": "This matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates that the result agrees with the hypothesis/case expectation.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 105,
+    "sentence": "*   If $n \\equiv 1 \\pmod 3$: $2m \\equiv 1 \\pmod 3 \\implies m \\equiv 2 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out modular deductions from n \u2261 1 (mod 3) to m \u2261 2 (mod 3).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 106,
+    "sentence": "Then $m=3k+2$ for some integer $k \\ge 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Instantiates m in the form 3k+2 based on the congruence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 107,
+    "sentence": "So $m-1=3k+1 \\equiv 1 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes m\u22121 and its congruence class.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 108,
+    "sentence": "By hypothesis, $g(m)=g(3k+2)=0$ and $g(m-1)=g(3k+1)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses the induction hypothesis to determine g(m) and g(m\u22121) values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 109,
+    "sentence": "So $g(n)=0+1=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates g(n) from the determined parities.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 110,
+    "sentence": "This matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the outcome matches the expectation for this case.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 111,
+    "sentence": "*   If $n \\equiv 2 \\pmod 3$: $2m \\equiv 2 \\pmod 3 \\implies m \\equiv 1 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs modular deduction from n \u2261 2 (mod 3) to m \u2261 1 (mod 3).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 112,
+    "sentence": "Then $m=3k+1$ for some integer $k \\ge 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expresses m as 3k+1 from its congruence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 113,
+    "sentence": "So $m-1=3k \\equiv 0 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes m\u22121 and its congruence class.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 114,
+    "sentence": "By hypothesis, $g(m)=g(3k+1)=1$ and $g(m-1)=g(3k)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the hypothesis to get specific parities for g(m) and g(m\u22121).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 115,
+    "sentence": "So $g(n)=1+1=0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes g(n) by summing the parities modulo 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 116,
+    "sentence": "This matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Verifies the result aligns with the expected case outcome.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 117,
+    "sentence": "The induction holds for all positive integers $n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the inductive step holds for all n, evaluating the proof's validity.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 118,
+    "sentence": "Therefore, $f(n)$ is even if and only if $n \\equiv 2 \\pmod 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the main result about when f(n) is even.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 119,
+    "sentence": "The positive integers with an even number of nice representations are those of the form $3k+2$ for $k \\ge 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the characterization of integers with even f(n) in explicit form.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 120,
+    "sentence": "These are $2, 5, 8, 11, 14, 17, 20, \\ldots$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists explicit examples of the integers satisfying the result.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 121,
+    "sentence": "The final answer is $\\boxed{n \\text{ such that } n \\equiv 2 \\pmod 3}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "It explicitly states the final conclusion to the problem.",
+    "sentence-category": "Answer"
+  }
+]

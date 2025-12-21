@@ -1,0 +1,1598 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $S_k = \\sum_{i=1}^k a_i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the definition of partial sums as given in the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "We are given that $a_1, \\ldots, a_{100}$ is a permutation of $1, \\ldots, 100$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given condition that the sequence is a permutation of 1 to 100.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "We want to find the maximum number of perfect squares among $S_1, \\ldots, S_{100}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of the problem: maximizing the number of perfect squares among the partial sums.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "First, let's determine the range of possible sums $S_k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to analyze the range of possible partial sums.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 5,
+    "sentence": "The smallest possible value for $S_k$ is $S_1 = a_1 \\ge 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers a lower bound on the partial sums from the given conditions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "The largest possible value is $S_{100} = \\sum_{i=1}^{100} i = \\frac{100 \\times 101}{2} = 5050$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the total sum 1+...+100 explicitly to get 5050.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "The perfect squares in the range $[1, 5050]$ are $1^2=1, 2^2=4, \\ldots, 71^2=5041$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates the perfect squares within the established range.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "There are 71 such squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the count of perfect squares from the enumeration.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "Note that $S_{100}=5050$ is not a perfect square.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Observes a property of S_100 relevant for bounding the count.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "Thus, the maximum number of squares is at most 99.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws an upper-bound conclusion from the prior observations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "Let $S_k = m^2$ and $S_j = n^2$ for $k < j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation/assumptions for two square partial sums.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Then $n^2 - m^2 = \\sum_{i=k+1}^j a_i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the difference of squares equals a block sum relation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "Since $a_i \\ge 1$ and are distinct, $\\sum_{i=k+1}^j a_i \\ge \\sum_{p=1}^{j-k} p = \\frac{(j-k)(j-k+1)}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes a lower bound on the block sum using distinctness and minimal values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "Also, $a_i \\le 100$, so $\\sum_{i=k+1}^j a_i \\le \\sum_{p=0}^{j-k-1} (100-p) = 100(j-k) - \\frac{(j-k-1)(j-k)}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes an upper bound on the block sum using maximal values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Let's test a simple construction where $S_k=k^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes and commits to testing a construction S_k = k^2.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 16,
+    "sentence": "$S_1=1^2 \\Rightarrow a_1=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the construction for k=1 to find a1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "$S_2=2^2 \\Rightarrow a_2=S_2-S_1=4-1=3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the construction for k=2 to find a2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "$S_3=3^2 \\Rightarrow a_3=S_3-S_2=9-4=5$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the construction for k=3 to find a3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "In general, if $S_k=k^2$, then $a_k = k^2-(k-1)^2 = 2k-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the general formula for a_k from the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "This sequence $a_k = 2k-1$ generates $a_1=1, a_2=3, a_3=5, \\ldots$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting sequence generated by the formula.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "All these numbers are distinct odd integers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a property of the constructed sequence (odd, distinct) with certainty.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "We need $a_k \\le 100$, so $2k-1 \\le 100 \\Rightarrow 2k \\le 101 \\Rightarrow k \\le 50.5$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs inequality manipulation to bound k.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 23,
+    "sentence": "So, we can set $a_k=2k-1$ for $k=1, \\ldots, 50$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the specific values of a_k over a range based on the bound.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "This means $a_1=1, a_2=3, \\ldots, a_{50}=2(50)-1=99$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists and computes specific terms of the sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "These 50 numbers are all the odd integers from 1 to 99, and they are all within $\\{1, \\ldots, 100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Observes the set membership/property of the chosen numbers.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "With this choice, $S_1, S_2, \\ldots, S_{50}$ are all perfect squares ($1^2, 2^2, \\ldots, 50^2$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes that the first 50 partial sums are squares from the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 27,
+    "sentence": "This gives 50 squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes the count of squares obtained so far.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "The value of $S_{50}$ is $50^2=2500$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the specific value of S_50.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "The set of numbers already used is $A_{used,O} = \\{1,3,5,\\ldots,99\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the set of used numbers explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 30,
+    "sentence": "The set of remaining numbers is $A_{rem,E} = \\{2,4,6,\\ldots,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the set of remaining numbers explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 31,
+    "sentence": "Now we try to find more squares using the remaining numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to seek more squares.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 32,
+    "sentence": "Let $S_k$ be a square for $k>50$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets an assumption/condition for further derivation (S_k square for k>50).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "$S_k = S_{50} + \\sum_{i=51}^k a_i = 2500 + \\sum_{i=51}^k a_i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expresses S_k in terms of S_50 and the remaining sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "Since $S_{50}=2500$ is an even number, $\\sum_{i=51}^k a_i$ must be an even number for $S_k$ to be an even square.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes parity conditions needed for S_k to be an even square.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 35,
+    "sentence": "The numbers $a_i$ for $i>50$ must be chosen from $A_{rem,E} = \\{2,4,6,\\ldots,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the source set for remaining a_i based on earlier construction.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "So their sum will always be an even number.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers that the sum of even terms is even.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 37,
+    "sentence": "Let $S_k=m^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation m for the square S_k.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "Then $m^2 > S_{50}=2500$, so $m > 50$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces a bound on m from m^2 > 2500.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 39,
+    "sentence": "Also, $m$ must be an even integer (since $S_k$ is even).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers parity of m from parity of S_k.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 40,
+    "sentence": "Possible values for $m$: $52, 54, 56, 58, 60, 62, 64, 66, 68, 70$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates the feasible even m values greater than 50.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "Let $j=k-50$ be the number of additional terms in the sum.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a new variable j by defining it in terms of k to set up subsequent calculations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "So $j \\ge 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces an inequality about j from the definition and context (k > 50).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 43,
+    "sentence": "The sum $\\sum_{i=51}^k a_i = m^2-2500$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a derived relationship between the partial sum and m^2 without performing computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 44,
+    "sentence": "Let $S_j^{min}$ denote the sum of the $j$ smallest distinct even integers, $S_j^{min} = \\sum_{p=1}^j (2p) = j(j+1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines notation for the minimal sum and computes its closed form j(j+1).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "Let $S_j^{max}$ denote the sum of the $j$ largest distinct even integers, $S_j^{max} = \\sum_{p=0}^{j-1} (100-2p) = 100j - j(j-1) = j(101-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines notation for the maximal sum and computes its closed forms j(101\u2212j).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "1. Try to make $S_k=52^2=2704$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes trying a specific target square (m=52), indicating a tentative approach.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 47,
+    "sentence": "We need $\\sum_{i=51}^k a_i = 2704-2500=204$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the required incremental sum explicitly: 2704 \u2212 2500 = 204.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 48,
+    "sentence": "We need to find $j$ distinct numbers from $A_{rem,E}$ that sum to 204.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the subgoal of selecting j distinct even numbers summing to 204.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 49,
+    "sentence": "Check bounds for $j$: $j(j+1) \\le 204 \\le j(101-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the step to check feasibility via bounds using previously defined min/max sums.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 50,
+    "sentence": "$j=1: 1(2)=2 \\le 204 \\le 1(100)=100$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the bounds calculation for j=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "(No, $204 > 100$)\n$j=2: 2(3)=6 \\le 204 \\le 2(99)=198$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rejects j=1 and proceeds to compute bounds for j=2 in the same sentence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "(No, $204 > 198$)\n$j=3: 3(4)=12 \\le 204 \\le 3(98)=294$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rejects j=2 and computes bounds for j=3 in the same sentence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "(Yes, $j=3$ is possible)\nSo we need to find 3 distinct numbers from $A_{rem,E}$ summing to 204.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms j=3 is feasible and sets the goal to find three numbers summing to 204.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 54,
+    "sentence": "Their average is $204/3=68$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average needed for three numbers: 204/3 = 68.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "We can choose $a_{51}=66, a_{52}=68, a_{53}=70$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects specific even numbers that meet the sum requirement.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "These are distinct, even, and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers satisfy distinctness and availability constraints.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 57,
+    "sentence": "So $S_{53} = 2500 + 204 = 2704 = 52^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and confirms the resulting partial sum equals 52^2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 58,
+    "sentence": "This adds one more square, for a total of $50+1=51$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the running count of squares obtained so far.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{66,68,70\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the set of used numbers after the selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "The remaining even numbers are $A_{rem,E}' = A_{rem,E} \\setminus \\{66,68,70\\} = \\{2,4,\\ldots,64,72,74,76,78,\\ldots,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and lists the remaining even numbers after removing the chosen ones.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "2. Try to make $S_k=54^2=2916$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intention to construct the next square partial sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 62,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 2916-S_{53}=2916-2704=212$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the needed incremental sum by subtracting previous sum from target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "($k'$ is 53 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the notation for the index used in the computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "We need to find $j$ distinct numbers from $A_{rem,E}'$ that sum to 212.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Declares the next step: find j numbers from the remaining set summing to a target.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 65,
+    "sentence": "$j(j+1) \\le 212 \\le j(101-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the numerical constraint on j using the established bounds for sums.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 66,
+    "sentence": "$j=1: 1(2)=2 \\le 212 \\le 1(100)=100$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks the bounds for j=1 with explicit calculations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 67,
+    "sentence": "(No)\n$j=2: 2(3)=6 \\le 212 \\le 2(99)=198$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rejects j=1 and computes/checks the bounds for j=2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 68,
+    "sentence": "(No)\n$j=3: 3(4)=12 \\le 212 \\le 3(98)=294$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rejects j=2 and computes/checks the bounds for j=3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 69,
+    "sentence": "(Yes, $j=3$ is possible)\nWe need to find 3 distinct numbers from $A_{rem,E}'$ summing to 212.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms j=3 works and states the step to find three numbers summing to 212.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 70,
+    "sentence": "Their average is $212/3 \\approx 70.67$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the average of the three numbers to guide selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 71,
+    "sentence": "We can choose $a_{54}=64, a_{55}=72, a_{56}=76$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects specific even numbers to achieve the required sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 72,
+    "sentence": "These are distinct, even, and available in $A_{rem,E}'$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers meet distinctness and availability constraints.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 73,
+    "sentence": "So $S_{56} = 2704+212 = 2916 = 54^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and confirms the partial sum equals the target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 74,
+    "sentence": "This adds one more square, for a total of $51+1=52$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the running count of squares achieved with an explicit calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{64,66,68,70,72,76\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the set of used numbers after the selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 76,
+    "sentence": "The remaining even numbers are $A_{rem,E}'' = A_{rem,E}' \\setminus \\{64,72,76\\} = \\{2,4,\\ldots,62,74,78,80,\\ldots,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the remaining pool of even numbers after removal.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 77,
+    "sentence": "3. Try to make $S_k=56^2=3136$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intention to construct the next square partial sum (56^2).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 78,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 3136-S_{56}=3136-2916=220$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the new required incremental sum to reach 56^2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 79,
+    "sentence": "($k'$ is 56 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the current index reference for the computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 80,
+    "sentence": "We need to find $j$ distinct numbers from $A_{rem,E}''$ that sum to 220.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Declares the next step: find j numbers from the updated set summing to 220.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 81,
+    "sentence": "$j(j+1) \\le 220 \\le j(101-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the previously defined bounds to the specific target sum 220.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 82,
+    "sentence": "$j=3: 12 \\le 220 \\le 294$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes j=3 and computes the corresponding bounds.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 83,
+    "sentence": "(Yes, $j=3$ is possible)\nWe need to find 3 distinct numbers from $A_{rem,E}''$ summing to 220.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms feasibility and then states the next task to find three numbers summing to 220.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 84,
+    "sentence": "Their average is $220/3 \\approx 73.33$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average to guide the selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 85,
+    "sentence": "We can choose $a_{57}=62, a_{58}=74, a_{59}=84$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects concrete values for the next terms.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 86,
+    "sentence": "These are distinct, even, and available in $A_{rem,E}''$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers meet distinctness and availability constraints.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 87,
+    "sentence": "(84 is not used: $84 \\in \\{78,80,\\dots,100\\}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Further verifies that 84 has not been used and is available.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 88,
+    "sentence": "So $S_{59} = 2916+220 = 3136 = 56^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the new partial sum and shows it equals a perfect square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 89,
+    "sentence": "This adds one more square, for a total of $52+1=53$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the running count of squares obtained.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 90,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{62,64,66,68,70,72,74,76,84\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the set of used numbers after the choice.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 91,
+    "sentence": "The remaining even numbers are $A_{rem,E}''' = A_{rem,E}'' \\setminus \\{62,74,84\\} = \\{2,4,\\ldots,60,78,80,82,86,88,90,\\ldots,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the updated set of remaining even numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 92,
+    "sentence": "4. Try to make $S_k=58^2=3364$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next goal to achieve the next square sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 93,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 3364-S_{59}=3364-3136=228$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the required increment to reach the target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 94,
+    "sentence": "($k'$ is 59 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the indexing parameter used in the step.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 95,
+    "sentence": "We need to find $j=3$ distinct numbers from $A_{rem,E}'''$ that sum to 228.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the task to find three numbers summing to 228.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 96,
+    "sentence": "Average is $228/3=76$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average for the three numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 97,
+    "sentence": "We can choose $a_{60}=60, a_{61}=80, a_{62}=88$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses specific values for the next terms.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 98,
+    "sentence": "These are distinct, even, and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Verifies the chosen numbers are valid (distinct, even, available).",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 99,
+    "sentence": "So $S_{62} = 3136+228 = 3364 = 58^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the new partial sum and confirms it equals the desired square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 100,
+    "sentence": "This adds one more square, for a total of $53+1=54$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the cumulative count of square partial sums.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 101,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{60,62,64,66,68,70,72,74,76,80,84,88\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the bookkeeping set of used numbers based on previous selections.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 102,
+    "sentence": "The remaining even numbers are $A_{rem,E}^{(4)} = A_{rem,E}''' \\setminus \\{60,80,88\\} = \\{2,4,\\ldots,58,78,82,86,90,92,\\ldots,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the remaining even numbers by removing newly used elements from the set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 103,
+    "sentence": "5. Try to make $S_k=60^2=3600$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next target square to construct for the partial sums.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 104,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 3600-S_{62}=3600-3364=236$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the required increment to reach the target square from the current sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 105,
+    "sentence": "($k'$ is 62 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the current index reference for the calculation step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 106,
+    "sentence": "We need $j=3$ distinct numbers from $A_{rem,E}^{(4)}$ that sum to 236.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended selection task: choose 3 numbers from the set to meet the required sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 107,
+    "sentence": "Average is $236/3 \\approx 78.67$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a numerical computation (average) to guide the choice.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 108,
+    "sentence": "We can choose $a_{63}=58, a_{64}=86, a_{65}=92$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects specific numbers to achieve the required sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 109,
+    "sentence": "These are distinct, even, and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers meet distinctness and availability constraints.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 110,
+    "sentence": "So $S_{65} = 3364+236 = 3600 = 60^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the new partial sum and confirms it equals the target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 111,
+    "sentence": "This adds one more square, for a total of $54+1=55$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the count of obtained squares by adding one.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 112,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{58,60,62,64,66,68,70,72,74,76,80,84,86,88,92\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the set of used numbers after the latest selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 113,
+    "sentence": "The remaining even numbers are $A_{rem,E}^{(5)} = A_{rem,E}^{(4)} \\setminus \\{58,86,92\\} = \\{2,4,\\ldots,56,78,82,90,94,96,98,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the remaining even numbers by removing the latest used elements.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 114,
+    "sentence": "6. Try to make $S_k=62^2=3844$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next target square to construct.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 115,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 3844-S_{65}=3844-3600=244$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the required increment to reach the new target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 116,
+    "sentence": "($k'$ is 65 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the current index reference for this step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 117,
+    "sentence": "We need $j=3$ distinct numbers from $A_{rem,E}^{(5)}$ that sum to 244.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended selection task: choose 3 numbers to sum to the required value.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 118,
+    "sentence": "Average is $244/3 \\approx 81.33$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the guiding average for the selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 119,
+    "sentence": "We can choose $a_{66}=56, a_{67}=90, a_{68}=98$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects specific numbers to meet the sum requirement.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 120,
+    "sentence": "These are distinct, even, and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers satisfy constraints (distinct, even, available).",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 121,
+    "sentence": "So $S_{68} = 3600+244 = 3844 = 62^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete computation to show the partial sum equals a perfect square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 122,
+    "sentence": "This adds one more square, for a total of $55+1=56$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the running count of squares with an explicit arithmetic calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 123,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{56,58,60,62,64,66,68,70,72,74,76,80,84,86,88,90,92,98\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and enumerates the set of used numbers after the step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 124,
+    "sentence": "The remaining even numbers are $A_{rem,E}^{(6)} = A_{rem,E}^{(5)} \\setminus \\{56,90,98\\} = \\{2,4,\\ldots,54,78,82,94,96,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the remaining numbers via a set difference and lists them.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 125,
+    "sentence": "7. Try to make $S_k=64^2=4096$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next target to achieve (making the sum a specific square).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 126,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 4096-S_{68}=4096-3844=252$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the required additional sum by subtracting current partial sum from the target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 127,
+    "sentence": "($k'$ is 68 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the reference index k' for the current step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 128,
+    "sentence": "We need $j=3$ distinct numbers from $A_{rem,E}^{(6)}$ that sum to 252.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended next action: find 3 numbers summing to the required value.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 129,
+    "sentence": "Average is $252/3 = 84$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average of the three numbers to guide selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 130,
+    "sentence": "We can choose $a_{69}=54, a_{70}=96, a_{71}=100$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Selects specific values for the next terms explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 131,
+    "sentence": "These are distinct, even, and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers meet the constraints (distinct, even, available).",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 132,
+    "sentence": "So $S_{71} = 3844+252 = 4096 = 64^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the computation to confirm the partial sum hits the target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 133,
+    "sentence": "This adds one more square, for a total of $56+1=57$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the total number of squares with an explicit arithmetic increment.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 134,
+    "sentence": "The set of used numbers is now $A_{used,O} \\cup \\{54,56,58,60,62,64,66,68,70,72,74,76,80,82,84,86,88,90,92,96,98,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and lists the set of used numbers after the selection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 135,
+    "sentence": "This accounts for all 50 odd numbers and 22 even numbers (total 72 numbers).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks and summarizes counts of used numbers to ensure consistency.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 136,
+    "sentence": "The remaining even numbers are $A_{rem,E}^{(7)} = A_{rem,E}^{(6)} \\setminus \\{54,96,100\\} = \\{2,4,\\ldots,52,78,82,94\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and lists the remaining even numbers via set difference.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 137,
+    "sentence": "8. Try to make $S_k=66^2=4356$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next target square to achieve.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 138,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 4356-S_{71}=4356-4096=260$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the needed sum difference to reach the new target square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 139,
+    "sentence": "($k'$ is 71 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the current reference index k'.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 140,
+    "sentence": "We need $j=3$ distinct numbers from $A_{rem,E}^{(7)}$ that sum to 260.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended task of finding 3 numbers with a given sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 141,
+    "sentence": "Average is $260/3 \\approx 86.67$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average for the 3-term target sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 142,
+    "sentence": "The numbers remaining are $\\{2,4,\\ldots,52\\} \\cup \\{78,82,94\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the current remaining numbers explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 143,
+    "sentence": "The largest three numbers available are $94,82,78$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the three largest available numbers from the set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 144,
+    "sentence": "Their sum is $94+82+78=254$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the sum of the chosen three numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 145,
+    "sentence": "Since $254 < 260$, it is impossible to find 3 distinct numbers from $A_{rem,E}^{(7)}$ that sum to 260.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduction that 3-term sum cannot reach 260 based on the maximum possible sum 254.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 146,
+    "sentence": "Thus, $S_k=66^2$ (or any higher square) cannot be formed with 3 terms using the remaining numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Generalizes the impossibility of forming 66^2 or higher squares with only 3 terms.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 147,
+    "sentence": "The number of terms must increase for higher sums.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the strategy to increase the number of terms for larger sums.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 148,
+    "sentence": "Let's check $j=4$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to testing the next case with four terms.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 149,
+    "sentence": "$S_j^{min} = 4(5)=20$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the minimal possible sum with 4 smallest available even numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 150,
+    "sentence": "$S_j^{max} = 4(97)=388$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the maximal possible sum with 4 largest available even numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 151,
+    "sentence": "So $j=4$ is possible for sum 260.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes feasibility of achieving 260 with four terms from the bounds.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 152,
+    "sentence": "The smallest 4 available numbers are $2,4,8,12$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates the smallest four available numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 153,
+    "sentence": "(Need to ensure 6,10 are not available from previous steps.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes checking availability of specific numbers to validate the enumeration.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 154,
+    "sentence": "They are not).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the unavailability of 6 and 10.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 155,
+    "sentence": "$2+4+8+12=26$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the sum of the smallest four numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 156,
+    "sentence": "Largest 4 available numbers: $94+82+78+52=306$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies and sums the largest four available numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 157,
+    "sentence": "(52 is largest from $\\{2, \\ldots, 52\\}$ part).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains why 52 is chosen among the lower block as the largest.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 158,
+    "sentence": "So the sum of 4 numbers from $A_{rem,E}^{(7)}$ needs to be 260.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the immediate objective to find four numbers summing to 260.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 159,
+    "sentence": "Average $260/4=65$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average needed per term for four numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 160,
+    "sentence": "This means we need some numbers above 65 and some below.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the distribution of chosen numbers around the average 65.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 161,
+    "sentence": "Try picking numbers $\\{52,78,82, X\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Suggests a tentative set of numbers to try without commitment.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 162,
+    "sentence": "$52+78+82+X = 212+X=260 \\implies X=48$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a calculation to solve for X.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 163,
+    "sentence": "$48 \\in \\{2, \\ldots, 52\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the computed X is within the available set.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 164,
+    "sentence": "So $a_{72}=48, a_{73}=52, a_{74}=78, a_{75}=82$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assigns specific values to sequence positions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 165,
+    "sentence": "These are distinct, even and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the chosen numbers meet distinctness and availability conditions.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 166,
+    "sentence": "So $S_{75}=4096+260=4356=66^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the new partial sum and shows it equals a perfect square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 167,
+    "sentence": "This adds one more square, for a total of $57+1=58$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the count of squares based on the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 168,
+    "sentence": "The set of used numbers is $A_{used,O} \\cup \\{48,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the set of used numbers explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 169,
+    "sentence": "This accounts for 50 odd and 26 even numbers (total 76 numbers).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks and reports the count of used odds and evens.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 170,
+    "sentence": "The remaining even numbers are $A_{rem,E}^{(8)} = A_{rem,E}^{(7)} \\setminus \\{48,52,78,82\\} = \\{2,4,\\ldots,46\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives and states the remaining even numbers set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 171,
+    "sentence": "9. Try to make $S_k=68^2=4624$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next target sum to achieve.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 172,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 4624-S_{75}=4624-4356=268$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the required incremental sum to reach the next square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 173,
+    "sentence": "($k'$ is 75 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the index being referenced in the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 174,
+    "sentence": "We need $j$ distinct numbers from $A_{rem,E}^{(8)}$ that sum to 268.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the selection requirement for j numbers to meet the target sum.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 175,
+    "sentence": "$j(j+1) \\le 268 \\le j(101-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies previously established bounds to the current sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 176,
+    "sentence": "$j=4: 4(5)=20 \\le 268 \\le 4(97)=388$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the bounds for a specific j value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 177,
+    "sentence": "(Yes, $j=4$ is possible)\nThe largest 4 numbers available are $46,44,42,40$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes j=4 is feasible and identifies the largest four candidates.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 178,
+    "sentence": "Their sum is $46+44+42+40=172$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the sum of the selected four numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 179,
+    "sentence": "Since $172 < 268$, we cannot choose 4 numbers to sum to 268.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Judges impossibility based on the computed sum being too small.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 180,
+    "sentence": "The remaining numbers are all relatively small.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assesses the remaining numbers qualitatively to support the conclusion.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 181,
+    "sentence": "The sum of all remaining numbers $A_{rem,E}^{(8)}$ is $2+4+\\ldots+46 = 23 \\times 24 = 552$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the total sum of the remaining numbers explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 182,
+    "sentence": "So we need more numbers $j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the decision to increase the number of terms to try next.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 183,
+    "sentence": "$j=5: 5(6)=30 \\le 268 \\le 5(96)=480$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates feasibility bounds for j=5 using min/max sums.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 184,
+    "sentence": "Smallest 5: $2+4+6+8+10=30$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the smallest possible sum for 5 numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 185,
+    "sentence": "Largest 5: $46+44+42+40+38=210$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the largest possible sum for 5 numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 186,
+    "sentence": "$210 < 268$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a numerical comparison showing insufficiency.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 187,
+    "sentence": "So 5 numbers are not enough.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes from calculations that 5 numbers are insufficient.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 188,
+    "sentence": "$j=6: 6(7)=42 \\le 268 \\le 6(95)=570$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates feasibility bounds for j=6 using min/max sums.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 189,
+    "sentence": "Largest 6: $46+44+42+40+38+36=246$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the largest possible sum for 6 numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 190,
+    "sentence": "$246 < 268$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a numerical comparison showing insufficiency.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 191,
+    "sentence": "So 6 numbers are not enough.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes from calculations that 6 numbers are insufficient.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 192,
+    "sentence": "$j=7: 7(8)=56 \\le 268 \\le 7(94)=658$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates feasibility bounds for j=7 using min/max sums.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 193,
+    "sentence": "Largest 7: $46+44+42+40+38+36+34=280$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the largest possible sum for 7 numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 194,
+    "sentence": "So $j=7$ is possible.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers feasibility for j=7 from the computed bounds.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 195,
+    "sentence": "We need $a_{76}, \\ldots, a_{82}$ from $A_{rem,E}^{(8)}$ to sum to 268.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next step: select 7 specific terms to reach the target sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 196,
+    "sentence": "Average $268/7 \\approx 38.28$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the average needed per term.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 197,
+    "sentence": "The largest 7 numbers sum to 280.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the computed sum of the largest 7 numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 198,
+    "sentence": "We need to reduce by 12.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the required adjustment (difference 280 to 268).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 199,
+    "sentence": "$\\{34,36,38,40,42,44,46\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the chosen 7 largest numbers explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 200,
+    "sentence": "We can replace 46 with $46-12=34$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes an adjustment step to achieve the target sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 201,
+    "sentence": "But 34 is in the set.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the feasibility of the previous replacement by noting duplication in the chosen set.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 202,
+    "sentence": "Replace $44$ with $32$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes a specific adjustment to the set to achieve the required sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 203,
+    "sentence": "$32 \\in A_{rem,E}^{(8)}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the availability of 32 in the remaining set to validate the plan.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 204,
+    "sentence": "So $\\{32,34,36,38,40,42,46\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the constructed set after the replacement.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 205,
+    "sentence": "Sum $280-12=268$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the arithmetic to confirm the target sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 206,
+    "sentence": "So $a_{76}=32, a_{77}=34, a_{78}=36, a_{79}=38, a_{80}=40, a_{81}=42, a_{82}=46$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assigns the selected numbers to sequence positions explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 207,
+    "sentence": "These are distinct, even, and available.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the chosen numbers satisfy the constraints (distinct, even, available).",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 208,
+    "sentence": "So $S_{82}=4356+268=4624=68^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the partial sum and shows it equals the intended square.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 209,
+    "sentence": "This adds one more square, for a total of $58+1=59$ squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the count of squares by adding the new one.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 210,
+    "sentence": "The set of used numbers is $A_{used,O} \\cup \\{32,34,36,38,40,42,46,48,52,54,56,58,60,62,64,66,68,70,72,74,76,78,80,82,84,86,88,90,92,94,96,98,100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Records the updated set of used numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 211,
+    "sentence": "(50 odd + 33 even = 83 numbers).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks the count of used numbers for consistency.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 212,
+    "sentence": "The remaining even numbers are $A_{rem,E}^{(9)} = A_{rem,E}^{(8)} \\setminus \\{32,34,36,38,40,42,46\\} = \\{2,4,6,8,10,12,14,16,18,20,22,24,26,28,30\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and states the remaining even numbers set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 213,
+    "sentence": "(15 numbers).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Verifies the cardinality of the remaining set.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 214,
+    "sentence": "10.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A meta, content-free step indicator.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 215,
+    "sentence": "Try to make $S_k=70^2=4900$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next goal to target the next square sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 216,
+    "sentence": "We need $\\sum_{i=k'+1}^k a_i = 4900-S_{82}=4900-4624=276$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the required additional sum to reach 70^2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 217,
+    "sentence": "($k'$ is 82 here).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the notation for the current index.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 218,
+    "sentence": "We need $j$ distinct numbers from $A_{rem,E}^{(9)}$ that sum to 276.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the next action: select j numbers summing to the target.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 219,
+    "sentence": "The sum of all numbers in $A_{rem,E}^{(9)}$ is $2+4+\\ldots+30 = 15 \\times 16 = 240$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the total sum of the remaining even numbers.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 220,
+    "sentence": "Since $240 < 276$, it is impossible to sum to 276 using the remaining numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes impossibility by comparing available sum to required sum.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 221,
+    "sentence": "Therefore, we have found a construction that yields 59 squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes from the constructed sequence how many squares were achieved, summarizing the result of previous calculations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 222,
+    "sentence": "It is generally hard to prove the maximum without a more global argument.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides a general observation about proof strategy and difficulty, not executing steps or giving the answer.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 223,
+    "sentence": "The \"bad numbers\" argument provided an upper bound of 74, but that was a loose bound.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates a previously mentioned upper bound and characterizes it as loose, analyzing bounds.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 224,
+    "sentence": "The most squares are usually obtained when $a_i$ values are close to each other.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a heuristic principle about when many squares are obtained, offering conceptual analysis.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 225,
+    "sentence": "By choosing $a_k = 2k-1$, we use up all the odd numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the effect of the chosen sequence a_k = 2k-1 on the set of used numbers.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 226,
+    "sentence": "Then using the even numbers carefully allows for more squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes how careful selection of even numbers contributes to obtaining more squares.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 227,
+    "sentence": "Final number of squares: 59.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final count directly as the solution to the problem.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 228,
+    "sentence": "The final answer is $\\boxed{59}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly presents the final answer.",
+    "sentence-category": "Answer"
+  }
+]

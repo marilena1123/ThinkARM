@@ -1,0 +1,282 @@
+[
+  {
+    "sentence": "We are given a graph $ G $, and we define: - $ f(G) $: the number of **triangles** in $ G $,\n- $ g(G) $: the number of **tetrahedra** (i.e., $ K_4 $ subgraphs) in $ G $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given graph and defines f(G) and g(G) exactly as in the problem.",
+    "sentence-category": "Read",
+    "index": 1
+  },
+  {
+    "sentence": "We are to find the **least constant** $ c $ such that for all finite graphs $ G $: $$\ng(G)^3 \\le c \\cdot f(G)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the goal: find the least constant c satisfying the inequality for all graphs.",
+    "sentence-category": "Read",
+    "index": 2
+  },
+  {
+    "sentence": "### Step 1: Understand the problem",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to understand the problem.",
+    "sentence-category": "Plan",
+    "index": 3
+  },
+  {
+    "sentence": "We are comparing the number of **tetrahedra** in a graph with the **fourth power** of the number of **triangles**, and we want the **tightest possible inequality** of the form: $$\ng(G)^3 \\le c \\cdot f(G)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rephrases the objective and inequality without advancing computations.",
+    "sentence-category": "Read",
+    "index": 4
+  },
+  {
+    "sentence": "This is a **graph-theoretic extremal inequality**, and such problems often reduce to analyzing **extremal graphs** \u2014 graphs that maximize the left-hand side for a fixed right-hand side, or vice versa.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the problem type and discusses typical extremal-graph approach.",
+    "sentence-category": "Analyze",
+    "index": 5
+  },
+  {
+    "sentence": "### Step 2: Use Tur\u00e1n's Theorem (inspiration)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Declares an intended approach using Tur\u00e1n's theorem.",
+    "sentence-category": "Plan",
+    "index": 6
+  },
+  {
+    "sentence": "Tur\u00e1n's theorem gives the maximum number of edges in a graph that does **not** contain a complete subgraph $ K_r $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls the statement of Tur\u00e1n's theorem relevant background.",
+    "sentence-category": "Analyze",
+    "index": 7
+  },
+  {
+    "sentence": "But we are dealing with **triangles** and **tetrahedra**, so we look at the **Tur\u00e1n graph** $ T_n(3) $, which is a **complete 3-partite** graph with each part as equal as possible.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes applicability by considering T_n(3) and describing its structure.",
+    "sentence-category": "Analyze",
+    "index": 8
+  },
+  {
+    "sentence": "This graph is **triangle-free** (or has few triangles), so it's **not** helpful here.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates that T_n(3) is not helpful due to triangle properties.",
+    "sentence-category": "Analyze",
+    "index": 9
+  },
+  {
+    "sentence": "Instead, we consider **dense graphs** \u2014 the **complete graph** $ K_n $ is a natural candidate for maximizing the number of triangles and tetrahedra.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to consider K_n as the candidate extremal graph.",
+    "sentence-category": "Plan",
+    "index": 10
+  },
+  {
+    "sentence": "### Step 3: Count triangles and tetrahedra in $ K_n $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the plan to count triangles and tetrahedra in K_n.",
+    "sentence-category": "Plan",
+    "index": 11
+  },
+  {
+    "sentence": "Let\u2019s compute $ f(K_n) $ and $ g(K_n) $: - In $ K_n $, the number of triangles is:\n  $$\n  f(K_n) = \\binom{n}{3}\n  $$\n- The number of tetrahedra is:\n  $$\n  g(K_n) = \\binom{n}{4}\n  $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the computation of f(K_n) and g(K_n) with explicit formulas.",
+    "sentence-category": "Implement",
+    "index": 12
+  },
+  {
+    "sentence": "Now compute the ratio: $$\n\\frac{g(K_n)^3}{f(K_n)^4}\n= \\frac{ \\left( \\binom{n}{4} \\right)^3 }{ \\left( \\binom{n}{3} \\right)^4 }\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up and computes the ratio expression using the obtained counts.",
+    "sentence-category": "Implement",
+    "index": 13
+  },
+  {
+    "sentence": "Let\u2019s simplify this ratio: $$\n\\binom{n}{4} = \\frac{n(n-1)(n-2)(n-3)}{24}, \\quad \\binom{n}{3} = \\frac{n(n-1)(n-2)}{6}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expands binomial coefficients into factorial forms to simplify the ratio.",
+    "sentence-category": "Implement",
+    "index": 14
+  },
+  {
+    "sentence": "So: $$\n\\left( \\binom{n}{4} \\right)^3 = \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3\n$$\n$$\n\\left( \\binom{n}{3} \\right)^4 = \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the explicit powers of the binomial expressions.",
+    "sentence-category": "Implement",
+    "index": 15
+  },
+  {
+    "sentence": "So the ratio becomes: $$\n\\frac{ \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3 }{ \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4 }\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the combined ratio in expanded form to proceed with simplification.",
+    "sentence-category": "Implement",
+    "index": 16
+  },
+  {
+    "sentence": "Let\u2019s simplify numerator and denominator: Let\u2019s write: $$\n\\frac{ \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3 }{ \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4 } = \\frac{ \\left( \\frac{A}{24} \\right)^3 }{ \\left( \\frac{A}{6} \\cdot (n-3) \\right)^4 }\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Attempts an algebraic manipulation to simplify numerator and denominator.",
+    "sentence-category": "Implement",
+    "index": 17
+  },
+  {
+    "sentence": "Wait, maybe a better approach is to factor and simplify directly.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes an alternative simplification approach with uncertainty.",
+    "sentence-category": "Explore",
+    "index": 18
+  },
+  {
+    "sentence": "Let\u2019s write: $$\n\\frac{ \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3 }{ \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4 } = \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3 \\cdot \\left( \\frac{6}{n(n-1)(n-2)} \\right)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs another algebraic rewriting of the ratio for simplification.",
+    "sentence-category": "Implement",
+    "index": 19
+  },
+  {
+    "sentence": "Now simplify: - Numerator: $ \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3 $\n- Denominator: $ \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4 = \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Directs and outlines further simplification steps of the expressions.",
+    "sentence-category": "Implement",
+    "index": 20
+  },
+  {
+    "sentence": "Let\u2019s factor out $ \\left( \\frac{n(n-1)(n-2)}{24} \\right)^3 $ from numerator and denominator.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next operation to factor out a common term.",
+    "sentence-category": "Plan",
+    "index": 21
+  },
+  {
+    "sentence": "Let\u2019s write: $$\n\\frac{ \\left( \\frac{n(n-1)(n-2)(n-3)}{24} \\right)^3 }{ \\left( \\frac{n(n-1)(n-2)}{6} \\right)^4 } = \\left( \\frac{n(n-1)(n-2)}{24} \\right)^3 \\cdot \\left( \\frac{n-3}{1} \\right)^3 \\cdot \\left( \\frac{6}{n(n-1)(n-2)} \\right)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the factoring with an explicit equality.",
+    "sentence-category": "Implement",
+    "index": 22
+  },
+  {
+    "sentence": "So: $$\n= \\left( \\frac{n(n-1)(n-2)}{24} \\right)^3 \\cdot (n-3)^3 \\cdot \\left( \\frac{6}{n(n-1)(n-2)} \\right)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues the algebraic simplification with explicit expressions.",
+    "sentence-category": "Implement",
+    "index": 23
+  },
+  {
+    "sentence": "Now simplify: Let\u2019s denote $ A = n(n-1)(n-2) $, then: $$\n= \\left( \\frac{A}{24} \\right)^3 \\cdot (n-3)^3 \\cdot \\left( \\frac{6}{A} \\right)^4\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a notation and rewrites the expression to simplify; executing computation.",
+    "sentence-category": "Implement",
+    "index": 24
+  },
+  {
+    "sentence": "$$\n= \\frac{A^3}{24^3} \\cdot (n-3)^3 \\cdot \\frac{6^4}{A^4}\n= \\frac{6^4 (n-3)^3}{24^3 A}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs algebraic simplification to a reduced form.",
+    "sentence-category": "Implement",
+    "index": 25
+  },
+  {
+    "sentence": "$$\n= \\frac{1296 (n-3)^3}{13824 A}\n= \\frac{(n-3)^3}{10.714 A}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes numerical values and simplifies the fraction.",
+    "sentence-category": "Implement",
+    "index": 26
+  },
+  {
+    "sentence": "Now, $ A = n(n-1)(n-2) \\approx n^3 $, so the whole expression behaves like $ \\frac{(n-3)^3}{n^3} \\to 1 $ as $ n \\to \\infty $, so the ratio tends to a constant.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes asymptotic behavior and infers the ratio tends to a constant.",
+    "sentence-category": "Analyze",
+    "index": 27
+  },
+  {
+    "sentence": "Let\u2019s compute the **exact value** of the ratio for large $ n $, or compute the **limit** as $ n \\to \\infty $: $$\n\\frac{g(K_n)^3}{f(K_n)^4} = \\frac{ \\left( \\binom{n}{4} \\right)^3 }{ \\left( \\binom{n}{3} \\right)^4 }\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States intent to compute the limit/exact value for large n and sets up the ratio.",
+    "sentence-category": "Plan",
+    "index": 28
+  },
+  {
+    "sentence": "We can now use **asymptotic approximations** for binomial coefficients.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the method of using asymptotic approximations.",
+    "sentence-category": "Plan",
+    "index": 29
+  },
+  {
+    "sentence": "We know: - $ \\binom{n}{3} \\sim \\frac{n^3}{6} $\n- $ \\binom{n}{4} \\sim \\frac{n^4}{24} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls known asymptotic formulas for binomial coefficients.",
+    "sentence-category": "Analyze",
+    "index": 30
+  },
+  {
+    "sentence": "So: $$\n\\frac{g(K_n)^3}{f(K_n)^4} \\sim \\frac{ \\left( \\frac{n^4}{24} \\right)^3 }{ \\left( \\frac{n^3}{6} \\right)^4 } = \\frac{ \\frac{n^{12}}{24^3} }{ \\frac{n^{12}}{6^4} } = \\frac{6^4}{24^3} = \\frac{1296}{13824}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the approximations to compute the asymptotic ratio.",
+    "sentence-category": "Implement",
+    "index": 31
+  },
+  {
+    "sentence": "Now simplify: $$\n\\frac{1296}{13824} = \\frac{1}{10.666...} = \\frac{1}{10 + \\frac{2}{3}} = \\frac{3}{32}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Simplifies the numerical fraction to a closed form.",
+    "sentence-category": "Implement",
+    "index": 32
+  },
+  {
+    "sentence": "\u2705 So the **limit** is: $$\n\\lim_{n \\to \\infty} \\frac{g(K_n)^3}{f(K_n)^4} = \\frac{3}{32}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed limit as a conclusion of the calculation.",
+    "sentence-category": "Implement",
+    "index": 33
+  },
+  {
+    "sentence": "### Step 4: Conclude the best constant $ c $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to conclude the best constant.",
+    "sentence-category": "Plan",
+    "index": 34
+  },
+  {
+    "sentence": "We want the **least constant** $ c $ such that: $$\ng(G)^3 \\le c \\cdot f(G)^4 \\quad \\text{for all finite graphs } G\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem\u2019s target inequality and goal.",
+    "sentence-category": "Read",
+    "index": 35
+  },
+  {
+    "sentence": "We have shown that for the **complete graph** $ K_n $, the ratio $ \\frac{g(K_n)^3}{f(K_n)^4} \\to \\frac{3}{32} $ as $ n \\to \\infty $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls the derived limit for the complete graph to use in reasoning.",
+    "sentence-category": "Analyze",
+    "index": 36
+  },
+  {
+    "sentence": "So, for any $ c < \\frac{3}{32} $, the inequality will **fail** for large enough complete graphs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deductive implication that smaller constants would fail for large n.",
+    "sentence-category": "Analyze",
+    "index": 37
+  },
+  {
+    "sentence": "Therefore, the **least possible constant** $ c $ is: $$\n\\boxed{\\frac{3}{32}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final value of the least constant.",
+    "sentence-category": "Answer",
+    "index": 38
+  },
+  {
+    "sentence": "This is the **best possible** constant for the inequality to hold for all graphs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates and asserts optimality of the obtained constant.",
+    "sentence-category": "Verify",
+    "index": 39
+  },
+  {
+    "sentence": "### \u2705 Final Answer: $$\n\\boxed{\\frac{3}{32}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the final explicit answer.",
+    "sentence-category": "Answer",
+    "index": 40
+  }
+]

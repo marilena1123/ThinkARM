@@ -1,0 +1,149 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are asked to find a **nonzero polynomial** $ P(x, y) $ such that",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of the problem to find a nonzero polynomial with a property.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "$$\nP(\\lfloor a \\rfloor, \\lfloor 2a \\rfloor) = 0 \\quad \\text{for all real numbers } a.\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the exact condition from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "### Step 1: Understand the relationship between $ \\lfloor a \\rfloor $ and $ \\lfloor 2a \\rfloor $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to understand the relationship between floor terms.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 4,
+    "sentence": "Let\u2019s denote:\n- $ x = \\lfloor a \\rfloor $\n- $ y = \\lfloor 2a \\rfloor $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation x and y explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 5,
+    "sentence": "We want to find a relation between $ x $ and $ y $, such that for every real number $ a $, the pair $ (x, y) $ satisfies a polynomial equation $ P(x, y) = 0 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the objective to find a relation between x and y; sets the intended direction.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 6,
+    "sentence": "### Step 2: Express $ a $ in terms of its integer and fractional parts",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to express a in integer and fractional parts.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 7,
+    "sentence": "Let\u2019s write:\n$$\na = n + f, \\quad \\text{where } n = \\lfloor a \\rfloor, \\quad 0 \\le f < 1\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the decomposition of a into integer and fractional parts and defines n and f.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "Then:\n$$\n2a = 2n + 2f, \\quad \\text{so } \\lfloor 2a \\rfloor = \\lfloor 2n + 2f \\rfloor = 2n + \\lfloor 2f \\rfloor\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out algebra leading to an expression for floor(2a).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "So:\n$$\ny = \\lfloor 2a \\rfloor = 2n + \\lfloor 2f \\rfloor\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes to express y in terms of n and floor(2f).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "Now, since $ 0 \\le f < 1 $, we have:\n- If $ 0 \\le f < \\frac{1}{2} $, then $ 0 \\le 2f < 1 $, so $ \\lfloor 2f \\rfloor = 0 $\n- If $ \\frac{1}{2} \\le f < 1 $, then $ 1 \\le 2f < 2 $, so $ \\lfloor 2f \\rfloor = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs case analysis on f to compute floor(2f).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "Therefore, $ \\lfloor 2f \\rfloor $ is either 0 or 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes from the case analysis that floor(2f) is 0 or 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "So $ y $ is either $ 2n $ or $ 2n + 1 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the two possible values of y from previous results.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "So:\n- When $ a \\in [n, n + \\frac{1}{2}) $, then $ y = 2n $\n- When $ a \\in [n + \\frac{1}{2}, n + 1) $, then $ y = 2n + 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the cases for a and the corresponding y values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "### Step 3: Find a polynomial that vanishes on these values",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the plan to find a polynomial vanishing on those values.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 15,
+    "sentence": "Let\u2019s define a function:\n$$\nP(x, y) = (y - 2x)(y - 2x - 1)\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the specific polynomial P(x,y).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "We will check whether this polynomial vanishes for all $ a \\in \\mathbb{R} $, i.e., for all $ x = \\lfloor a \\rfloor $, $ y = \\lfloor 2a \\rfloor $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intention to check the polynomial property for all a.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 17,
+    "sentence": "Let\u2019s check both cases: - If $ a \\in [n, n + \\frac{1}{2}) $, then $ y = 2n $, so:\n  $$\n  P(x, y) = (2n - 2n)(2n - 2n - 1) = 0 \\cdot (-1) = 0\n  $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the computation for the first case showing P(x,y)=0.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "- If $ a \\in [n + \\frac{1}{2}, n + 1) $, then $ y = 2n + 1 $, so:\n  $$\n  P(x, y) = (2n + 1 - 2n)(2n + 1 - 2n - 1) = 1 \\cdot 0 = 0\n  $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the computation for the second case showing P(x,y)=0.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "So in both cases, $ P(x, y) = 0 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes the check by confirming the polynomial vanishes in both cases.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 20,
+    "sentence": "### \u2705 Final Answer: $$\n\\boxed{P(x, y) = (y - 2x)(y - 2x - 1)}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the final polynomial as the answer.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 21,
+    "sentence": "This is a **nonzero polynomial** in $ x $ and $ y $, and it satisfies:\n$$\nP(\\lfloor a \\rfloor, \\lfloor 2a \\rfloor) = 0 \\quad \\text{for all real } a.\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Asserts that the constructed polynomial is nonzero and confirms it satisfies the required property, serving as a correctness confirmation rather than introducing new computations or the explicit expression.",
+    "sentence-category": "Verify"
+  }
+]

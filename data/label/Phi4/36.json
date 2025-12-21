@@ -1,0 +1,170 @@
+[
+  {
+    "index": 1,
+    "sentence": "To solve this problem, we need to find the number of 10-digit numbers \\(\\overline{a_1 a_2 \\cdots a_{10}}\\) such that: 1. The digits are non-increasing: \\(a_i \\geq a_{i+1}\\) for \\(1 \\leq i \\leq 9\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem\u2019s constraints and goal directly from the prompt.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Placeholder list marker without substantive content; a brief transition.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 3,
+    "sentence": "The number is a multiple of 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the second condition from the problem (multiple of 11).",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "A number is a multiple of 11 if the alternating sum of its digits is a multiple of 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls the divisibility rule for 11 as background theory.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "For the number \\(\\overline{a_1 a_2 \\cdots a_{10}}\\), this condition is: \\[\na_1 - a_2 + a_3 - a_4 + a_5 - a_6 + a_7 - a_8 + a_9 - a_{10} \\equiv 0 \\pmod{11}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the rule to express the condition symbolically for this number.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "Since the digits are non-increasing, we have \\(a_1 \\geq a_2 \\geq \\cdots \\geq a_{10}\\), and each \\(a_i\\) is a digit from 0 to 9.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes constraints implied by non-increasing digits and digit range.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "Additionally, since it is a 10-digit number, \\(a_1 \\neq 0\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the leading digit must be nonzero for a 10-digit number.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "To simplify the problem, consider the transformation \\(b_i = a_i\\) for odd \\(i\\) and \\(b_i = -a_i\\) for even \\(i\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces and defines a new transformed sequence b_i.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "The condition becomes: \\[\nb_1 + b_2 + b_3 + b_4 + b_5 + b_6 + b_7 + b_8 + b_9 + b_{10} \\equiv 0 \\pmod{11}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites the 11-divisibility condition in terms of the new variables.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "Given the non-increasing condition, we have: \\[\nb_1 \\geq b_2 \\geq b_3 \\geq \\cdots \\geq b_{10}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Claims a monotonicity relationship for the transformed sequence.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "Since \\(b_i = a_i\\) for odd \\(i\\) and \\(b_i = -a_i\\) for even \\(i\\), the sequence \\(b_1, b_2, \\ldots, b_{10}\\) is non-increasing with \\(b_1, b_3, b_5, b_7, b_9 \\geq 0\\) and \\(b_2, b_4, b_6, b_8, b_{10} \\leq 0\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Further deduces sign properties and monotonicity of the transformed sequence.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "To count the number of such sequences, we use generating functions.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the chosen method to proceed: use generating functions.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 13,
+    "sentence": "Define: - \\(x_i\\) for \\(i = 0, 1, \\ldots, 9\\) as the number of times digit \\(i\\) appears in the sequence.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up notation for counts of digit occurrences.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "- The generating function for each \\(b_i\\) is \\((1 + x + x^2 + \\cdots + x^9)\\) for positive \\(b_i\\) and \\((1 + x^{-1} + x^{-2} + \\cdots + x^{-9})\\) for negative \\(b_i\\).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Constructs the generating functions for positive and negative b_i.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "The generating function for the sequence is: \\[\n\\left(\\frac{1-x^{10}}{1-x}\\right)^5 \\left(\\frac{1-x^{-10}}{1-x^{-1}}\\right)^5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Forms the overall generating function for the sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "Simplifying, we have: \\[\n\\left(\\frac{1-x^{10}}{1-x}\\right)^5 \\left(\\frac{x^{10}-1}{x^9-x^{-9}}\\right)^5 = x^{-45} \\left(\\frac{1-x^{10}}{1-x}\\right)^{10}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Algebraically simplifies the generating function.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "We need the coefficient of \\(x^0\\) in this expansion, which corresponds to the sum being zero modulo 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the target coefficient to extract as the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 18,
+    "sentence": "The generating function simplifies to: \\[\nx^{-45} (1-x^{10})^{10} (1-x)^{-10}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs further simplification of the generating function expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "Using the binomial theorem, expand: \\[\n(1-x^{10})^{10} = \\sum_{k=0}^{10} \\binom{10}{k} (-1)^k x^{10k},\n\\]\n\\[\n(1-x)^{-10} = \\sum_{m=0}^{\\infty} \\binom{m+9}{9} x^m.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expands the simplified generating functions using binomial series.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "We need the coefficient of \\(x^{45}\\) in: \\[\n\\sum_{k=0}^{10} \\binom{10}{k} (-1)^k x^{10k} \\sum_{m=0}^{\\infty} \\binom{m+9}{9} x^m.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the exact coefficient to extract from the product series.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 21,
+    "sentence": "This is: \\[\n\\sum_{k=0}^{10} \\binom{10}{k} (-1)^k \\binom{54-10k}{9}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a specific summation formula as the concrete mathematical expression for the quantity being counted.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "We need this sum to be divisible by 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the logical requirement/condition (divisibility by 11) that must hold for the expression, without performing calculations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "By symmetry and properties of binomial coefficients, the sum evaluates to 0 modulo 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses theoretical properties to deduce that the sum is 0 modulo 11, a logical inference rather than computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "Thus, the number of such 10-digit numbers is: \\[\n\\boxed{43758}.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the final stated result of the problem.",
+    "sentence-category": "Answer"
+  }
+]

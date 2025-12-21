@@ -1,0 +1,233 @@
+[
+  {
+    "index": 1,
+    "sentence": "To find the rightmost non-zero digit of the expansion of $(20)(13!)$, we first need to determine the number of trailing zeros in this product.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the strategy to first determine trailing zeros before finding the digit.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 2,
+    "sentence": "The number of trailing zeros is determined by the number of factors of 10 in the prime factorization of the number.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the principle linking trailing zeros to factors of 10.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 3,
+    "sentence": "Since $10 = 2 \\times 5$, we need to count the number of factors of 5 and 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces counting factors of 2 and 5 from 10 = 2\u00d75.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "The minimum of these two counts will be the number of trailing zeros.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the rule that the minimum count determines trailing zeros.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "Let $N = (20)(13!)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation by defining N.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "1.  **Count the factors of 5 ($v_5(N)$):**\n    *   For 20: $20 = 2^2 \\times 5^1$, so $v_5(20) = 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Starts computation and calculates v5 for 20.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "*   For 13!",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Indicates the next subcase to compute for 13!.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 8,
+    "sentence": ": We use Legendre's formula, $v_p(n!) = \\sum_{k=1}^{\\infty} \\lfloor n/p^k \\rfloor$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces and cites Legendre's formula to be used.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "$v_5(13!) = \\lfloor 13/5 \\rfloor + \\lfloor 13/25 \\rfloor + \\dots = 2 + 0 = 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the formula to compute v5(13!).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "(The numbers are 5 and 10).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains which terms contribute factors of 5 in 13!.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "*   Total factors of 5 in N: $v_5(N) = v_5(20) + v_5(13!) = 1 + 2 = 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes total v5(N) by summing components.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "2.  **Count the factors of 2 ($v_2(N)$):**\n    *   For 20: $v_2(20) = 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes v2 for 20.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "*   For 13!",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Signals the next subcase to compute for 13!.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 14,
+    "sentence": ":\n        $v_2(13!) = \\lfloor 13/2 \\rfloor + \\lfloor 13/4 \\rfloor + \\lfloor 13/8 \\rfloor + \\dots = 6 + 3 + 1 = 10$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates v2(13!) using floors.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "*   Total factors of 2 in N: $v_2(N) = v_2(20) + v_2(13!) = 2 + 10 = 12$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes total v2(N) by summing components.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "3.  **Determine the number of trailing zeros:**\n    The number of trailing zeros is $\\min(v_2(N), v_5(N)) = \\min(12, 3) = 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the number of trailing zeros as the minimum of v2 and v5.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "This means $N$ ends in three zeros.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the computed result as three trailing zeros.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "4.  **Calculate the rightmost non-zero digit:**\n    To find the rightmost non-zero digit, we need to divide $N$ by $10^3$ (since there are 3 trailing zeros) and then find the last digit of the result.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the next step: divide by 10^3 and find last digit.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 19,
+    "sentence": "Let $K = N / 10^3 = (20 \\times 13!) / 1000$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines K and expresses it algebraically.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "We can simplify this expression:\n    $K = (20 \\times 13!) / (20 \\times 50) = 13! / 50$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs algebraic simplification of K.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "Now we need to find the last digit of $13! / 50$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next step to compute the last digit of a transformed expression.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 22,
+    "sentence": "This is equivalent to $(13! / 50) \\pmod{10}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the equivalence between last digit and modulo 10 without performing calculations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "Let's write out $13!$ and divide by $50 = 2 \\times 5 \\times 5$:\n    $K = \\frac{1 \\times 2 \\times 3 \\times 4 \\times 5 \\times 6 \\times 7 \\times 8 \\times 9 \\times 10 \\times 11 \\times 12 \\times 13}{2 \\times 5 \\times 5}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up the explicit product expression and defines K, executing the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "Let's cancel the factors:\n    *   One '5' from the denominator cancels with the '5' in $13!$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs concrete cancellation of a factor of 5.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "*   The other '5' from the denominator cancels with the '10' in $13!$, leaving a '2' ($10/5 = 2$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out cancellation of the second 5 with 10 to leave 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 26,
+    "sentence": "*   The '2' from the denominator cancels with the '2' in $13!$, leaving a '1'.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cancels the remaining 2 with a 2 in the numerator.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 27,
+    "sentence": "So, the expression for $K$ becomes:\n    $K = 1 \\times 1 \\times 3 \\times 4 \\times 1 \\times 6 \\times 7 \\times 8 \\times 9 \\times 2 \\times 11 \\times 12 \\times 13$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the resulting product after cancellations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "(The '1's come from $2/2$, $5/5$, and $10/5$ becoming $2$ and then $2/2$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the origin of the 1s from earlier cancellations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 29,
+    "sentence": "More clearly, we are computing the product of the non-cancelled terms:\n    $(1 \\times 3 \\times 4 \\times 6 \\times 7 \\times 8 \\times 9 \\times (10/5) \\times 11 \\times 12 \\times 13) / (2 \\times 5) \\quad (\\text{after first 5 is cancelled})$\n    $= (1 \\times 3 \\times 4 \\times 6 \\times 7 \\times 8 \\times 9 \\times 2 \\times 11 \\times 12 \\times 13) / 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites and simplifies the product algebraically after cancellations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 30,
+    "sentence": "Now cancelling the remaining 2, e.g., from the factor 2:\n    $K = 1 \\times 3 \\times 4 \\times 6 \\times 7 \\times 8 \\times 9 \\times 2 \\times 11 \\times 12 \\times 13 \\pmod{10}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cancels the remaining 2 and states the product to be computed modulo 10.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 31,
+    "sentence": "Let's compute the product modulo 10:\n    $1 \\times 3 \\equiv 3 \\pmod{10}$\n    $3 \\times 4 = 12 \\equiv 2 \\pmod{10}$\n    $2 \\times 6 = 12 \\equiv 2 \\pmod{10}$\n    $2 \\times 7 = 14 \\equiv 4 \\pmod{10}$\n    $4 \\times 8 = 32 \\equiv 2 \\pmod{10}$\n    $2 \\times 9 = 18 \\equiv 8 \\pmod{10}$\n    $8 \\times 2 = 16 \\equiv 6 \\pmod{10}$ (this '2' came from $10/5$)\n    $6 \\times 11 \\equiv 6 \\times 1 = 6 \\pmod{10}$\n    $6 \\times 12 \\equiv 6 \\times 2 = 12 \\equiv 2 \\pmod{10}$\n    $2 \\times 13 \\equiv 2 \\times 3 = 6 \\pmod{10}$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the step-by-step modular multiplications.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 32,
+    "sentence": "So, the rightmost non-zero digit is 6.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the concluded rightmost non-zero digit.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 33,
+    "sentence": "The final answer is $\\boxed{6}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the final boxed answer.",
+    "sentence-category": "Answer"
+  }
+]

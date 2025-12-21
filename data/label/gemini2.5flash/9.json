@@ -1,0 +1,422 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let the monotone sequence of $n$ distinct reals be $a_1, a_2, \\ldots, a_n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for the given sequence, setting up variables.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "Since the reals are distinct and the sequence is monotone, it must be strictly increasing or strictly decreasing.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers from monotonicity and distinctness that the sequence is strictly monotone.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 3,
+    "sentence": "Without loss of generality, let's assume it's strictly increasing: $a_1 < a_2 < \\ldots < a_n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses a WLOG assumption to proceed with the solution.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 4,
+    "sentence": "A three-term arithmetic progression (AP) is a set of three terms $(x, y, z)$ such that $y-x = z-y$, or equivalently, $2y = x+z$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the defining property of a three-term arithmetic progression.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "Since $a_1 < a_2 < \\ldots < a_n$, if $(a_i, a_j, a_k)$ forms an AP, then $a_i$ must be the smallest term, $a_j$ the middle term, and $a_k$ the largest term.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces ordering of terms in an AP within a strictly increasing sequence.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "This implies that their indices must be in increasing order: $i < j < k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the indices must satisfy i < j < k.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "We want to find the maximum possible number of such triples $(a_i, a_j, a_k)$ satisfying $2a_j = a_i+a_k$ for $1 \\le i < j < k \\le n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the objective and condition to be maximized from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "Let $N$ be the total number of such APs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a variable N to count the total number of APs.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "We can count $N$ by summing, for each possible middle term $a_j$, the number of pairs $(a_i, a_k)$ that form an AP with $a_j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the counting approach by summing over middle terms.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 10,
+    "sentence": "The possible indices for the middle term $a_j$ are $j=2, 3, \\ldots, n-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the allowable range for the middle index j.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "For a fixed $j$, we are looking for pairs $(i, k)$ such that $1 \\le i < j < k \\le n$ and $a_j - a_i = a_k - a_j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the condition on indices and differences for fixed j.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Let $d_{L} = a_j - a_i$ and $d_{R} = a_k - a_j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for left and right differences.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "We need $d_L = d_R$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the equality condition required for an AP in terms of the new notation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "Let $D_L(j) = \\{a_j - a_i \\mid 1 \\le i < j\\}$ be the set of positive differences between $a_j$ and elements to its left.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the set of left-side differences for a fixed j.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Let $D_R(j) = \\{a_k - a_j \\mid j < k \\le n\\}$ be the set of positive differences between elements to its right and $a_j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the set of right-side differences for a fixed j.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "Since the sequence $a_1, \\ldots, a_n$ consists of distinct reals, all the differences $a_j-a_i$ for fixed $j$ and varying $i<j$ are distinct.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Argues that the left differences are all distinct due to distinct terms.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "For example, if $a_j-a_i = a_j-a_p$ for $i \\ne p$, then $a_i=a_p$, which contradicts the distinctness of terms.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides justification for distinctness of left differences.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "Thus, $|D_L(j)| = j-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the cardinality of the left-difference set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "Similarly, all the differences $a_k-a_j$ for fixed $j$ and varying $k>j$ are distinct.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analogous inference that right differences are distinct.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 20,
+    "sentence": "Thus, $|D_R(j)| = n-j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the cardinality of the right-difference set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "For a fixed $a_j$, the number of APs with $a_j$ as the middle term is precisely the number of common elements in $D_L(j)$ and $D_R(j)$, i.e., $|D_L(j) \\cap D_R(j)|$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Connects the count of APs with middle term a_j to the intersection of difference sets; a logical deduction without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "The maximum possible size of this intersection is $\\min(|D_L(j)|, |D_R(j)|) = \\min(j-1, n-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces the maximal possible intersection size as the minimum of the set sizes; conceptual bound.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "Therefore, the total number of APs, $N$, is bounded by the sum of these maximums:\n$N = \\sum_{j=2}^{n-1} |D_L(j) \\cap D_R(j)| \\le \\sum_{j=2}^{n-1} \\min(j-1, n-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up an inequality bounding N by a sum of minima; establishing a bound expression.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "Let's evaluate this sum:\nThe terms $\\min(j-1, n-j)$ increase from $j=2$ up to a maximum value, and then decrease.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Moves to evaluate the sum and observes the unimodal behavior of the terms; analytical characterization.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "The maximum value occurs when $j-1 \\approx n-j$, i.e., $2j \\approx n+1$, or $j \\approx (n+1)/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies where the maximum of the term occurs by equating the two arguments of the minimum.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "Case 1: $n$ is odd.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces casework for n odd, indicating the next step in the solution.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "Let $n = 2k+1$ for some integer $k \\ge 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets n in terms of k for the odd case; establishing notation/parameters.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "The sum becomes $\\sum_{j=2}^{2k} \\min(j-1, 2k+1-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites the summation limits and terms using k; concrete transformation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "The values of $j-1$ range from $1, 2, \\ldots, k-1, k, k+1, \\ldots, 2k-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the range of j-1 values; conceptual characterization without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 30,
+    "sentence": "The values of $2k+1-j$ range from $2k-1, 2k-2, \\ldots, k+1, k, k-1, \\ldots, 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the range of 2k+1-j values; conceptual characterization without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "The sequence of $\\min$ values is $1, 2, \\ldots, k-1, k, k-1, \\ldots, 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the resulting sequence of minima from the two ranges.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "The sum is $(1 + 2 + \\ldots + (k-1)) + k + ((k-1) + \\ldots + 1)$\n$= 2 \\sum_{s=1}^{k-1} s + k = 2 \\frac{(k-1)k}{2} + k = k(k-1) + k = k^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the summation computation to obtain k^2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "Since $n=2k+1$, $k = (n-1)/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes k in terms of n for the odd case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "So $N \\le \\left(\\frac{n-1}{2}\\right)^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the derived bound on N for odd n as a result of the computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "Case 2: $n$ is even.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces casework for n even, outlining the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 36,
+    "sentence": "Let $n = 2k$ for some integer $k \\ge 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets n in terms of k for the even case; establishing parameters.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "The sum becomes $\\sum_{j=2}^{2k-1} \\min(j-1, 2k-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites the summation for the even case using k; concrete transformation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "The values of $j-1$ range from $1, 2, \\ldots, k-1, k, \\ldots, 2k-2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the range of j-1 values; analytical characterization.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 39,
+    "sentence": "The values of $2k-j$ range from $2k-2, 2k-3, \\ldots, k, k-1, \\ldots, 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the range of 2k-j values; analytical characterization.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 40,
+    "sentence": "The sequence of $\\min$ values is $1, 2, \\ldots, k-1, k-1, \\ldots, 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the sequence of minima for the even case.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 41,
+    "sentence": "(The term for $j=k$ is $\\min(k-1, k) = k-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes a specific term in the sum by evaluating a min expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "The term for $j=k+1$ is $\\min(k, k-1) = k-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes another specific term in the sum by evaluating a min expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": ")\nThe sum is $(1 + 2 + \\ldots + (k-1)) + ((k-1) + \\ldots + 1)$\n$= 2 \\sum_{s=1}^{k-1} s = 2 \\frac{(k-1)k}{2} = k(k-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Punctuation closing a parenthetical remark; no mathematical content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 44,
+    "sentence": "Since $n=2k$, $k = n/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Algebraic substitution expressing k in terms of n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "So $N \\le \\frac{n}{2}\\left(\\frac{n}{2}-1\\right) = \\frac{n(n-2)}{4}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the calculation of the bound N using the substitution.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "To show that these bounds are achievable, we need to construct a sequence $a_1, \\ldots, a_n$ for which $|D_L(j) \\cap D_R(j)| = \\min(j-1, n-j)$ for all $j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the strategy to construct a sequence to achieve the bound.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 47,
+    "sentence": "Consider the arithmetic progression $a_x = x$ for $x=1, 2, \\ldots, n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a specific sequence to implement the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 48,
+    "sentence": "This is a strictly increasing sequence of distinct reals.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a property of the constructed sequence without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 49,
+    "sentence": "For this sequence, $a_j - a_i = j-i$ and $a_k - a_j = k-j$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes differences for the chosen sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 50,
+    "sentence": "Then $D_L(j) = \\{j-1, j-2, \\ldots, 1\\}$ (or $\\{1, 2, \\ldots, j-1\\}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the explicit form of the left-difference set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "And $D_R(j) = \\{j+1-j, j+2-j, \\ldots, n-j\\} = \\{1, 2, \\ldots, n-j\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the explicit form of the right-difference set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "The intersection $D_L(j) \\cap D_R(j) = \\{1, 2, \\ldots, \\min(j-1, n-j)\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the intersection of the two sets.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "The size of this intersection is exactly $\\min(j-1, n-j)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the size of the intersection.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 54,
+    "sentence": "Thus, the sequence $a_x=x$ (or any arithmetic progression, due to affine invariance of APs) achieves the upper bound.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes that the construction attains the upper bound, confirming tightness.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 55,
+    "sentence": "Let's summarize the maximum number of APs:\nIf $n$ is odd, $n=2k+1$: The maximum number of APs is $k^2 = \\left(\\frac{n-1}{2}\\right)^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the maximum number for odd n as a result.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 56,
+    "sentence": "If $n$ is even, $n=2k$: The maximum number of APs is $k(k-1) = \\frac{n(n-2)}{4}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the maximum number for even n as a result.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 57,
+    "sentence": "These can be combined into a single formula using floor and ceiling functions:\nThe number of APs is $\\binom{\\lceil n/2 \\rceil}{2} + \\binom{\\lfloor n/2 \\rfloor}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives a unified closed-form expression for the result.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 58,
+    "sentence": "If $n=2k+1$: $\\binom{k+1}{2} + \\binom{k}{2} = \\frac{k(k+1)}{2} + \\frac{k(k-1)}{2} = \\frac{k^2+k+k^2-k}{2} = k^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the unified formula matches the odd-n case.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 59,
+    "sentence": "If $n=2k$: $\\binom{k}{2} + \\binom{k}{2} = 2 \\frac{k(k-1)}{2} = k(k-1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that the unified formula matches the even-n case.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 60,
+    "sentence": "The final answer is $\\boxed{\\frac{n^2-2n}{4} \\text{ if } n \\text{ is even, } \\frac{n^2-2n+1}{4} \\text{ if } n \\text{ is odd}}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final answer explicitly.",
+    "sentence-category": "Answer"
+  }
+]

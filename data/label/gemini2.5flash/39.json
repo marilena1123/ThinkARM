@@ -1,0 +1,961 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $C=20$ be the number of courts and $N=40$ be the number of players.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for given quantities (courts and players).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 2,
+    "sentence": "There are 2 players on each court.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given setup that each court has 2 players.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "Let's denote the two players on court $i$ in round $k$ as $P_{i,k}^1$ and $P_{i,k}^2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for players on a given court and round.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "After their game, one player is determined as the winner ($W_{i,k}$) and the other as the loser ($L_{i,k}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines winner and loser notation for each game.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "The movement rules for players for the next round ($k+1$) are:\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the list of movement rules from the problem statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 6,
+    "sentence": "The player who lost on court 1 ($L_{1,k}$) stays on court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the boundary rule for the loser on court 1.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 7,
+    "sentence": "2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumeration marker as part of listing rules.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "The player who won on court 20 ($W_{20,k}$) stays on court 20.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the boundary rule for the winner on court 20.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 9,
+    "sentence": "3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumeration marker as part of listing rules.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 10,
+    "sentence": "For $i \\in \\{1, \\ldots, 19\\}$, the winner on court $i$ ($W_{i,k}$) moves to court $i+1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the rule that winners on courts 1\u201319 move up one court.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 11,
+    "sentence": "4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumeration marker as part of listing rules.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 12,
+    "sentence": "For $i \\in \\{2, \\ldots, 20\\}$, the loser on court $i$ ($L_{i,k}$) moves to court $i-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the rule that losers on courts 2\u201320 move down one court.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 13,
+    "sentence": "Based on these rules, the composition of players on each court in round $k+1$ is as follows:\n*   Court 1: $L_{1,k}$ (from court 1) and $L_{2,k}$ (from court 2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the next-round composition of court 1 from the movement rules.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "*   Court $j$ (for $2 \\le j \\le 19$): $W_{j-1,k}$ (from court $j-1$) and $L_{j+1,k}$ (from court $j+1$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the next-round composition for middle courts from the rules.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "*   Court 20: $W_{19,k}$ (from court 19) and $W_{20,k}$ (from court 20).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the next-round composition of court 20 from the rules.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "The problem asks for the minimal number of rounds until every player has played every other player at least once.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of finding the minimal number of rounds.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 17,
+    "sentence": "This implies we can choose the outcomes of the games (who wins and who loses on each court in each round) to achieve this goal in the minimum number of rounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers that game outcomes can be chosen to minimize rounds.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "Let's analyze the movement of players.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to analyze player movement.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 19,
+    "sentence": "A player's court number can change by at most $\\pm 1$ in one round (or stay the same at the boundaries).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces a constraint on court-number change per round.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 20,
+    "sentence": "Let $P_X$ and $P_Y$ be two players.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces generic player notation for further reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 21,
+    "sentence": "Let $c_k(P)$ denote the court player $P$ is on in round $k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a new notation for court position per round.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "For $P_X$ and $P_Y$ to play each other, they must be on the same court in the same round, i.e., $c_k(P_X) = c_k(P_Y)$ for some round $k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the condition for two players to play: being on the same court in the same round.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "Consider the \"relative distance\" between players in terms of court numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the concept to analyze (relative distance) without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "Let $d_k = |c_k(P_X) - c_k(P_Y)|$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a variable d_k using the introduced notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "If $c_k(P_X) < c_k(P_Y)$:\nTo reduce their distance, $P_X$ should move up (win) and $P_Y$ should move down (lose).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes how to reduce the distance given an ordering of courts.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "If $P_X$ wins, $c_{k+1}(P_X) = c_k(P_X)+1$ (assuming $c_k(P_X)<20$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the movement update rule for a win based on the tournament rules.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 27,
+    "sentence": "If $P_Y$ loses, $c_{k+1}(P_Y) = c_k(P_Y)-1$ (assuming $c_k(P_Y)>1$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the movement update rule for a loss based on the tournament rules.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 28,
+    "sentence": "In this scenario, the distance becomes $d_{k+1} = |(c_k(P_X)+1) - (c_k(P_Y)-1)| = |c_k(P_X) - c_k(P_Y) + 2| = d_k - 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs an explicit calculation showing how distance changes (algebraic derivation).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "So, under ideal conditions, the distance between two players can be reduced by 2 courts per round.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes the derived rate of distance reduction as a general conclusion.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 30,
+    "sentence": "The maximum possible distance between two players is $19$ (e.g., one on court 1 and another on court 20).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the maximum possible distance given court numbers 1 to 20.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "If two players start on courts $i$ and $j$:\n*   If $|i-j|$ is even, say $2m$, they can meet after $m$ rounds if they constantly move towards each other.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces meeting time when initial distance is even under optimal movement.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "Example: $P_A$ on $C_1$, $P_B$ on $C_3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up a concrete example with specific court positions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "$d=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the example distance value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "After 1 round, if $P_A$ wins ($1 \\to 2$) and $P_B$ loses ($3 \\to 2$), they meet on $C_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the example step and shows they meet after one round.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "*   If $|i-j|$ is odd, say $2m+1$, they will be on adjacent courts after $m$ rounds if they constantly move towards each other.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces adjacency time when initial distance is odd under optimal movement.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "Example: $P_A$ on $C_1$, $P_B$ on $C_2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up a second concrete example with specific court positions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "$d=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the example distance value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "After 0 rounds, they are adjacent.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the immediate positional relation in the example (adjacent after 0 rounds).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 39,
+    "sentence": "If $P_A$ wins ($1 \\to 2$) and $P_B$ loses ($2 \\to 1$), they \"pass\" each other.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the example movement showing they pass each other.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "They won't meet in this situation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes from the example that they do not meet in that situation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 41,
+    "sentence": "However, the specific rules for player assignment (e.g., $L_{1,k}$ vs $L_{2,k}$ on Court 1) allow players to change their relative parities.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers from movement rules that parity can change, interpreting the system's behavior.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 42,
+    "sentence": "For example, if a player on $C_1$ loses, they stay on $C_1$, so their court's parity doesn't change.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains via example how a loss on court 1 preserves parity without doing calculations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 43,
+    "sentence": "If another player from $C_2$ also loses and moves to $C_1$, its parity changes.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains via example how a loss from court 2 to court 1 changes parity.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 44,
+    "sentence": "This flexibility ensures that any two players can eventually meet.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a general conclusion about eventual meetings based on prior reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 45,
+    "sentence": "This type of tournament design problem, where players move along a linear set of courts based on win/loss outcomes, is often referred to as a \"ladder tournament\" or a variant of a \"circle method\" round-robin tournament.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides contextual classification of the problem type using prior knowledge.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 46,
+    "sentence": "For a tournament with $C$ courts and $2C$ players, where players move one court up (if they win) or one court down (if they lose), and specific rules for boundary courts, a common result for the minimal number of rounds to ensure everyone plays everyone else at least once is $2C-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general known result (2C\u22121 rounds) for this class of tournaments.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 47,
+    "sentence": "Let's verify this with a small example: $C=2$ courts, $N=4$ players.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Initiates a check of the general result using a small example.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 48,
+    "sentence": "Let the initial players be $(P_{1,1}, P_{1,2})$ on Court 1, and $(P_{2,1}, P_{2,2})$ on Court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up specific initial assignments for the example scenario.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 49,
+    "sentence": "We need $\\binom{4}{2} = 6$ unique pairs to play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the required number of unique pairs in the example.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 50,
+    "sentence": "The formula suggests $2C-1 = 2(2)-1 = 3$ rounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the formula numerically to the example to get 3 rounds.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "Let's define a strategy for winning/losing to maximize mixing, and see if 3 rounds suffice:\n**Strategy:** In any match, let the player from the lower-indexed initial court (or smaller player index) win.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces and specifies a strategy to test sufficiency in 3 rounds.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 52,
+    "sentence": "If both are from the same initial court, let the first player win.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Adds a rule to the proposed strategy.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 53,
+    "sentence": "This ensures a consistent flow.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Justifies the strategy qualitatively.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 54,
+    "sentence": "**Round 1:**\n*   Court 1: $(P_{1,1}, P_{1,2})$ play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins executing Round 1 by listing the Court 1 match.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "Let $P_{1,1}$ win ($W_{1,1}$) and $P_{1,2}$ lose ($L_{1,1}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the outcome of the Court 1 match.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "(Pair: $(P_{1,1}, P_{1,2})$ met).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Records that this pair has now met.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 57,
+    "sentence": "*   Court 2: $(P_{2,1}, P_{2,2})$ play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the Court 2 match for Round 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 58,
+    "sentence": "Let $P_{2,1}$ win ($W_{2,1}$) and $P_{2,2}$ lose ($L_{2,1}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the outcome of the Court 2 match.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "(Pair: $(P_{2,1}, P_{2,2})$ met).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Records that this pair has now met.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "Player movements for Round 2:\n*   $L_{1,1} = P_{1,2}$ stays on Court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes movement rules to set up Round 2 starting with a specific player.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "*   $L_{2,1} = P_{2,2}$ moves to Court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the movement rule to specify where a particular loser moves.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 62,
+    "sentence": "*   $W_{1,1} = P_{1,1}$ moves to Court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the next-round court for a particular winner.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "*   $W_{2,1} = P_{2,1}$ stays on Court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States that a particular winner stays on the same court per boundary rule.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "**Round 2:**\n*   Court 1: $(P_{1,2}, P_{2,2})$ play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets Round 2 and specifies the Court 1 matchup, a concrete step in the simulation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 65,
+    "sentence": "Let $P_{1,2}$ win ($W_{1,2}$) and $P_{2,2}$ lose ($L_{1,2}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses specific match outcomes for the Court 1 game in Round 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 66,
+    "sentence": "(Pair: $(P_{1,2}, P_{2,2})$ met).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that a particular pair has now met, checking coverage.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 67,
+    "sentence": "*   Court 2: $(P_{1,1}, P_{2,1})$ play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the Court 2 matchup for Round 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 68,
+    "sentence": "Let $P_{1,1}$ win ($W_{2,2}$) and $P_{2,1}$ lose ($L_{2,2}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses specific match outcomes for the Court 2 game in Round 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 69,
+    "sentence": "(Pair: $(P_{1,1}, P_{2,1})$ met).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that a particular pair has now met, checking coverage.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 70,
+    "sentence": "Player movements for Round 3:\n*   $L_{1,2} = P_{2,2}$ stays on Court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces movements for Round 3 and specifies one player's movement; executes the update.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 71,
+    "sentence": "*   $L_{2,2} = P_{2,1}$ moves to Court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the movement of a particular loser to Court 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 72,
+    "sentence": "*   $W_{1,2} = P_{1,2}$ moves to Court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the movement of a particular winner to Court 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 73,
+    "sentence": "*   $W_{2,2} = P_{1,1}$ stays on Court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States that a particular winner stays on Court 2 per rule.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 74,
+    "sentence": "**Round 3:**\n*   Court 1: $(P_{2,2}, P_{2,1})$ play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets Round 3 and specifies the Court 1 matchup, a concrete step in the simulation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "Let $P_{2,1}$ win ($W_{1,3}$) and $P_{2,2}$ lose ($L_{1,3}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses specific match outcomes for the Court 1 game in Round 3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 76,
+    "sentence": "(Pair: $(P_{2,2}, P_{2,1})$ met).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that a particular pair has now met, checking coverage.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 77,
+    "sentence": "*   Court 2: $(P_{1,2}, P_{1,1})$ play.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the Court 2 matchup for Round 3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 78,
+    "sentence": "Let $P_{1,1}$ win ($W_{2,3}$) and $P_{1,2}$ lose ($L_{2,3}$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses specific match outcomes for the Court 2 game in Round 3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 79,
+    "sentence": "(Pair: $(P_{1,2}, P_{1,1})$ met).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that a particular pair has now met, checking coverage.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 80,
+    "sentence": "Let's list all pairs that have met:\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to list all pairs that have met.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 81,
+    "sentence": "$(P_{1,1}, P_{1,2})$ (R1, C1)\n2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates a specific pairing from Round 1 Court 1 as part of listing results.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 82,
+    "sentence": "$(P_{2,1}, P_{2,2})$ (R1, C2)\n3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates a specific pairing from Round 1 Court 2 as part of listing results.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 83,
+    "sentence": "$(P_{1,2}, P_{2,2})$ (R2, C1)\n4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates a specific pairing from Round 2 Court 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 84,
+    "sentence": "$(P_{1,1}, P_{2,1})$ (R2, C2)\n5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates a specific pairing from Round 2 Court 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 85,
+    "sentence": "$(P_{2,1}, P_{2,2})$ (R3, C1) - This pair already met in R1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Judges that the listed Round 3 pairing already occurred in Round 1.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 86,
+    "sentence": "No, check again.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Prompts re-checking of the previous assertion.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 87,
+    "sentence": "In R1, $P_{2,1}$ played $P_{2,2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Cites earlier match details to check the duplication claim.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 88,
+    "sentence": "This means they are distinct as players.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Makes a logical inference about player identity/distinctness.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 89,
+    "sentence": "In R3, $P_{2,1}$ and $P_{2,2}$ were on Court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States Round 3 placement to support checking whether the meeting is new.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 90,
+    "sentence": "This means this is a *new* meeting for the pair $(P_{2,1}, P_{2,2})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes (albeit incorrectly) that the meeting is new; evaluative check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 91,
+    "sentence": "Wait, R1 Court 2 was $(P_{2,1}, P_{2,2})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses a corrective recall ('Wait') and cites Round 1 fact to reassess.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 92,
+    "sentence": "R3 Court 1 was $(P_{2,2}, P_{2,1})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides Round 3 fact for comparison to confirm duplication.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 93,
+    "sentence": "This is the same pair, repeated.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the pairing is a repetition.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 94,
+    "sentence": "The rule is \"at least once\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem's requirement ('at least once').",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 95,
+    "sentence": "So repetitions don't count towards new pairs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers implication from the rule that repeats don't count as new.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 96,
+    "sentence": "Let's track distinct pairs:\n**Round 1:** $(P_{1,1}, P_{1,2})$, $(P_{2,1}, P_{2,2})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces intent to track distinct pairs before listing them.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 97,
+    "sentence": "(2 pairs)\n**Round 2:** $(P_{1,2}, P_{2,2})$, $(P_{1,1}, P_{2,1})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts and lists Round 2 pairings as part of executing the tracking.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 98,
+    "sentence": "(2 new pairs)\n**Round 3:** $(P_{2,2}, P_{2,1})$ and $(P_{1,2}, P_{1,1})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Asserts novelty count and lists Round 3 pairings; evaluative judgment.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 99,
+    "sentence": "These are not new pairs, they are the same as R1 pairings, but on different courts.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates that Round 3 pairings are repeats of Round 1.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 100,
+    "sentence": "This means this strategy for player movements is not sufficient for 3 rounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the effectiveness of the strategy, judging it insufficient for 3 rounds.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 101,
+    "sentence": "The example implies that $P_{2,1}$ must play $P_{1,2}$ and $P_{1,1}$ must play $P_{2,2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces which specific pairs must still meet based on the prior example.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 102,
+    "sentence": "These are not covered by my outcome choice above.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates and admits the previous outcome choice failed to cover required pairings.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 103,
+    "sentence": "My choice of \"lower index wins\" is problematic for demonstrating all pairs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assesses the earlier strategy and judges it inadequate for achieving all pairs.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 104,
+    "sentence": "Let's trace the players' movements.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step of tracing movements.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 105,
+    "sentence": "$P_{1,1}$ ends up on $C_2$ (always winning).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reports the result of the tracing for a specific player, executing the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 106,
+    "sentence": "$P_{2,2}$ ends up on $C_1$ (always losing).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reports the result of the tracing for a specific player, executing the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 107,
+    "sentence": "$P_{1,2}$ stays on $C_1$ (always winning on $C_1$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reports the result of the tracing for a specific player, executing the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 108,
+    "sentence": "$P_{2,1}$ stays on $C_2$ (always losing on $C_2$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reports the result of the tracing for a specific player, executing the plan.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 109,
+    "sentence": "In the example, the \"winner\" on court 1 always moves to court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains a movement rule observed in the example.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 110,
+    "sentence": "The \"loser\" on court 1 always stays on court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains a movement rule observed in the example.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 111,
+    "sentence": "The \"winner\" on court 2 always stays on court 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains a movement rule observed in the example.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 112,
+    "sentence": "The \"loser\" on court 2 always moves to court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains a movement rule observed in the example.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 113,
+    "sentence": "A common approach for these problems for $2C$ players and $C$ courts is to use a method inspired by the \"circle method\" for scheduling round-robin tournaments.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a known general method relevant to the problem context.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 114,
+    "sentence": "The maximum \"rank distance\" in this tournament is $C-1=19$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a structural property (maximum rank distance) of the setup.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 115,
+    "sentence": "Each round, a player's rank changes by $\\pm 1$ or $0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general property of how ranks change per round.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 116,
+    "sentence": "To ensure all possible pairings, players must \"cross paths\" and move throughout the courts.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains a conceptual requirement for achieving all pairings.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 117,
+    "sentence": "The number of rounds for such a tournament with $N$ courts (or players, $N=20$) is often $2N-2$ or $2N-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Posits uncertain candidate formulas for the number of rounds.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 118,
+    "sentence": "In this context, $N$ refers to the number of courts, $C$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies notation by identifying N with the number of courts C.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 119,
+    "sentence": "So $2C-2$ or $2C-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries forward the uncertain alternatives after substitution, keeping possibilities open.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 120,
+    "sentence": "For $C=2$ (4 players), the number of rounds for all to meet is 3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses the small case to check/affirm the expected number of rounds.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 121,
+    "sentence": "This example matches $2C-1 = 2(2)-1 = 3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the small example fits the proposed formula, acting as a check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 122,
+    "sentence": "For the general case ($C$ courts), consider any two players $A$ and $B$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up the general-case analysis by introducing arbitrary players for reasoning.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 123,
+    "sentence": "They must be able to meet.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a necessary condition about players meeting, framing the analytical goal.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 124,
+    "sentence": "The maximum \"distance\" a player needs to travel (in terms of courts) to meet all other players is $C-1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains a general property about maximum court distance relevant to meeting others.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 125,
+    "sentence": "A player starting on court 1 needs to visit court 20, and a player starting on court 20 needs to visit court 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides explanatory implications about extreme positions to support the analysis.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 126,
+    "sentence": "This would take 19 wins for the former, and 19 losses for the latter.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete numerical determination of moves (19 wins/losses).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 127,
+    "sentence": "A complete cycle of visiting all courts and returning (e.g., $1 \\to 20 \\to 1$) takes $2(C-1)$ moves.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a general formula for a full traversal and return, as conceptual analysis.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 128,
+    "sentence": "So $2(19) = 38$ rounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the specific computation to 38 rounds.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 129,
+    "sentence": "In each of these 38 rounds, a player could theoretically play a new opponent.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers a property about meeting new opponents each round to support a bound.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 130,
+    "sentence": "This suggests 38 rounds could be a lower bound for one player to meet everyone.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a tentative inference establishing a lower bound for one player.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 131,
+    "sentence": "The initial pairs on each court are already met.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a factual observation about initial matches already occurring.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 132,
+    "sentence": "The problem can be solved in $2C-1$ rounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Asserts a general result about required rounds, setting up the conclusion.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 133,
+    "sentence": "For $C=20$, $2(20)-1 = 39$ rounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the specific value from the general formula for C=20.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 134,
+    "sentence": "This is the standard result for double-ladder tournaments where players shift ranks (courts) based on outcomes, with end conditions similar to those described.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Justifies the result by referencing a known standard outcome, serving as confirmation.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 135,
+    "sentence": "The number of games played is $20 \\times 39 = 780$, which is exactly $\\binom{40}{2}$, suggesting that no pair needs to play more than once.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks consistency via game count equaling total pairs, validating the schedule.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 136,
+    "sentence": "Such a schedule exists.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Claims existence of a suitable schedule, confirming feasibility.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 137,
+    "sentence": "The final answer is $\\boxed{39}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final numerical result asked for in the problem.",
+    "sentence-category": "Answer"
+  }
+]

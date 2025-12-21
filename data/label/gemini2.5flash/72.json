@@ -1,0 +1,471 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $X$ be the random variable representing the number of local maxima in a permutation $\\pi$ of $S = \\{1, 2, \\dots, n\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a variable/notation for the problem setup.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "We want to find $E[X]$, the average number of local maxima over all $n!$ permutations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of the problem (average number).",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "We can use linearity of expectation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses the method to proceed (commitment to use linearity).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 4,
+    "sentence": "Let $X_k$ be an indicator random variable for a local maximum at position $k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces indicator variables as notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 5,
+    "sentence": "That is, $X_k = 1$ if $\\pi$ has a local maximum at $k$, and $X_k = 0$ otherwise.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the definition of the indicator variable.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "Then $X = \\sum_{k=1}^n X_k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces a relationship expressing X as a sum of indicators.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "By linearity of expectation, $E[X] = \\sum_{k=1}^n E[X_k]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies linearity to relate expectations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "Since $X_k$ is an indicator variable, $E[X_k] = P(X_k=1)$, which is the probability that $\\pi$ has a local maximum at position $k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Relates expectation of indicator to a probability.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "Let's calculate $P(X_k=1)$ for different values of $k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to compute probabilities by cases.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 10,
+    "sentence": "Case 1: $k=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Initiates casework by specifying the first case.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 11,
+    "sentence": "A local maximum at $k=1$ means $\\pi(1) > \\pi(2)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the local maximum condition at the boundary.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Consider any two distinct values $a, b \\in S$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up elements a, b to proceed with counting.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "When assigned to $\\pi(1)$ and $\\pi(2)$, there are two possible arrangements: $(a, b)$ or $(b, a)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates possible assignments for two positions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "In exactly one of these arrangements, $\\pi(1) > \\pi(2)$ (e.g., if $a < b$, then $(b, a)$ satisfies $b>a$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers which arrangement satisfies the inequality.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "Since the values for $\\pi(1)$ and $\\pi(2)$ are distinct (as it's a permutation), there's a $1/2$ probability that $\\pi(1) > \\pi(2)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the probability for the pair is 1/2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "The assignments for the remaining $n-2$ positions do not affect this probability.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains independence from the remaining assignments.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "So, $P(X_1=1) = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed probability for k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "Alternatively, the number of permutations where $\\pi(1) > \\pi(2)$ is obtained by choosing 2 values for $\\pi(1), \\pi(2)$ in $\\binom{n}{2}$ ways, arranging them in 1 way such that $\\pi(1)>\\pi(2)$, and arranging the remaining $n-2$ values in $(n-2)!$ ways.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides an alternative counting method to confirm the result.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 19,
+    "sentence": "This gives $\\binom{n}{2} \\times 1 \\times (n-2)! = \\frac{n(n-1)}{2} \\times (n-2)! = \\frac{n!}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the alternative count to get n!/2.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 20,
+    "sentence": "The probability is $\\frac{n!/2}{n!} = 1/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the probability equals 1/2 via the alternative method.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 21,
+    "sentence": "Case 2: $k=n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next subcase to handle (k = n).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 22,
+    "sentence": "A local maximum at $k=n$ means $\\pi(n-1) < \\pi(n)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the condition for a local maximum at the boundary using the definition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "Similar to Case 1, consider any two distinct values $a, b \\in S$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up the approach by deciding to consider two distinct values.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 24,
+    "sentence": "When assigned to $\\pi(n-1)$ and $\\pi(n)$, there are two possible arrangements: $(a, b)$ or $(b, a)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates the two possible assignments for the two positions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "In exactly one of these arrangements, $\\pi(n-1) < \\pi(n)$ (e.g., if $a < b$, then $(a, b)$ satisfies $a<b$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Logically explains that only one arrangement satisfies the inequality.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "So, $P(X_n=1) = \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability from the counting argument.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 27,
+    "sentence": "The number of permutations where $\\pi(n-1) < \\pi(n)$ is $\\binom{n}{2} \\times 1 \\times (n-2)! = \\frac{n!}{2}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a combinatorial count of favorable permutations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "The probability is $\\frac{n!/2}{n!} = 1/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates the probability by dividing counts.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 29,
+    "sentence": "Case 3: $1 < k < n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the interior case 1 < k < n.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 30,
+    "sentence": "A local maximum at $k$ means $\\pi(k-1) < \\pi(k)$ and $\\pi(k) > \\pi(k+1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the condition for a local maximum at an interior position.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "Consider any three distinct values $a, b, c \\in S$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up the approach by considering three distinct values.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 32,
+    "sentence": "Let's sort them as $v_1 < v_2 < v_3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines ordered notation for the three values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "We want to assign these three values to positions $k-1, k, k+1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step of assigning the three values to positions.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 34,
+    "sentence": "There are $3! = 6$ ways to assign these values.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts the total number of possible assignments (3!).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "For $\\pi(k)$ to be a local maximum, it must be the largest of the three values, i.e., $\\pi(k) = v_3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces that the middle position must take the largest value to be a local maximum.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "The other two values, $v_1$ and $v_2$, must be assigned to $\\pi(k-1)$ and $\\pi(k+1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces that the other two values must go to the neighboring positions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 37,
+    "sentence": "There are $2! = 2$ ways to do this: $(\\pi(k-1), \\pi(k), \\pi(k+1))$ can be $(v_1, v_3, v_2)$ or $(v_2, v_3, v_1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts and lists the favorable arrangements (2 ways).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "Both arrangements satisfy the conditions $\\pi(k-1) < \\pi(k)$ and $\\pi(k) > \\pi(k+1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Justifies that the listed arrangements satisfy the inequalities.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 39,
+    "sentence": "So, for any choice of three distinct values, there are 2 out of $3! = 6$ arrangements that result in a local maximum at $k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes the favorable-to-total count ratio (2 out of 6).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "This means the probability is $2/6 = 1/3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the resulting probability 2/6 = 1/3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "So, $P(X_k=1) = \\frac{1}{3}$ for $1 < k < n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed probability for interior positions as a concrete result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "Alternatively, the number of permutations with a local maximum at $k$ is obtained by choosing 3 values for $\\pi(k-1), \\pi(k), \\pi(k+1)$ in $\\binom{n}{3}$ ways, arranging them in 2 ways as described above, and arranging the remaining $n-3$ values in $(n-3)!$ ways.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up and specifies the combinatorial counting method with explicit factors.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": "This gives $\\binom{n}{3} \\times 2 \\times (n-3)! = \\frac{n!}{3!(n-3)!} \\times 2 \\times (n-3)! = \\frac{n!}{6} \\times 2 = \\frac{n!}{3}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the combinatorial calculation to get n!/3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 44,
+    "sentence": "The probability is $\\frac{n!/3}{n!} = 1/3$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability by dividing counts, yielding 1/3.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "Now we can sum the probabilities to find the expected number of local maxima:\n$E[X] = P(X_1=1) + \\sum_{k=2}^{n-1} P(X_k=1) + P(X_n=1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies linearity by writing the explicit sum expression for E[X].",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 46,
+    "sentence": "There is 1 term for $k=1$, 1 term for $k=n$, and $(n-2)$ terms for $1 < k < n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the decomposition of the sum into boundary and interior terms.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 47,
+    "sentence": "$E[X] = \\frac{1}{2} + (n-2) \\times \\frac{1}{3} + \\frac{1}{2}$\n$E[X] = 1 + \\frac{n-2}{3}$\n$E[X] = \\frac{3}{3} + \\frac{n-2}{3}$\n$E[X] = \\frac{3 + n - 2}{3}$\n$E[X] = \\frac{n+1}{3}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the summation and simplification and presents the final expected value.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 48,
+    "sentence": "Let's verify for small $n$:\nIf $n=2$, $S=\\{1,2\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a check of the result on a small case.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 49,
+    "sentence": "Permutations are $(1,2)$ and $(2,1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists all permutations for n=2 to perform the check.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 50,
+    "sentence": "For $(1,2)$:\n$k=1: \\pi(1)=1, \\pi(2)=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates specific entries of the permutation for k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "$1>2$ is false.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the inequality condition for a local maximum at k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "No local max.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes no local maximum for this case based on the check.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "$k=2: \\pi(1)=1, \\pi(2)=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up values for k=2 in the permutation (1,2).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 54,
+    "sentence": "$1<2$ is true.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks the inequality condition at k=2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "Local max at $k=2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes there is a local maximum at k=2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "Number of local maxima = 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the counted number of local maxima for the permutation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 57,
+    "sentence": "For $(2,1)$:\n$k=1: \\pi(1)=2, \\pi(2)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up values for k=1 in the permutation (2,1).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 58,
+    "sentence": "$2>1$ is true.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks the inequality condition at k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "Local max at $k=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes there is a local maximum at k=1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "$k=2: \\pi(1)=2, \\pi(2)=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up values for k=2 in the permutation (2,1) to continue the check.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "$2<1$ is false.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates a specific inequality as part of a case check.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 62,
+    "sentence": "No local max.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the case result (presence/absence of a local maximum).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "Number of local maxima = 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed count for a specific case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "Average number of local maxima = $(1+1)/2 = 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the arithmetic to compute the average over cases.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 65,
+    "sentence": "Using the formula: $(2+1)/3 = 3/3 = 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the derived formula to a small-n case to compare with enumeration.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 66,
+    "sentence": "The formula matches.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that the formula agrees with the computed check.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 67,
+    "sentence": "The final answer is $\\boxed{\\frac{n+1}{3}}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Presents the final result to the problem.",
+    "sentence-category": "Answer"
+  }
+]

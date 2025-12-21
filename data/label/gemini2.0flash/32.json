@@ -1,0 +1,107 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $P_n$ be the number of ways to make exactly $n$ dollars out of quarters, dimes, nickels, and pennies.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem's definition of P_n and sets context without doing calculations.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "Since $1$ dollar $= 100$ cents, we want to make $100n$ cents out of quarters, dimes, nickels, and pennies.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Converts dollars to cents and reframes the goal based on given denominations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 3,
+    "sentence": "Thus, $P_n$ is the number of non-negative integer solutions to the equation\n$$ 25q + 10d + 5n + p = 100n $$\nLet $B_n$ be the number of ways to make exactly $n$ dollars out of one dollar bills, quarters, dimes, and nickels.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Formalizes P_n as a Diophantine equation and defines B_n, interpreting the problem setup.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "We want to make $100n$ cents out of 100-cent bills, quarters, dimes, and nickels.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Converts the B_n scenario to cents, setting up the problem context.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "Thus, $B_n$ is the number of non-negative integer solutions to the equation\n$$ 100b + 25q + 10d + 5n = 100n $$\nWe want to find the limit of $\\frac{P_n}{B_n}$ as $n \\to \\infty$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Translates B_n into a Diophantine equation and states the goal of finding the limit.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "First, we write the generating functions for $P_n$ and $B_n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the strategy to use generating functions.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 7,
+    "sentence": "$$ \\sum_{k=0}^\\infty P_k x^k = \\frac{1}{(1-x^{25})(1-x^{10})(1-x^5)(1-x)} $$\n$$ \\sum_{k=0}^\\infty B_k x^k = \\frac{1}{(1-x^{100})(1-x^{25})(1-x^{10})(1-x^5)} $$\nHowever, we are looking for $P_n$ and $B_n$, which are the coefficients of $x^{100n}$ in the respective generating functions.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes down the generating functions and identifies the relevant coefficients.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 8,
+    "sentence": "When $n$ is large, we can approximate the number of solutions to the linear equations using the volume of the region defined by the non-negative constraints.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes using a volume approximation for large n as the next method.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 9,
+    "sentence": "For $P_n$, we have $25q + 10d + 5n + p = 100n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the linear constraint for P_n to set up the approximation.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 10,
+    "sentence": "The volume of the region is\n$$ \\int_0^{4n} \\int_0^{\\frac{100n-25q}{10}} \\int_0^{\\frac{100n-25q-10d}{5}} (100n-25q-10d-5n) dn dp dq = \\frac{(100n)^4}{4! \\cdot 25 \\cdot 10 \\cdot 5 \\cdot 1} = \\frac{(100n)^4}{6 \\cdot 1250} = \\frac{100^4 n^4}{7500} = \\frac{100^4 n^4}{6 \\cdot 25 \\cdot 10 \\cdot 5 \\cdot 1} = \\frac{100^4 n^4}{7500} = \\frac{100000000 n^4}{7500} = \\frac{400000}{3} n^4 $$\nFor $B_n$, we have $100b + 25q + 10d + 5n = 100n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the volume computation for P_n with explicit integrals and simplification.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "The volume of the region is\n$$ \\int_0^n \\int_0^{4(n-b)} \\int_0^{\\frac{100(n-b)-25q}{10}} \\frac{100(n-b)-25q-10d}{5} dd dq db = \\frac{(100n)^4}{4! \\cdot 100 \\cdot 25 \\cdot 10 \\cdot 5} = \\frac{(100n)^4}{24 \\cdot 125000} = \\frac{100^4 n^4}{3000000} = \\frac{100^4 n^4}{24 \\cdot 100 \\cdot 25 \\cdot 10 \\cdot 5} = \\frac{100000000 n^4}{3000000} = \\frac{10000}{3} n^4 $$\nThen we have $\\frac{P_n}{B_n} \\approx \\frac{\\frac{400000}{3} n^4}{\\frac{10000}{3} n^4} = \\frac{400000}{10000} = 40$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the volume computation for B_n and computes the approximate ratio.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "However, the asymptotic formula for the number of partitions of $n$ into parts in the set $S = \\{s_1, \\ldots, s_k\\}$ is given by\n$$ p(n) \\sim \\frac{n^{k-1}}{n_1 \\cdots n_k (k-1)!} $$\nIn our case, $P_n$ is the number of partitions of $100n$ into parts $\\{1, 5, 10, 25\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls an asymptotic formula for restricted partitions and maps the problem to it.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "Then\n$$ P_n \\sim \\frac{(100n)^{4-1}}{1 \\cdot 5 \\cdot 10 \\cdot 25 (4-1)!} = \\frac{(100n)^3}{1250 \\cdot 6} = \\frac{100^3 n^3}{7500} = \\frac{1000000 n^3}{7500} = \\frac{400}{3} n^3 $$\nAnd $B_n$ is the number of partitions of $100n$ into parts $\\{5, 10, 25, 100\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the asymptotic formula to compute P_n and simplifies.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "Then\n$$ B_n \\sim \\frac{(100n)^{4-1}}{5 \\cdot 10 \\cdot 25 \\cdot 100 (4-1)!} = \\frac{(100n)^3}{125000 \\cdot 6} = \\frac{100^3 n^3}{750000} = \\frac{1000000 n^3}{750000} = \\frac{4}{3} n^3 $$\nThus $\\frac{P_n}{B_n} \\sim \\frac{\\frac{400}{3} n^3}{\\frac{4}{3} n^3} = \\frac{400}{4} = 100$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the asymptotic formula to B_n and computes the resulting ratio.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Final Answer: The final answer is $\\boxed{4}$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly states the final numeric answer.",
+    "sentence-category": "Answer"
+  }
+]

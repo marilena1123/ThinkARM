@@ -1,0 +1,205 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are given a scenario where a carrier is deciding whether to pick up an additional order (or not) in order to **maximize their profit**, given: - A **fixed reward** of $ r $ per delivery.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the scenario and given reward information from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "- A **travel cost** of $ \\ell $, which is the total distance (length of edges) the carrier travels from pickup to delivery.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the travel cost definition as given.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "- The **profit** is then:  \n  $$\n  \\text{Profit} = \\text{Revenue} - \\text{Cost} = (r \\cdot \\text{# of deliveries}) - \\text{Travel cost}\n  $$\n- The **scooter's trunk can hold 2 orders**, so the carrier can make **at most 2 deliveries**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the profit formula and capacity constraint as problem setup.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "- The **original order** is already picked up.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the given condition that the original order is already picked up.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "- The carrier is considering whether to **pick up an additional order** en route.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the decision under consideration from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 6,
+    "sentence": "- **All additional orders have the same destination**, so the **travel cost of the new order is ignored** \u2014 only the **distance of the route** to **pick up the new order** matters.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Paraphrases the given assumption about same destination and ignored travel cost.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 7,
+    "sentence": "- The edge $ e $ has a length $ \\ell_e $, and there is a **probability $ P_e $** of encountering a new order along edge $ e $, with the constraint:\n  $$\n  0 \\leq P_e \\leq \\min\\left\\{ \\frac{\\ell_e}{r}, 1 \\right\\}\n  $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates edge length, probability, and its constraint from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "### Objective:\n**Find the optimal route** (i.e., whether to pick up a new order or not) that **maximizes the expected profit** of the carrier.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the objective of the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 9,
+    "sentence": "### Step 1: Understand the profit in both scenarios",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the next step to analyze profits in scenarios.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 10,
+    "sentence": "#### Case 1: Only deliver the original order\n- Revenue: $ r $\n- Cost: $ \\ell $ (distance from pickup to delivery of original order)\n- Profit: $ r - \\ell $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes revenue, cost, and profit for Case 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "#### Case 2: Pick up a new order en route\n- Revenue: $ 2r $ (2 deliveries)\n- Cost: $ \\ell + \\ell_e $ (original route + extra distance to pick up the new order)\n- But the new order **might not be available**, so we take the **expected profit**:\n  $$\n  \\text{Expected Profit} = P_e \\cdot (2r - (\\ell + \\ell_e)) + (1 - P_e) \\cdot (r - \\ell)\n  $$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up revenue, cost, and expected profit formula for Case 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "Simplify this expression: $$\n\\text{Expected Profit} = P_e (2r - \\ell - \\ell_e) + (1 - P_e)(r - \\ell)\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins algebraic simplification of expected profit.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "$$\n= P_e (2r - \\ell - \\ell_e) + (1 - P_e)(r - \\ell)\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues the algebraic expression (restate) as part of simplification.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "$$\n= P_e(2r - \\ell - \\ell_e) + (r - \\ell) - P_e(r - \\ell)\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs algebraic manipulation in simplification.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "$$\n= (r - \\ell) + P_e[(2r - \\ell - \\ell_e) - (r - \\ell)]\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues algebraic simplification step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "$$\n= (r - \\ell) + P_e(r - \\ell_e)\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Arrives at the simplified expected profit expression.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "### Step 2: Compare the two cases",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to compare the two cases.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 18,
+    "sentence": "- **Case 1 (no new order)**: Profit = $ r - \\ell $\n- **Case 2 (with possible new order)**: Expected Profit = $ (r - \\ell) + P_e(r - \\ell_e) $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the computed profits for both cases to set up the comparison.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "So the **carrier should pick up the new order if**:\n$$\n(r - \\ell) + P_e(r - \\ell_e) > r - \\ell\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the decision criterion for choosing to pick up a new order.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 20,
+    "sentence": "Subtracting $ r - \\ell $ from both sides: $$\nP_e(r - \\ell_e) > 0\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the algebraic step simplifying the decision inequality.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "So the carrier should **pick up the new order if**:\n$$\nP_e(r - \\ell_e) > 0\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a logical condition for when picking up the new order is beneficial without performing calculations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "Which implies: $$\nP_e > 0 \\quad \\text{and} \\quad r > \\ell_e\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a direct logical implication from the previous inequality.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "But since $ P_e \\leq \\min\\left\\{ \\frac{\\ell_e}{r}, 1 \\right\\} $, we must also check when this inequality is **not** satisfied.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to check the constraint's effect on the inequality.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 24,
+    "sentence": "### Step 3: Final Decision Rule",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A heading/transition indicating a shift to the final rule.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 25,
+    "sentence": "The carrier **should pick up the new order** if and only if: $$\nP_e(r - \\ell_e) > 0\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the decision rule as a condition (iff) prior to simplification.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "Which, under the constraint $ P_e \\leq \\min\\left\\{ \\frac{\\ell_e}{r}, 1 \\right\\} $, happens **if and only if**: $$\nr > \\ell_e\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the simplified condition under the given constraint.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 27,
+    "sentence": "Because if $ r \\leq \\ell_e $, then $ r - \\ell_e \\leq 0 $, and since $ P_e \\geq 0 $, the whole term is non-positive.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks and justifies the condition by showing the term becomes non-positive when r \u2264 \u2113_e.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 28,
+    "sentence": "### \u2705 Final Answer: The **carrier should take the detour to pick up the additional order** **if and only if** the reward per delivery $ r $ is **greater than the extra travel distance** $ \\ell_e $ required to pick up the new order: $$\n\\boxed{r > \\ell_e}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final decision criterion explicitly as the answer.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 29,
+    "sentence": "Otherwise, the carrier should **not** take the detour and just deliver the original order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides the complementary action as part of the final conclusion.",
+    "sentence-category": "Answer"
+  }
+]

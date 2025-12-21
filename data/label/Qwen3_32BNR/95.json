@@ -1,0 +1,317 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are given a permutation $ a_1, a_2, \\ldots, a_{100} $ of the numbers $ 1, 2, \\ldots, 100 $, and define: $$\nS_k = a_1 + a_2 + \\cdots + a_k \\quad \\text{for } k = 1, 2, \\ldots, 100\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given permutation and defines partial sums directly from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "We are to find the **maximum number of perfect squares** among the values $ S_1, S_2, \\ldots, S_{100} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the objective of finding the maximum number of perfect squares.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "### Step 1: Total Sum",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A heading indicating the next step to compute the total sum.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 4,
+    "sentence": "The total sum of all numbers from 1 to 100 is: $$\nS_{100} = 1 + 2 + \\cdots + 100 = \\frac{100 \\cdot 101}{2} = 5050\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the calculation of the total sum 1 to 100 to get 5050.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 5,
+    "sentence": "This is **not a perfect square**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers a property of 5050 (not a perfect square) from the result.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "The nearest perfect squares around 5050 are: - $ 71^2 = 5041 $\n- $ 72^2 = 5184 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and lists the nearest perfect squares around 5050.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "So $ S_{100} = 5050 $ is **not** a perfect square.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws the conclusion that S_100 is not a perfect square.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "### Step 2: Strategy",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A heading introducing the overall approach/strategy.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 9,
+    "sentence": "We are to **maximize** the number of **perfect squares** in the sequence $ S_1, S_2, \\ldots, S_{100} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the optimization goal for clarity.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 10,
+    "sentence": "Let\u2019s denote the set of perfect squares less than or equal to 5050.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for the set of squares up to 5050.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "The largest square less than or equal to 5050 is $ 71^2 = 5041 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the largest square \u2264 5050 with a concrete value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "So the perfect squares we can get are: $$\n1^2, 2^2, \\ldots, 71^2\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumerates the attainable perfect squares up to 71^2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "That gives us **71 perfect squares** up to 5041.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Counts the number of such squares (71).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "So the **maximum possible number of perfect squares** among the partial sums is **at most 71**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers an upper bound on the number of perfect-square partial sums.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "Now the key question is: > **Can we construct a permutation of $ 1, 2, \\ldots, 100 $ such that as many of the partial sums $ S_1, S_2, \\ldots, S_{100} $ are perfect squares?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Poses a feasibility question about constructing a permutation to achieve many squares.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 16,
+    "sentence": "### Step 3: Constructing the Permutation",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A heading indicating the next constructive step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 17,
+    "sentence": "We want to arrange the numbers $ a_1, a_2, \\ldots, a_{100} $ such that the **partial sums** $ S_k $ hit as many perfect squares as possible.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intent to arrange numbers to hit many perfect squares.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 18,
+    "sentence": "Let\u2019s denote the perfect squares we aim to hit as: $$\ns_1, s_2, \\ldots, s_m \\in \\{1^2, 2^2, \\ldots, 71^2\\}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for target squares to be achieved by partial sums.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 19,
+    "sentence": "Let\u2019s consider an approach: - Start with $ S_1 = a_1 = s_1 $, where $ s_1 $ is the smallest perfect square.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes an approach: start with S1 equal to the first target square.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 20,
+    "sentence": "- Then $ S_2 = s_2 = S_1 + a_2 \\Rightarrow a_2 = s_2 - s_1 $\n- Similarly, $ a_3 = s_3 - s_2 $, and so on.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives relations for subsequent terms using differences of target squares.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "So we can define the sequence of partial sums $ s_1, s_2, \\ldots, s_m $, and then define the permutation as: $$\na_1 = s_1, \\quad a_2 = s_2 - s_1, \\quad a_3 = s_3 - s_2, \\ldots\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the construction a_i = s_i - s_{i-1} with explicit equations, setting notations concretely.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "So, the idea is: > **Pick a sequence of perfect squares $ s_1 < s_2 < \\cdots < s_m $, and define the permutation $ a_i = s_i - s_{i-1} $, with $ s_0 = 0 $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended approach: pick squares and define the permutation via differences.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 23,
+    "sentence": "We want to choose $ s_1, s_2, \\ldots, s_m $ such that all the differences $ a_i = s_i - s_{i-1} $ are **distinct integers from 1 to 100**, and the total sum is 5050.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the constraints that the chosen sequence must satisfy.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "This is a classic problem in number theory and combinatorics.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Meta-comment about the nature of the problem without advancing the solution.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 25,
+    "sentence": "### Step 4: Greedy Construction of Squares",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a specific method (greedy construction) as the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 26,
+    "sentence": "Let\u2019s try to build a sequence of perfect squares $ s_1 < s_2 < \\cdots < s_m $ such that the differences $ s_i - s_{i-1} $ are all **distinct** and in $ \\{1,2,\\ldots,100\\} $, and the total sum is 5050.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to building a sequence satisfying given constraints.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "Let\u2019s start with the smallest perfect squares and try to build a sequence: $$\ns_0 = 0 \\\\\ns_1 = 1 = 1^2 \\\\\ns_2 = 3 = 1 + 2 \\\\\ns_3 = 6 = 3 + 3 \\\\\ns_4 = 10 = 6 + 4 \\\\\ns_5 = 15 = 10 + 5 \\\\\ns_6 = 21 = 15 + 6 \\\\\n\\ldots\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins constructing and listing specific values for the sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "This is the sequence of **triangular numbers**, and the difference between successive terms is increasing by 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the pattern and property of the constructed sequence.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 29,
+    "sentence": "Let\u2019s continue this: $$\n\\begin{align*}\ns_1 &= 1 \\\\\ns_2 &= 3 \\\\\ns_3 &= 6 \\\\\ns_4 &= 10 \\\\\ns_5 &= 15 \\\\\ns_6 &= 21 \\\\\ns_7 &= 28 \\\\\ns_8 &= 36 \\\\\ns_9 &= 45 \\\\\ns_{10} &= 55 \\\\\ns_{11} &= 66 \\\\\ns_{12} &= 78 \\\\\ns_{13} &= 91 \\\\\ns_{14} &= 105 \\\\\ns_{15} &= 120 \\\\\ns_{16} &= 136 \\\\\ns_{17} &= 153 \\\\\ns_{18} &= 171 \\\\\ns_{19} &= 190 \\\\\ns_{20} &= 210 \\\\\ns_{21} &= 231 \\\\\ns_{22} &= 253 \\\\\ns_{23} &= 276 \\\\\ns_{24} &= 300 \\\\\ns_{25} &= 325 \\\\\ns_{26} &= 351 \\\\\ns_{27} &= 378 \\\\\ns_{28} &= 406 \\\\\ns_{29} &= 435 \\\\\ns_{30} &= 465 \\\\\ns_{31} &= 496 \\\\\ns_{32} &= 528 \\\\\n\\end{align*}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues computing explicit terms of the sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 30,
+    "sentence": "Now check whether the differences $ a_i = s_i - s_{i-1} $ are all in $ \\{1,2,\\ldots,100\\} $ and distinct.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Initiates a check of properties of the differences.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 31,
+    "sentence": "Let\u2019s compute the differences: $$\n\\begin{align*}\na_1 &= 1 \\\\\na_2 &= 2 \\\\\na_3 &= 3 \\\\\na_4 &= 4 \\\\\na_5 &= 5 \\\\\na_6 &= 6 \\\\\na_7 &= 7 \\\\\na_8 &= 8 \\\\\na_9 &= 9 \\\\\na_{10} &= 10 \\\\\na_{11} &= 11 \\\\\na_{12} &= 12 \\\\\na_{13} &= 13 \\\\\na_{14} &= 14 \\\\\na_{15} &= 15 \\\\\na_{16} &= 16 \\\\\na_{17} &= 17 \\\\\na_{18} &= 18 \\\\\na_{19} &= 19 \\\\\na_{20} &= 20 \\\\\na_{21} &= 21 \\\\\na_{22} &= 22 \\\\\na_{23} &= 23 \\\\\na_{24} &= 24 \\\\\na_{25} &= 25 \\\\\na_{26} &= 26 \\\\\na_{27} &= 27 \\\\\na_{28} &= 28 \\\\\na_{29} &= 29 \\\\\na_{30} &= 30 \\\\\na_{31} &= 31 \\\\\na_{32} &= 32 \\\\\n\\end{align*}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation of the differences explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 32,
+    "sentence": "So far, the differences are all distinct and in $ \\{1, 2, \\ldots, 32\\} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms the distinctness and range of the computed differences.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 33,
+    "sentence": "So we have 32 perfect squares in the sequence $ S_1, S_2, \\ldots, S_{32} $, and the corresponding $ a_1, \\ldots, a_{32} $ are all distinct and in $ \\{1,2,\\ldots,32\\} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes and confirms the achieved count and properties.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 34,
+    "sentence": "Now we want to continue this sequence of perfect squares such that the differences $ a_i = s_i - s_{i-1} $ are all distinct and in $ \\{1,2,\\ldots,100\\} $, and the total sum is 5050.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next objective to continue under constraints.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 35,
+    "sentence": "Let\u2019s try to extend the sequence of perfect squares while keeping the differences distinct and within 100.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to extending the sequence while maintaining constraints.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 36,
+    "sentence": "Let\u2019s try to **continue the sequence of triangular numbers**: $$\ns_{33} = 561 \\\\\ns_{34} = 595 \\\\\ns_{35} = 630 \\\\\ns_{36} = 666 \\\\\ns_{37} = 703 \\\\\ns_{38} = 741 \\\\\ns_{39} = 780 \\\\\ns_{40} = 820 \\\\\ns_{41} = 861 \\\\\ns_{42} = 903 \\\\\ns_{43} = 946 \\\\\ns_{44} = 990 \\\\\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues calculating further terms explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "Now compute the differences: $$\n\\begin{align*}\na_{33} &= 33 \\\\\na_{34} &= 34 \\\\\na_{35} &= 35 \\\\\na_{36} &= 36 \\\\\na_{37} &= 37 \\\\\na_{38} &= 38 \\\\\na_{39} &= 39 \\\\\na_{40} &= 40 \\\\\na_{41} &= 41 \\\\\na_{42} &= 42 \\\\\na_{43} &= 43 \\\\\na_{44} &= 44 \\\\\n\\end{align*}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the corresponding differences explicitly.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "So far, all differences are distinct and in $ \\{1,2,\\ldots,44\\} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Verifies the distinctness and range after the new computations.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 39,
+    "sentence": "Now the total sum is: $$\nS_{44} = 990\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and reports the current total sum.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "Let\u2019s continue: $$\ns_{45} = 1035 \\Rightarrow a_{45} = 45 \\\\\ns_{46} = 1081 \\Rightarrow a_{46} = 46 \\\\\ns_{47} = 1128 \\Rightarrow a_{47} = 47 \\\\\ns_{48} = 1176 \\Rightarrow a_{48} = 48 \\\\\ns_{49} = 1225 \\Rightarrow a_{49} = 49 \\\\\ns_{50} = 1275 \\Rightarrow a_{50} = 50 \\\\\ns_{51} = 1326 \\Rightarrow a_{51} = 51 \\\\\ns_{52} = 1378 \\Rightarrow a_{52} = 52 \\\\\ns_{53} = 1431 \\Rightarrow a_{53} = 53 \\\\\ns_{54} = 1485 \\Rightarrow a_{54} = 54 \\\\\ns_{55} = 1540 \\Rightarrow a_{55} = 55 \\\\\ns_{56} = 1596 \\Rightarrow a_{56} = 56 \\\\\ns_{57} = 1653 \\Rightarrow a_{57} = 57 \\\\\ns_{58} = 1711 \\Rightarrow a_{58} = 58 \\\\\ns_{59} = 1770 \\Rightarrow a_{59} = 59 \\\\\ns_{60} = 1830 \\Rightarrow a_{60} = 60 \\\\\ns_{61} = 1891 \\Rightarrow a_{61} = 61 \\\\\ns_{62} = 1953 \\Rightarrow a_{62} = 62 \\\\\ns_{63} = 2016 \\Rightarrow a_{63} = 63 \\\\\ns_{64} = 2080 \\Rightarrow a_{64} = 64 \\\\\ns_{65} = 2145 \\Rightarrow a_{65} = 65 \\\\\ns_{66} = 2211 \\Rightarrow a_{66} = 66 \\\\\ns_{67} = 2278 \\Rightarrow a_{67} = 67 \\\\\ns_{68} = 2346 \\Rightarrow a_{68} = 68 \\\\\ns_{69} = 2415 \\Rightarrow a_{69} = 69 \\\\\ns_{70} = 2485 \\Rightarrow a_{70} = 70 \\\\\ns_{71} = 2556 \\Rightarrow a_{71} = 71 \\\\\ns_{72} = 2628 \\Rightarrow a_{72} = 72 \\\\\ns_{73} = 2701 \\Rightarrow a_{73} = 73 \\\\\ns_{74} = 2775 \\Rightarrow a_{74} = 74 \\\\\ns_{75} = 2850 \\Rightarrow a_{75} = 75 \\\\\ns_{76} = 2926 \\Rightarrow a_{76} = 76 \\\\\ns_{77} = 3003 \\Rightarrow a_{77} = 77 \\\\\ns_{78} = 3081 \\Rightarrow a_{78} = 78 \\\\\ns_{79} = 3160 \\Rightarrow a_{79} = 79 \\\\\ns_{80} = 3240 \\Rightarrow a_{80} = 80 \\\\\ns_{81} = 3321 \\Rightarrow a_{81} = 81 \\\\\ns_{82} = 3403 \\Rightarrow a_{82} = 82 \\\\\ns_{83} = 3486 \\Rightarrow a_{83} = 83 \\\\\ns_{84} = 3570 \\Rightarrow a_{84} = 84 \\\\\ns_{85} = 3655 \\Rightarrow a_{85} = 85 \\\\\ns_{86} = 3741 \\Rightarrow a_{86} = 86 \\\\\ns_{87} = 3828 \\Rightarrow a_{87} = 87 \\\\\ns_{88} = 3916 \\Rightarrow a_{88} = 88 \\\\\ns_{89} = 4005 \\Rightarrow a_{89} = 89 \\\\\ns_{90} = 4095 \\Rightarrow a_{90} = 90 \\\\\ns_{91} = 4186 \\Rightarrow a_{91} = 91 \\\\\ns_{92} = 4278 \\Rightarrow a_{92} = 92 \\\\\ns_{93} = 4371 \\Rightarrow a_{93} = 93 \\\\\ns_{94} = 4465 \\Rightarrow a_{94} = 94 \\\\\ns_{95} = 4560 \\Rightarrow a_{95} = 95 \\\\\ns_{96} = 4656 \\Rightarrow a_{96} = 96 \\\\\ns_{97} = 4753 \\Rightarrow a_{97} = 97 \\\\\ns_{98} = 4851 \\Rightarrow a_{98} = 98 \\\\\ns_{99} = 4950 \\Rightarrow a_{99} = 99 \\\\\ns_{100} = 5050 \\Rightarrow a_{100} = 100 \\\\\n\\end{align*}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues computing more terms and differences through to 100.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "Now we have: - The first 100 perfect squares $ s_1, s_2, \\ldots, s_{100} $, all less than or equal to 5050.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States assumed properties of a constructed sequence of squares without executing calculations or planning steps.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 42,
+    "sentence": "- The differences $ a_i = s_i - s_{i-1} $ are all distinct and in $ \\{1,2,\\ldots,100\\} $\n- The total sum $ S_{100} = 5050 $, as required.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Asserts properties of differences and total sum as logical claims about the construction.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 43,
+    "sentence": "### \u2705 Final Answer: $$\n\\boxed{100}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly provides the final numerical result.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 44,
+    "sentence": "We can arrange the numbers $ 1 $ to $ 100 $ in such a way that **all 100 partial sums** $ S_1, S_2, \\ldots, S_{100} $ are perfect squares.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the concluding claim that all partial sums can be perfect squares.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 45,
+    "sentence": "Thus, the **maximum number of perfect squares** among $ S_1, S_2, \\ldots, S_{100} $ is: $$\n\\boxed{100}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates and presents the final maximum value as the result.",
+    "sentence-category": "Answer"
+  }
+]

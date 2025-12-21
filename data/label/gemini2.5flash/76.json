@@ -1,0 +1,639 @@
+[
+  {
+    "index": 1,
+    "sentence": "The problem asks us to find an optimal route for a carrier from a starting location $S$ (where the original order, Order 1, was just picked up) to a destination $D$, such that the carrier's total expected profit is maximized.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal and setup of the problem (optimize route to maximize expected profit).",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "The carrier has a trunk capacity of 2 orders, meaning s/he can carry Order 1 and at most one additional order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the capacity constraint from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "Let $P$ be a path from $S$ to $D$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a notation for the path; setting up symbols.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 4,
+    "sentence": "The path consists of a sequence of edges $e_1, e_2, \\dots, e_k$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the path as a sequence of edges; establishing notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 5,
+    "sentence": "Let $L_P = \\sum_{i=1}^k \\ell_{e_i}$ be the total length of the path $P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines total path length L_P; establishing a variable with a formula.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "**Profit Breakdown:**\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a decomposition of the solution approach (profit breakdown).",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 7,
+    "sentence": "**Original Order (Order 1):** The carrier receives a fixed reward $r$ and incurs a travel cost $L_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the reward and cost relationships for the original order using defined notation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "So, the profit from Order 1 is $r - L_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes profit for Order 1 as r - L_P.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "This profit is guaranteed for any path taken to $D$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains that this profit applies regardless of path choice; logical observation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "List transition to the second item without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 11,
+    "sentence": "**New Order (Order 2):** A new order might appear on an edge $e$ with probability $P_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the probabilistic model for new order appearance on edges.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "If a new order is picked up, the carrier receives an additional profit of $r$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the reward for picking up a new order.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "The problem states that its travel cost is ignored, implying it's delivered along the path to $D$ for the original order without extra travel.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the implication that no extra travel cost is incurred for the new order.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "Since the trunk capacity is 2, the carrier can pick up at most one new order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces the at-most-one new order due to capacity constraint.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "If multiple opportunities arise along the path, only one new order can be picked up.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies policy under multiple opportunities; only one can be picked up.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "The probability of *not* picking up any new order along path $P$ is $\\prod_{e \\in P} (1-P_e)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability of no new order along the path as a product.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "Let's denote this product as $Q_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces shorthand Q_P for the product; setting notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "The probability of picking up *at least one* new order is $1 - Q_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes probability of at least one new order as 1 - Q_P.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "Therefore, the expected profit from a new order is $r \\times (1 - Q_P)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes expected profit contribution from a new order.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "**Total Expected Profit:**\nThe total expected profit for a given path $P$ is:\n$E[\\text{Profit}_P] = (r - L_P) + r \\times (1 - Q_P)$\n$E[\\text{Profit}_P] = r - L_P + r - r Q_P$\n$E[\\text{Profit}_P] = 2r - (L_P + r Q_P)$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Forms and simplifies the total expected profit expression for a path.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "To maximize the expected profit, we need to minimize the term $C_P = L_P + r Q_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the optimization objective by transforming expected profit maximization into minimizing a specific term.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "$C_P = \\sum_{e \\in P} \\ell_e + r \\prod_{e \\in P} (1-P_e)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the objective function explicitly in terms of path edges.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "This is a shortest path problem where the edge \"costs\" are not purely additive, due to the multiplicative term $Q_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Classifies the problem structure and notes the non-additivity due to the product term.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "This type of problem is often solved using a variation of Dijkstra's algorithm called a \"Multi-Label Dijkstra\" or \"Shortest Path with Resource Constraints\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a suitable algorithmic approach without committing to execute it.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "**Analyzing the Objective Function and Constraints:**\n*   $L_P$ is an additive cost (sum of edge lengths).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the property of L_P as an additive cost.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "*   $Q_P$ is a multiplicative cost (product of $(1-P_e)$ factors).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the property of Q_P as a multiplicative cost.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 27,
+    "sentence": "*   The condition $0 \\leq P_e \\leq \\min\\{\\ell_e/r, 1\\}$ is given.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates a given constraint from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 28,
+    "sentence": "*   $P_e \\geq 0$ and $P_e \\leq 1$ ensure $1-P_e \\in [0,1]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduction about the range of 1-P_e from given bounds.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 29,
+    "sentence": "Thus $Q_P \\in [0,1]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the range of Q_P based on previous deductions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 30,
+    "sentence": "*   $P_e \\leq \\ell_e/r$ implies $rP_e \\leq \\ell_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives an inequality from the given constraint.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "This condition is crucial.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Meta-comment emphasizing importance without adding technical content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 32,
+    "sentence": "Let's consider extending a path $P_u$ to node $u$ with accumulated length $L_u$ and product $Q_u$, by traversing an edge $e=(u,v)$ with length $\\ell_e$ and probability $P_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to extend a path and set up quantities.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 33,
+    "sentence": "The new accumulated values for node $v$ would be:\n$L_v = L_u + \\ell_e$\n$Q_v = Q_u \\times (1-P_e)$\nThe new objective value for the path to $v$ would be $C_v = L_v + r Q_v$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the update equations for L_v, Q_v, and C_v.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "The incremental cost of adding edge $e$ to the path is $(L_v + rQ_v) - (L_u + rQ_u) = \\ell_e + r Q_u (1-P_e) - r Q_u = \\ell_e - r Q_u P_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the incremental cost algebraically.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "Since $Q_u \\in [0,1]$, we have $r Q_u P_e \\leq r P_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses bounds on Q_u to derive an inequality step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 36,
+    "sentence": "And from the constraint $P_e \\leq \\ell_e/r$, we have $r P_e \\leq \\ell_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the given constraint to get another inequality.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 37,
+    "sentence": "Combining these, $r Q_u P_e \\leq r P_e \\leq \\ell_e$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Combines inequalities to bound r Q_u P_e.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "Therefore, the incremental cost $\\ell_e - r Q_u P_e \\geq 0$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes non-negativity of incremental cost from previous bounds.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 39,
+    "sentence": "This means that adding an edge to any path never decreases the total \"cost\" $C_P$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the computed result as a monotonicity property of C_P with edge additions.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "This non-negative incremental cost property is vital, as it allows for Dijkstra-like algorithms to work correctly without needing to handle negative cycles.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the algorithmic implication of non-negative increments for Dijkstra-like methods.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 41,
+    "sentence": "Also, it implies that optimal paths will be simple paths (no repeated vertices), as traversing a cycle would only increase $L_P$ (since $\\ell_e > 0$) and either keep $Q_P$ the same or decrease it, leading to a higher or equal total cost.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduction that optimal paths are simple due to cycle increasing cost; logical inference without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 42,
+    "sentence": "**Optimal Route Algorithm (Multi-Label Dijkstra):**",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the algorithm to be used for the optimal route.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 43,
+    "sentence": "We will use a priority queue to implement a Dijkstra-like algorithm.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended method (priority queue, Dijkstra-like), outlining the approach.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 44,
+    "sentence": "For each node $v$, we maintain a set of \"labels\", where each label is a pair $(L, Q)$ representing the accumulated path length and $Q_P$ product for a path from $S$ to $v$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines maintaining labels per node as part of the algorithm design.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 45,
+    "sentence": "A label $(L_1, Q_1)$ for node $v$ is considered \"non-dominated\" if there is no other label $(L_2, Q_2)$ for $v$ such that $L_2 \\le L_1$ and $Q_2 \\le Q_1$ (and at least one inequality is strict).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the non-dominance relation conceptually.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 46,
+    "sentence": "We only need to store non-dominated labels.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the decision to store only non-dominated labels as part of the algorithm plan.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 47,
+    "sentence": "1.  **Data Structures:**\n    *   `PQ`: A min-priority queue storing tuples `(current_f_value, node_id, L_path, Q_path)`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists the data structure to be used, specifying the stored tuple; part of algorithm setup.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 48,
+    "sentence": "The `current_f_value` is $L_{\\text{path}} + r Q_{\\text{path}}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines how the priority key (objective) is computed conceptually.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 49,
+    "sentence": "*   `Labels[v]`: A set of `(L_path, Q_path)` pairs for each node `v`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies another data structure to be maintained for each node.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 50,
+    "sentence": "Initially empty for all `v`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the initial state of the labels structure (empty), an initialization step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "2.  **Initialization:**\n    *   Add the initial state for $S$ to `PQ`: `PQ.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Instructs to add the initial state to the priority queue; start of initialization procedure.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "push((r, S, 0.0, 1.0))`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the concrete push operation with initial values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "(The initial path from $S$ to $S$ has length $L=0$ and product $Q=1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains why those initial values are used (L=0, Q=1).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 54,
+    "sentence": "The cost is $0 + r \\times 1 = r$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the initial cost value r.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": ")\n    *   Add this initial label to $S$: `Labels[S].",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Instructs to add the initial label to Labels[S]; part of initialization.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "add((0.0, 1.0))`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the concrete add operation of the initial label.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 57,
+    "sentence": "3.  **Main Loop:**\n    While `PQ` is not empty:\n    a.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins the main loop structure for the algorithm execution.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 58,
+    "sentence": "Extract `(f_val, u, L_u, Q_u)` from `PQ` with the minimum `f_val`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the extraction operation from the priority queue during execution.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "This `f_val` is $L_u + r Q_u$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the meaning of f_val in terms of L and Q; conceptual explanation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 60,
+    "sentence": "b.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A step label placeholder indicating the next substep; transition with no substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 61,
+    "sentence": "**Pruning:** Check if the current label `(L_u, Q_u)` is still non-dominated for node `u`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the intended action to perform a pruning check before proceeding.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 62,
+    "sentence": "If there exists a label `(L', Q')` already in `Labels[u]` such that `L' <= L_u` and `Q' <= Q_u` (and `(L',Q') ! = (L_u,Q_u)`), it means a better or equal path to `u` (in terms of $L$ and $Q$) has already been processed or is being processed.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the implication of finding a dominating label, interpreting the condition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 63,
+    "sentence": "In this case, discard `(f_val, u, L_u, Q_u)` and continue to the next iteration.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the action of discarding the label and moving on.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "*(Note: Due to the properties of Dijkstra and non-negative incremental costs, this check often simplified.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides a note explaining why the check can be simplified based on properties.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 65,
+    "sentence": "If `(f_val, u, L_u, Q_u)` is extracted, it means it's the minimal current `f_val` to `u` for this specific `(L_u, Q_u)` pair, considering all paths found so far.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Interprets the meaning of extracting the item from the priority queue.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 66,
+    "sentence": "The strict dominance check in step c.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "References the importance of a later dominance check step without performing an action.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 67,
+    "sentence": "iii below is more crucial for managing `Labels[v]`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates which step is crucial for label management.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 68,
+    "sentence": "c.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Step marker indicating a transition with no substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 69,
+    "sentence": "For each neighbor `v` of `u` connected by an edge `e=(u,v)` with length $\\ell_e$ and probability $P_e$:\n        i.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the next action to iterate over neighbors and edges.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 70,
+    "sentence": "Calculate the new label candidate for `v`:\n            $L_{new\\_v} = L_u + \\ell_e$\n            $Q_{new\\_v} = Q_u \\times (1-P_e)$\n        ii.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the computation of the new label values.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 71,
+    "sentence": "Calculate its combined cost: $f_{new\\_v} = L_{new\\_v} + r \\times Q_{new\\_v}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the combined cost for the new label.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 72,
+    "sentence": "iii.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substep marker indicating transition to the dominance check.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 73,
+    "sentence": "**Dominance Check and Update `Labels[v]`:**\n            *   Initialize a boolean `is_dominated = false`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Initializes a flag variable for the dominance check procedure.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 74,
+    "sentence": "*   Create a temporary list `new_labels_for_v` to store labels that will remain in `Labels[v]`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Creates a temporary list structure to hold surviving labels.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "*   Iterate through each existing label `(L_old, Q_old)` in `Labels[v]`:\n                *   If `L_{new\\_v} >= L_old` and `Q_{new\\_v} >= Q_old`, then `(L_{new\\_v}, Q_{new\\_v})` is dominated by `(L_old, Q_old)`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the loop and performs the dominance condition check against existing labels.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 76,
+    "sentence": "Set `is_dominated = true` and break (do not add `(L_{new\\_v}, Q_{new\\_v})` and keep `(L_old, Q_old)`).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the flag and control flow (break) based on dominance.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 77,
+    "sentence": "*   If `L_old >= L_{new\\_v}` and `Q_old >= Q_{new\\_v}`, then `(L_old, Q_old)` is dominated by `(L_{new\\_v}, Q_{new\\_v})`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the reverse dominance condition.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 78,
+    "sentence": "Do *not* add `(L_old, Q_old)` to `new_labels_for_v` (it will be removed).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Implements the action to exclude dominated old labels from the list.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 79,
+    "sentence": "*   Otherwise (neither label dominates the other), add `(L_old, Q_old)` to `new_labels_for_v`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Implements adding non-dominated existing labels to the list.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 80,
+    "sentence": "*   If `is_dominated` is `false`:\n                *   Add `(L_{new\\_v}, Q_{new\\_v})` to `new_labels_for_v`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Conditionally adds the new label to the list when it is not dominated.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 81,
+    "sentence": "*   Replace `Labels[v]` with `new_labels_for_v`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Operational instruction to update the label set for a node in the algorithm.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 82,
+    "sentence": "*   Push `(f_{new\\_v}, v, L_{new\\_v}, Q_{new\\_v})` to `PQ`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Operational step to push a new state into the priority queue.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 83,
+    "sentence": "*   To reconstruct the path, one would also store a pointer from `(L_{new\\_v}, Q_{new\\_v})` to `(u, L_u, Q_u)` and the edge `e`.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Operational detail to store predecessor pointers for path reconstruction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 84,
+    "sentence": "4.  **Termination and Result:**\n    The algorithm terminates when `PQ` is empty.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the algorithm's termination condition rather than executing a step.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 85,
+    "sentence": "At this point, `Labels[D]` will contain all non-dominated `(L, Q)` pairs for paths from $S$ to $D$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the property of the labels at destination upon termination.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 86,
+    "sentence": "The optimal route corresponds to the pair $(L_D, Q_D)$ in `Labels[D]` that minimizes $L_D + r Q_D$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the criterion for selecting the optimal pair but does not itself execute or present the final path.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 87,
+    "sentence": "The maximum expected profit will be $2r - \\min_{(L_D, Q_D) \\in Labels[D]} (L_D + r Q_D)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces the expression for maximum expected profit from the objective; a conceptual conclusion.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 88,
+    "sentence": "**Complexity:**\nThe theoretical worst-case complexity for multi-label shortest path problems can be exponential in the number of nodes $N$, as the number of non-dominated labels per node can be very large.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Discusses theoretical complexity characteristics of the approach.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 89,
+    "sentence": "However, in practice, for graphs arising from typical applications, the number of labels often remains manageable.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides practical commentary on expected label counts; evaluative analysis.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 90,
+    "sentence": "The condition $P_e \\leq \\ell_e/r$ ensures that effective edge costs are non-negative, which simplifies algorithm design but doesn't inherently reduce the worst-case number of labels.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the implication of the given constraint on edge costs and algorithm design.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 91,
+    "sentence": "The optimal route would be the path leading to the $(L_D, Q_D)$ pair that minimizes $L_D + r Q_D$, reconstructed by following the stored predecessor pointers backwards from $D$ to $S$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Directly states what the optimal route is and how to reconstruct it, answering the problem's question.",
+    "sentence-category": "Answer"
+  }
+]

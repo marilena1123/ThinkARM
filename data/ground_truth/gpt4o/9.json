@@ -1,0 +1,122 @@
+[
+  {
+    "index": 1,
+    "sentence": "To solve this problem, we need to find the maximum possible number of three-term arithmetic progressions in a monotone sequence of \\( n \\) distinct real numbers.",
+    "sentence-type": "answer",
+    "human_label": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "We'll first try to understand the structure of such sequences, and use combinatorial reasoning to count the number of possible arithmetic progressions.",
+    "sentence-type": "answer",
+    "human_label": "Plan"
+  },
+  {
+    "index": 3,
+    "sentence": "A three-term arithmetic progression is a sequence of numbers \\( (a, b, c) \\) such that \\( b-a = c-b \\), implying \\( b = \\frac{a+c}{2} \\).",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "To maximize the number of such progressions, we'll consider sequences structured in such a way that whatever two terms we choose, they allow for an arithmetic progression.",
+    "sentence-type": "answer",
+    "human_label": "Plan"
+  },
+  {
+    "index": 5,
+    "sentence": "A natural candidate is an increasing sequence of equally spaced numbers.",
+    "sentence-type": "answer",
+    "human_label": "Explore"
+  },
+  {
+    "index": 6,
+    "sentence": "Let's consider the sequence \\( 1, 2, 3, \\ldots, n \\).",
+    "sentence-type": "answer",
+    "human_label": "Plan"
+  },
+  {
+    "index": 7,
+    "sentence": "In this sequence, for any pair of numbers \\( (a, c) \\) where \\( 1 \\leq a < c \\leq n \\), the midpoint \\( b = \\frac{a+c}{2} \\) must be an integer between \\( a \\) and \\( c \\).",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "This integer \\( b \\) will be part of the sequence \\( 1, 2, \\ldots, n \\) if \\( a \\) and \\( c \\) are both either odd or even (since only then is their average an integer).",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "Let's count how many such progressions there are when the numbers are \\( 1, 2, \\ldots, n \\).",
+    "sentence-type": "answer",
+    "human_label": "Plan"
+  },
+  {
+    "index": 10,
+    "sentence": "Divide the sequence into odd and even numbers:\n- Odd numbers are \\( 1, 3, 5, \\ldots \\) (sequence length approximately \\( \\lceil \\frac{n}{2} \\rceil \\))\n- Even numbers are \\( 2, 4, 6, \\ldots \\) (sequence length approximately \\( \\lfloor \\frac{n}{2} \\rfloor \\))",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 11,
+    "sentence": "For an arithmetic progression with an odd first and last term, the middle term will also be odd.",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "So, if there are \\( m \\) odd numbers, we can choose two of them in \\( \\binom{m}{2} \\) ways.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "Similarly, for progressions with an even first and last term, there are \\( \\binom{m'}{2} \\) ways if there are \\( m' \\) even numbers.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "Sum these to get the total number of arithmetic progressions:\n\\[\n\\binom{\\lceil \\frac{n}{2} \\rceil}{2} + \\binom{\\lfloor \\frac{n}{2} \\rfloor}{2}\n\\]",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "Evaluating these binomial coefficients: - \\(\\lceil \\frac{n}{2} \\rceil = \\frac{n+1}{2}\\) when \\( n \\) is odd and \\(\\frac{n}{2}\\) when \\( n \\) is even.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "- \\(\\lfloor \\frac{n}{2} \\rfloor = \\frac{n-1}{2}\\) when \\( n \\) is odd and \\(\\frac{n}{2}\\) when \\( n \\) is even.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "In both cases (when \\( n \\) is even or odd), computing the binomials gives us: - \\( n \\) even:\n  \\[\n  \\binom{\\frac{n}{2}}{2} + \\binom{\\frac{n}{2}}{2} = 2 \\cdot \\frac{(\\frac{n}{2})(\\frac{n}{2} - 1)}{2} = \\left(\\frac{n}{2}\\right)\\left(\\frac{n}{2} - 1\\right)\n  \\]\n  which simplifies to:\n  \\[\n  \\frac{n^2 - 2n}{4}\n  \\]",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "- \\( n \\) odd (for example, if \\( n = 2k+1 \\)):\n  \\[\n  \\binom{k+1}{2} + \\binom{k}{2} = \\frac{(k+1)k}{2} + \\frac{k(k-1)}{2} = \\frac{k^2 + k + k^2 - k}{2} = \\frac{2k^2}{2} = k^2\n  \\]",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "Hence, in any case (\\( n = 2k \\) or \\( n = 2k + 1 \\)), the expression becomes:\n\\[\n\\left\\lfloor \\frac{n^2}{4} \\right\\rfloor\n\\]",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "Thus, the maximum number of three-term arithmetic progressions in a monotone sequence of \\( n \\) distinct real numbers is: \\[\n\\boxed{\\left\\lfloor \\frac{n^2}{4} \\right\\rfloor}\n\\]",
+    "sentence-type": "answer",
+    "human_label": "Answer"
+  }
+]

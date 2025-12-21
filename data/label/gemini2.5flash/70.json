@@ -1,0 +1,534 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $H_1, \\dots, H_n$ be the inhabitants of the island.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a notation for inhabitants; setting variables.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "Let $P_i$ be the inhabitant that $H_i$ points to.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the variable each inhabitant points to; notation setup.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 3,
+    "sentence": "Since $H_i$ must point to \"another inhabitant\", $P_i \\neq i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces a constraint from the rule of pointing to another inhabitant.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 4,
+    "sentence": "Each $P_i$ is chosen uniformly at random from the $n-1$ possibilities.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the uniform random pointing rule from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "Let $S_i$ be the statement made by $H_i$, which can be \"He is a Knight\" or \"He is a Knave\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the content of each inhabitant's statement; notation setup.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "We can represent these statements numerically: let $S_i=1$ mean \"He is a Knight\" and $S_i=0$ mean \"He is a Knave\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Encodes statements numerically; setting notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 7,
+    "sentence": "**Island Nyihaha (N):**\nOn island N, each inhabitant $H_i$ is either a Knight (K) or a Knave (V).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the Nyihaha island rule that inhabitants are either Knight or Knave.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "Let $T_i=1$ if $H_i$ is a Knight and $T_i=0$ if $H_i$ is a Knave.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines an indicator variable for being a Knight or Knave.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 9,
+    "sentence": "The rules for statements are:\n- If $H_i$ is a Knight ($T_i=1$), $H_i$ tells the truth.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the truth-telling rule for Knights.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 10,
+    "sentence": "So $S_i = T_{P_i}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the equation linking the statement to the pointed person's type for Knights.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "- If $H_i$ is a Knave ($T_i=0$), $H_i$ lies.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the lying rule for Knaves.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 12,
+    "sentence": "So $S_i = 1 - T_{P_i}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the equation linking the statement to the negation of the pointed person's type for Knaves.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "These two conditions can be combined into a single equation over $GF(2)$:\n$S_i = (T_i + T_{P_i} + 1) \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Combines the two cases into a single modular equation; logical formulation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "Rearranging, we get a system of $n$ linear equations for the unknown types $T_1, \\dots, T_n$:\n$T_i + T_{P_i} = S_i + 1 \\pmod 2$ for $i=1, \\dots, n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rewrites the relation as a system of linear equations modulo 2.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "An observed outcome $(P_1, \\dots, P_n)$ and $(S_1, \\dots, S_n)$ is possible on island N if and only if this system of equations has at least one solution for $T = (T_1, \\dots, T_n)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the feasibility criterion in terms of solvability of the system.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "Let the pointing structure be represented as a directed graph $G$ where edges are $(i, P_i)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a directed graph representation for the pointing structure.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "Since each vertex has exactly one outgoing edge, such a graph consists of a set of disjoint components, where each component contains exactly one cycle, with trees rooted at nodes pointing to the cycle members.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the structural property of functional digraphs (one cycle per component).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 18,
+    "sentence": "For the system $T_i + T_{P_i} = b_i$ (where $b_i = S_i+1 \\pmod 2$) to have a solution, a consistency condition must be met for every cycle in the graph.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the need for a cycle-wise consistency condition for solvability.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 19,
+    "sentence": "Consider a cycle $C = (v_1 \\to v_2 \\to \\dots \\to v_k \\to v_1)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the focus on an arbitrary cycle to proceed with the argument.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 20,
+    "sentence": "The equations for the nodes in this cycle are:\n$T_{v_1} + T_{v_2} = b_{v_1}$\n$T_{v_2} + T_{v_3} = b_{v_2}$\n...\n$T_{v_k} + T_{v_1} = b_{v_k}$\nSumming these equations modulo 2:\n$\\sum_{j=1}^k (T_{v_j} + T_{v_{j+1}}) = \\sum_{j=1}^k b_{v_j} \\pmod 2$ (with $v_{k+1}=v_1$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the cycle equations and performs a summation modulo 2; executing algebraic steps.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "The left-hand side is $2 \\sum_{j=1}^k T_{v_j} \\equiv 0 \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete algebraic simplification of the summed equations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "Thus, a necessary condition for a solution to exist is $\\sum_{j=1}^k b_{v_j} \\equiv 0 \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a logical necessary condition inferred from the prior computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "Substituting $b_j = S_j+1 \\pmod 2$:\n$\\sum_{j=1}^k (S_{v_j}+1) \\equiv 0 \\pmod 2 \\implies \\sum_{j=1}^k S_{v_j} + k \\equiv 0 \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out a substitution and derives a parity relation via calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "This means $\\sum_{j=1}^k S_{v_j} \\equiv k \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes an explicit congruence from the previous step's calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "If this condition holds for all cycles, the system is solvable.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Asserts a solvability criterion based on the established condition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "An outcome is impossible on island N if and only if there exists at least one cycle $C$ such that $\\sum_{i \\in C} S_i \\not\\equiv |C| \\pmod 2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Formulates the impossibility condition as an iff statement about cycles.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 27,
+    "sentence": "**Island Bruhaha (B):**\nOn island B, the inhabitants are normal people.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates given information about island B inhabitants being normal people.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 28,
+    "sentence": "Each $H_i$ points to $P_i \\neq i$ uniformly at random.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the random pointing rule from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 29,
+    "sentence": "Then $H_i$ makes a statement \"He is a Knight\" or \"He is a Knave\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates that each inhabitant makes one of two possible statements.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 30,
+    "sentence": "The problem states that \"every inhabitant tells the truth with probability $1/2$ independently from each other\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Quotes the problem's stipulation about telling the truth with probability 1/2.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 31,
+    "sentence": "What does \"telling the truth\" mean if there are no inherent K/V types on island B?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Raises an interpretive question indicating uncertainty about definitions on B.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 32,
+    "sentence": "The most natural interpretation is that the statements $S_i$ themselves are chosen randomly.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes a specific interpretation for how statements are generated.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 33,
+    "sentence": "If $H_i$ chose to tell the truth, what would $H_i$ say about $P_i$'s type?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Poses another exploratory question about meaning under the truth-telling notion.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 34,
+    "sentence": "The problem doesn't specify any underlying \"true\" type for $P_i$ on island B.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the problem statement to note absence of true types on B.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 35,
+    "sentence": "However, if we assume that for the purpose of the statement, $P_i$ *could* be classified as a Knight or Knave (but this classification itself is random or irrelevant), then the truth value of the statement \"He is a Knight\" depends on $P_i$'s classification.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Considers a hypothetical modeling assumption and its implication for truth values.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "Let's assume the statement $S_i$ (1 for \"Knight\", 0 for \"Knave\") is simply a random choice by $H_i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to an assumption for proceeding with the analysis.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 37,
+    "sentence": "The probability of choosing \"Knight\" is $1/2$, and \"Knave\" is $1/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies the concrete probabilities for the random choice under the assumption.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 38,
+    "sentence": "This is consistent with \"telling the truth with probability 1/2\" since there's no objective truth to compare to, so any choice of statement effectively has 1/2 probability of being \"true\" or \"false\".",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Justifies that the assumption aligns with the problem's truth-telling description.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 39,
+    "sentence": "Thus, each $S_i$ is an independent Bernoulli(1/2) random variable.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes the resulting distributional model for the statements.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 40,
+    "sentence": "**Probability $p_n$:**\nSinbad arrives on island B and observes the outcome $(P,S)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the next step by restating the observation setting for p_n.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 41,
+    "sentence": "He rules out island N if the observed outcome is impossible on island N.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the logical condition under which Nyihaha can be ruled out.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 42,
+    "sentence": "This means $p_n = P(\\exists C: \\sum_{i \\in C} S_i \\not\\equiv |C| \\pmod 2 \\mid \\text{on island B})$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives a probability expression for the event of ruling out Nyihaha.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 43,
+    "sentence": "Let $X_n(G)$ be the number of disjoint cycles in the pointing graph $G$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a new piece of notation for the number of cycles.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 44,
+    "sentence": "(Each connected component in such a graph contains exactly one cycle, so $X_n(G)$ is the number of connected components.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the structural property linking components to cycles.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 45,
+    "sentence": ")\nFor each cycle $C_j$ with length $k_j = |C_j|$, the sum $\\sum_{i \\in C_j} S_i$ is a sum of $k_j$ independent Bernoulli(1/2) variables.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A parenthetical closure acting as a transition without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 46,
+    "sentence": "For $k_j \\ge 1$, the parity of this sum is even or odd with probability $1/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a property of the parity of a sum of Bernoulli(1/2) variables.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 47,
+    "sentence": "That is, $P(\\sum_{i \\in C_j} S_i \\equiv k_j \\pmod 2) = 1/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Formalizes the previous parity statement as an explicit probability equation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 48,
+    "sentence": "Since the cycles are disjoint, the statements $S_i$ associated with one cycle are independent of the statements associated with another cycle.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Argues independence due to disjointness of cycles.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 49,
+    "sentence": "Therefore, the conditions for different cycles are independent events.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes that the cycle parity conditions are independent events.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 50,
+    "sentence": "The probability that *all* cycle conditions hold for a given graph $G$ is $(1/2)^{X_n(G)}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the probability that all cycle conditions hold for a fixed graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "So, the probability that Sinbad *cannot* rule out island N is $P_n^{good} = E_G[(1/2)^{X_n(G)}]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expresses the overall probability via expectation over the random graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "The probability $p_n$ that he *can* rule out island N is $1 - E_G[(1/2)^{X_n(G)}]$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses complement to express the desired probability p_n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "**Asymptotic behavior as $n \\to \\infty$:**\nWe need to analyze $E_G[(1/2)^{X_n(G)}]$ as $n \\to \\infty$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Serves as a heading/transition to the asymptotic analysis section.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 54,
+    "sentence": "The pointing graph $G$ is a random functional graph where self-loops are disallowed ($P_i \\neq i$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Characterizes the random pointing graph model.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 55,
+    "sentence": "The expected number of cycles $E[X_n]$ in a random functional graph on $n$ vertices (where $f(i)$ is chosen uniformly from all $n$ vertices) is known to be asymptotically $\\frac{1}{2} \\ln n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls a known asymptotic result for the expected number of cycles.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 56,
+    "sentence": "In our case, $P_i \\neq i$, so cycles of length 1 (fixed points) are disallowed.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Notes the implication of disallowing self-loops on cycle lengths.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 57,
+    "sentence": "The expected number of such cycles is 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the expected number of fixed points in the unrestricted model.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 58,
+    "sentence": "The exclusion of fixed points means $E[X_n]$ for our case will be very close to $\\frac{1}{2}\\ln n - 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the adjusted expectation after excluding fixed points.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 59,
+    "sentence": "Specifically, $E[X_n] = \\sum_{k=2}^n \\frac{n(n-1)\\dots(n-k+1)}{k(n-1)^k} \\approx \\sum_{k=2}^n \\frac{1}{k} \\approx \\ln n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides an explicit summation/approximation for E[X_n].",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "A more precise analysis of random functional graphs (often called random mappings) shows $E[X_n] \\sim \\frac{1}{2}\\ln n$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the more precise asymptotic behavior from theory.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 61,
+    "sentence": "Since $E[X_n] \\to \\infty$ as $n \\to \\infty$, the number of cycles $X_n$ tends to infinity in probability.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers convergence in probability from asymptotic expectation; a logical deduction without calculation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 62,
+    "sentence": "That is, for any constant $M$, $P(X_n < M) \\to 0$ as $n \\to \\infty$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the definition of tending to infinity in probability as a formal property.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 63,
+    "sentence": "Let $f(x) = (1/2)^x$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a notation/definition to be used in calculations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "This function is bounded ($0 \\le f(x) \\le 1$) and continuous.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes properties of the defined function without computation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 65,
+    "sentence": "We want to show $E[f(X_n)] \\to 0$ as $n \\to \\infty$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the immediate goal of the proof as the next step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 66,
+    "sentence": "For any $\\epsilon > 0$, we can choose a sufficiently large integer $M$ such that $f(M) = (1/2)^M < \\epsilon/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Chooses M based on epsilon with an explicit inequality; begins epsilon-argument execution.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 67,
+    "sentence": "Then we can split the expectation:\n$E[(1/2)^{X_n}] = E[(1/2)^{X_n} \\mathbf{1}_{X_n \\ge M}] + E[(1/2)^{X_n} \\mathbf{1}_{X_n < M}]$\nFor the first term, since $X_n \\ge M$, $(1/2)^{X_n} \\le (1/2)^M$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a decomposition of the expectation and applies an inequality on the first part.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 68,
+    "sentence": "So:\n$E[(1/2)^{X_n} \\mathbf{1}_{X_n \\ge M}] \\le (1/2)^M \\cdot P(X_n \\ge M) \\le (1/2)^M < \\epsilon/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Bounds the first term of the split expectation via inequalities.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 69,
+    "sentence": "For the second term, since $X_n < M$, $(1/2)^{X_n} \\le (1/2)^0 = 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Bounds the integrand on the event X_n < M.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 70,
+    "sentence": "So:\n$E[(1/2)^{X_n} \\mathbf{1}_{X_n < M}] \\le 1 \\cdot P(X_n < M)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the bound to the second term of the expectation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 71,
+    "sentence": "Since $X_n \\to \\infty$ in probability, $P(X_n < M) \\to 0$ as $n \\to \\infty$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses the convergence-in-probability property to deduce a limit statement.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 72,
+    "sentence": "Therefore, for sufficiently large $n$, $P(X_n < M) < \\epsilon/2$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Converts the limit statement into an epsilon-N bound for large n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 73,
+    "sentence": "Combining these bounds, for sufficiently large $n$:\n$E[(1/2)^{X_n}] < \\epsilon/2 + \\epsilon/2 = \\epsilon$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Combines the bounds to obtain the final epsilon bound on the expectation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 74,
+    "sentence": "This shows that $E[(1/2)^{X_n}] \\to 0$ as $n \\to \\infty$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the intermediate result from the established bounds.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "Thus, $p_n = 1 - E_G[(1/2)^{X_n(G)}] \\to 1 - 0 = 1$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the intermediate result to deduce the limiting value of p_n.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 76,
+    "sentence": "The final answer is $\\boxed{Yes}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final answer to the original question explicitly.",
+    "sentence-category": "Answer"
+  }
+]

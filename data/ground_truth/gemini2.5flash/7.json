@@ -1,0 +1,116 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $f(r)$ be defined as $f(r)=\\sum_{j=2}^{2008} \\frac{1}{j^{r}}$.",
+    "sentence-type": "answer",
+    "human_label": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "We want to find the sum $S = \\sum_{k=2}^{\\infty} f(k)$.",
+    "sentence-type": "answer",
+    "human_label": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "Substitute the definition of $f(k)$ into the sum:\n$$S = \\sum_{k=2}^{\\infty} \\left( \\sum_{j=2}^{2008} \\frac{1}{j^k} \\right)$$\nThis is a double summation.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 4,
+    "sentence": "Since all terms $\\frac{1}{j^k}$ are positive, we can interchange the order of summation without affecting the sum's value.",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 5,
+    "sentence": "$$S = \\sum_{j=2}^{2008} \\left( \\sum_{k=2}^{\\infty} \\frac{1}{j^k} \\right)$$",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 6,
+    "sentence": "Let's evaluate the inner sum, $\\sum_{k=2}^{\\infty} \\frac{1}{j^k}$, for a fixed value of $j$.",
+    "sentence-type": "answer",
+    "human_label": "Plan"
+  },
+  {
+    "index": 7,
+    "sentence": "This is a geometric series with first term $a = \\frac{1}{j^2}$ (when $k=2$) and common ratio $r = \\frac{1}{j}$.",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "Since $j$ ranges from $2$ to $2008$, we have $j \\ge 2$.",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "Therefore, $0 < r = \\frac{1}{j} \\le \\frac{1}{2}$.",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "Since $|r| < 1$, the sum of this infinite geometric series converges to $\\frac{a}{1-r}$.",
+    "sentence-type": "answer",
+    "human_label": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "$$ \\sum_{k=2}^{\\infty} \\frac{1}{j^k} = \\frac{\\frac{1}{j^2}}{1 - \\frac{1}{j}} $$\nSimplify the expression:\n$$ \\frac{\\frac{1}{j^2}}{\\frac{j-1}{j}} = \\frac{1}{j^2} \\cdot \\frac{j}{j-1} = \\frac{1}{j(j-1)} $$",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 12,
+    "sentence": "Now substitute this back into the outer sum:\n$$S = \\sum_{j=2}^{2008} \\frac{1}{j(j-1)}$$\nThis is a sum that can be evaluated using partial fraction decomposition.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "We can write $\\frac{1}{j(j-1)}$ as:\n$$ \\frac{1}{j(j-1)} = \\frac{A}{j-1} + \\frac{B}{j} $$\nTo find $A$ and $B$, multiply both sides by $j(j-1)$:\n$$ 1 = A j + B (j-1) $$\nSetting $j=1$, we get $1 = A(1) + B(0) \\implies A=1$.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "Setting $j=0$, we get $1 = A(0) + B(-1) \\implies B=-1$.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "So, the decomposition is:\n$$ \\frac{1}{j(j-1)} = \\frac{1}{j-1} - \\frac{1}{j} $$",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 16,
+    "sentence": "Now, substitute this back into the sum:\n$$ S = \\sum_{j=2}^{2008} \\left( \\frac{1}{j-1} - \\frac{1}{j} \\right) $$\nThis is a telescoping sum.",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "Let's write out the first few terms and the last term:\nFor $j=2$: $\\left(\\frac{1}{2-1} - \\frac{1}{2}\\right) = \\left(1 - \\frac{1}{2}\\right)$\nFor $j=3$: $\\left(\\frac{1}{3-1} - \\frac{1}{3}\\right) = \\left(\\frac{1}{2} - \\frac{1}{3}\\right)$\nFor $j=4$: $\\left(\\frac{1}{4-1} - \\frac{1}{4}\\right) = \\left(\\frac{1}{3} - \\frac{1}{4}\\right)$\n...\nFor $j=2008$: $\\left(\\frac{1}{2008-1} - \\frac{1}{2008}\\right) = \\left(\\frac{1}{2007} - \\frac{1}{2008}\\right)$",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "Summing these terms, we observe that the intermediate terms cancel out:\n$$ S = \\left(1 - \\frac{1}{2}\\right) + \\left(\\frac{1}{2} - \\frac{1}{3}\\right) + \\left(\\frac{1}{3} - \\frac{1}{4}\\right) + \\cdots + \\left(\\frac{1}{2007} - \\frac{1}{2008}\\right) $$\nThe sum simplifies to:\n$$ S = 1 - \\frac{1}{2008} $$\n$$ S = \\frac{2008-1}{2008} = \\frac{2007}{2008} $$",
+    "sentence-type": "answer",
+    "human_label": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "The final answer is $\\boxed{\\frac{2007}{2008}}$.",
+    "sentence-type": "answer",
+    "human_label": "Answer"
+  }
+]

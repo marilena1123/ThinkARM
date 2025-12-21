@@ -1,0 +1,436 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are asked to find the number of **10-digit numbers** that are **multiples of 11** and have **non-increasing digits** from left to right.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the problem requirements and goal without proposing a method.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "### Step 1: Understanding the problem",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A heading indicating a stage transition without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 3,
+    "sentence": "We want to count the number of 10-digit numbers: - The number must be a **10-digit number**, so the **first digit cannot be 0**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates constraints of the problem, including that the first digit cannot be 0.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "- The digits must be **non-increasing**: $ a_1 \\geq a_2 \\geq \\cdots \\geq a_{10} $\n- The number must be divisible by **11**",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues listing the problem's constraints directly from the statement.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "### Step 2: Non-increasing digits \u2192 Multisets of digits",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Heading that announces the approach of translating to multisets.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 6,
+    "sentence": "A non-increasing sequence of digits is equivalent to a **multiset** of 10 digits (from 0 to 9), where digits are allowed to repeat, and the multiset is sorted in non-increasing order.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the conceptual equivalence between non-increasing sequences and multisets.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "So, we can think of the problem as counting **10-element multisets** of digits (0\u20139), with the **first digit \u2260 0**, and such that the corresponding number is divisible by 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reformulates the problem in terms of counting constrained multisets.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "### Step 3: Total number of non-increasing 10-digit numbers (no restriction on divisibility)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Heading that sets the next task of counting totals without divisibility.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 9,
+    "sentence": "We count all 10-digit numbers with non-increasing digits and first digit \u2260 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended task to count such numbers.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 10,
+    "sentence": "This is equivalent to counting the number of **10-element multisets** of digits from 1 to 9 (since 0 is allowed in the multiset but not as the first digit).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains equivalence to counting multisets from given digits.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "Let\u2019s define a bijection between such multisets and the number of integer solutions to: $$\nx_1 + x_2 + \\cdots + x_9 = 10\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a bijection and corresponding equation as conceptual setup.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Where $ x_i $ is the number of times digit $ i $ appears in the multiset (i.e., $ x_i \\geq 0 $), and the digits 1 to 9 are used (0 is not allowed as the first digit, so we can't have too many 0s in the multiset either \u2014 but we'll handle that later).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines variables in the formulation and clarifies constraints conceptually.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "This is a classic **stars and bars** problem: $$\n\\text{Number of non-increasing 10-digit numbers} = \\binom{10 + 9 - 1}{9 - 1} = \\binom{18}{8} = 43758\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies stars and bars and computes the binomial count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 14,
+    "sentence": "So there are **43,758** non-increasing 10-digit numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed total as a result of the calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 15,
+    "sentence": "### Step 4: Among them, how many are divisible by 11?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Heading that sets the next goal: count those divisible by 11.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 16,
+    "sentence": "We now want to count how many of these **43,758** numbers are divisible by **11**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the intention to count the subset divisible by 11.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 17,
+    "sentence": "### Step 5: Divisibility by 11",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Heading indicating the focus on the divisibility rule next.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 18,
+    "sentence": "Let\u2019s recall the **divisibility rule for 11**: > A number is divisible by 11 if the **alternating sum** of its digits is divisible by 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Recalls and states the divisibility rule for 11.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 19,
+    "sentence": "Let the digits be $ a_1 a_2 a_3 \\cdots a_{10} $, with $ a_1 \\geq a_2 \\geq \\cdots \\geq a_{10} $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation for the digits and their order.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "Then the alternating sum is: $$\nS = a_1 - a_2 + a_3 - a_4 + \\cdots + a_9 - a_{10}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the alternating sum expression to be used for divisibility.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "We want $ S \\equiv 0 \\pmod{11} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the required modular condition for divisibility by 11, drawing a direct inference from the rule.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "### Step 6: Strategy",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a strategy step, signaling the planning of the approach.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 23,
+    "sentence": "Let\u2019s define a function: $$\nf(d_1, d_2, \\ldots, d_{10}) = d_1 - d_2 + d_3 - d_4 + \\cdots + d_9 - d_{10}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a specific notation/function to be used, which is setting up formalism.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "We want to count the number of **non-increasing 10-digit numbers** (i.e., multisets of digits from 0 to 9, with 10 elements, first digit \u2260 0) such that $ f(d_1, \\ldots, d_{10}) \\equiv 0 \\pmod{11} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reframes the counting problem in terms of the defined function and condition.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "### Step 7: Key idea \u2014 symmetry of alternating sum modulo 11",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a key idea to pursue next, outlining the approach.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 26,
+    "sentence": "Let\u2019s consider the **alternating sum** over all such numbers.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to considering a certain quantity across all objects, indicating the next action.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "We can use the following idea: > If we consider all such 10-digit non-increasing numbers (43758 of them), and for each we compute the alternating sum modulo 11, and assume the values are evenly distributed modulo 11, then the number of such numbers divisible by 11 is roughly: $$\n\\frac{43758}{11} = 3978\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes a heuristic assumption and derives an approximate count, showing tentative reasoning.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 28,
+    "sentence": "But this is an approximation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the previous step by noting it is only an approximation.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 29,
+    "sentence": "We need to verify that the distribution is **uniform modulo 11**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the need to check the uniformity assumption, an explicit verification step.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 30,
+    "sentence": "### Step 8: Uniform distribution modulo 11?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a new step focused on checking uniform distribution, indicating plan for next action.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 31,
+    "sentence": "We claim that the values of the alternating sum $ f(d_1, \\ldots, d_{10}) \\mod 11 $ are **uniformly distributed** over the 11 possible residues modulo 11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a claim about uniform distribution to be used in the argument.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "Why?",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A brief prompt initiating justification; a meta transition.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 33,
+    "sentence": "Because: - The set of all non-increasing 10-digit numbers is symmetric with respect to the digits.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides a reason based on symmetry of the set; logical justification.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 34,
+    "sentence": "- The function $ f $ is a linear combination of the digits with alternating signs.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides structural property of the function as part of justification.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 35,
+    "sentence": "- Since the digits are from 0 to 9, and the number of such numbers is large (43758), and the modulus is 11 (a small number), the values of $ f \\mod 11 $ are likely to be **uniformly distributed**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives a heuristic likelihood argument with uncertainty ('likely'), exploring plausibility.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 36,
+    "sentence": "This is a standard heuristic in combinatorics and number theory.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the nature of the argument as heuristic rather than rigorous.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 37,
+    "sentence": "Thus, the number of such numbers divisible by 11 is: $$\n\\left\\lfloor \\frac{43758}{11} \\right\\rfloor = 3978\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting count as a conclusion based on the heuristic.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 38,
+    "sentence": "But we should double-check this with a more formal argument.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calls for a more formal check of the result, indicating verification.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 39,
+    "sentence": "### Step 9: Formal argument \u2014 using generating functions",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the next formal approach to be used, outlining the plan.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 40,
+    "sentence": "Let\u2019s define the **generating function** for the alternating sum $ S = a_1 - a_2 + a_3 - \\cdots - a_{10} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins by defining a generating function, setting up notation and machinery.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "We can define a generating function: $$\nF(x) = \\sum_{\\text{all 10-digit non-increasing numbers}} x^S\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces and defines a generating function to encode the alternating sum; setting up notation/theory.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 42,
+    "sentence": "Then the coefficient of $ x^0 $ in $ F(x) $ gives the number of such numbers with $ S \\equiv 0 \\mod 11 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains how the coefficient of x^0 corresponds to the desired count; logical inference about the GF.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 43,
+    "sentence": "We want to compute the number of such numbers with $ S \\equiv 0 \\mod 11 $, i.e., the coefficient of $ x^0 $ in $ F(x) \\mod x^{11} - 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the specific goal to compute the coefficient under a modulus; announces intended computation.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 44,
+    "sentence": "This is a standard approach in combinatorics.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Comments on the method being standard; methodological observation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 45,
+    "sentence": "Let\u2019s define a generating function for the digits.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to define a generating function for digits.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 46,
+    "sentence": "Since the digits are non-increasing, and we are choosing a multiset of 10 digits from 0 to 9, we can define: $$\nG(x) = \\left( \\sum_{k=0}^9 x^k \\right)^{10} = (1 + x + x^2 + \\cdots + x^9)^{10}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a concrete generating function based on multisets; setting formal expression.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 47,
+    "sentence": "But we want to **weight** each term by the alternating sum $ a_1 - a_2 + \\cdots - a_{10} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Clarifies the need to weight terms by the alternating sum; conceptual refinement.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 48,
+    "sentence": "This is a bit more complex.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Brief meta-comment noting increased complexity; transitional reflection.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 49,
+    "sentence": "Instead, we can define a **generating function** where the variable tracks the **alternating sum modulo 11**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes an alternative approach to track alternating sum modulo 11; outlines next methodological step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 50,
+    "sentence": "Let\u2019s define a **generating function**: $$\nF(y) = \\sum_{\\text{all 10-digit non-increasing numbers}} y^S\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines a new generating function F(y) to encode the alternating sum; notation setup.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 51,
+    "sentence": "We are interested in the coefficient of $ y^0 $ in $ F(y) $, since we want $ S \\equiv 0 \\mod 11 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the target coefficient corresponding to S \u2261 0 mod 11; links goal to GF.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 52,
+    "sentence": "Let\u2019s define a **generating function** for the digits with weight $ y^d $ for digit $ d $.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces defining a weighted digit GF; next step statement.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 53,
+    "sentence": "We can define: $$\nH(y) = \\sum_{d=0}^9 y^d = 1 + y + y^2 + \\cdots + y^9\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines H(y) explicitly; notation/specification.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 54,
+    "sentence": "We now define a **generating function** for sequences of 10 digits (not necessarily non-increasing) with alternating sum $ S $, and then we\u2019ll take the coefficient of the multiset (non-increasing) case.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the plan to handle all sequences then extract the non-increasing case; strategy statement.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 55,
+    "sentence": "Let\u2019s define: $$\nF(y) = \\sum_{\\text{all 10-digit sequences}} y^{\\text{alt-sum}} = \\left( H(y) \\cdot H(y^{-1}) \\cdot H(y) \\cdot H(y^{-1}) \\cdots \\right)\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the plan by writing F(y) as a product of H and H^{-1} factors; concrete formulation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "Since the alternating sum is $ a_1 - a_2 + a_3 - \\cdots $, the generating function is: $$\nF(y) = \\left( \\sum_{d=0}^9 y^d \\right) \\cdot \\left( \\sum_{d=0}^9 y^{-d} \\right) \\cdot \\left( \\sum_{d=0}^9 y^d \\right) \\cdot \\left( \\sum_{d=0}^9 y^{-d} \\right) \\cdots\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the product structure from the alternating sum pattern; concrete construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 57,
+    "sentence": "So: $$\nF(y) = \\left( H(y) \\cdot H(y^{-1}) \\right)^5\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Simplifies the product to a compact form; calculation step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 58,
+    "sentence": "We compute: $$\nH(y) = \\sum_{d=0}^9 y^d = \\frac{1 - y^{10}}{1 - y}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes a closed form for H(y); explicit algebra.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "$$\nH(y^{-1}) = \\sum_{d=0}^9 y^{-d} = \\frac{1 - y^{-10}}{1 - y^{-1}} = \\frac{y^{10} - 1}{y^{10}(1 - y)}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes a closed form for H(y^{-1}); explicit algebra.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "So: $$\nH(y) \\cdot H(y^{-1}) = \\frac{(1 - y^{10})(y^{10} - 1)}{(1 - y)(1 - y^{-1}) y^{10}} = \\frac{(1 - y^{10})^2}{(1 - y)(1 - y^{-1}) y^{10}}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Multiplies H(y) and H(y^{-1}) and simplifies; explicit algebraic computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "This is getting messy, but the point is that the total number of such numbers is symmetric in all 11 residues modulo 11, and since there are 43758 total non-increasing 10-digit numbers, the number divisible by 11 is: $$\n\\boxed{3978}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Despite a brief meta-comment and justification, the sentence explicitly states the result 3978 as the answer.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 62,
+    "sentence": "### \u2705 Final Answer: $$\n\\boxed{3978}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Direct presentation of the final result as the answer.",
+    "sentence-category": "Answer"
+  }
+]

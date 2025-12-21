@@ -1,0 +1,758 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let W be Neo's weight.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the notation by defining W for weight.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "Initially, W = 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given initial condition from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "There are two types of pills:\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates that there are two pill types, introducing the list.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "Red Pill (R): Doubles the weight (W -> 2W).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the effect of the red pill as given in the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Enumeration marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 6,
+    "sentence": "Blue Pill (B): Decreases the weight by one pound (W -> W-1).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the effect of the blue pill as given in the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 7,
+    "sentence": "We want to find the minimum number of pills to reach a target weight of 2015 pounds.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of finding the minimum number of pills to reach 2015.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 8,
+    "sentence": "A crucial constraint is that Neo's weight must remain positive.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers/sets a constraint about weight positivity.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "If W=1, a Blue Pill would make his weight 0, which is generally not allowed in such problems unless specified.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the implication of taking a blue pill at W=1, analyzing constraints.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "Let's assume W must be an integer >= 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Posits an explicit assumption about the domain of W.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "This implies that if W=1, Neo cannot take a Blue Pill (W-1=0, which is not >=1).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces a consequence of the assumption for W=1 and blue pill.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "This problem can be solved by working backward from the target weight to the initial weight (1), minimizing the number of operations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes the strategy of working backward from 2015.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 13,
+    "sentence": "Each reverse operation corresponds to a forward operation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains correspondence between reverse and forward operations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "The reverse operations are:\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the concept/list of reverse operations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "If the current weight W was obtained by taking a Red Pill (2 * W_prev = W), then W_prev = W/2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the reverse of a red pill operation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "This is only possible if W is even.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Notes the parity condition for applying the reverse red operation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "We call this R_rev.\n2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assigns a name/notation to the reverse red operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "If the current weight W was obtained by taking a Blue Pill (W_prev - 1 = W), then W_prev = W+1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the reverse of a blue pill operation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 19,
+    "sentence": "We call this B_rev.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Assigns a name/notation to the reverse blue operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "Our goal is to reach 1 from 2015 using the minimum number of R_rev and B_rev operations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the objective in terms of the chosen backward strategy.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 21,
+    "sentence": "Let C(W) be the minimum number of operations to get from W to 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces a notation C(W) to represent the minimal number of operations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "- C(1) = 0 (we are already at 1)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the base case as a concrete equality.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 23,
+    "sentence": "For any other weight W:\n- If W is odd: To reach W, the previous operation must have been W_prev - 1 = W.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces, based on parity, the only possible prior operation for odd W.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "So W_prev = W+1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers the previous value symbolically from the prior deduction.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "This is a B_rev operation.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Classifies the inferred reverse step as a specific operation type.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "There's no other way to get an odd number using 2W or W-1 in forward path.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Justifies uniqueness of obtaining an odd number via the given operations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 27,
+    "sentence": "So, C(W) = 1 + C(W+1) (if W is odd).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the recurrence relation for odd W from the prior logic.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 28,
+    "sentence": "- If W is even: To reach W, the previous operation could have been W_prev * 2 = W (so W_prev = W/2, an R_rev operation), OR W_prev - 1 = W (so W_prev = W+1, a B_rev operation).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the two possible reverse operations for even W and their predecessors.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 29,
+    "sentence": "We choose the path that results in fewer total operations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the strategy to choose the path with fewer operations.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 30,
+    "sentence": "So, C(W) = 1 + min(C(W/2), C(W+1)) (if W is even).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the recurrence relation for even W based on the minimization strategy.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 31,
+    "sentence": "Let's apply this strategy, starting from 2015: 1.  **W = 2015** (odd): We must apply B_rev.\n    C(2015) = 1 + C(2016)\n2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Initiates applying the strategy starting from 2015 and sets up the first step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 32,
+    "sentence": "**W = 2016** (even): We choose between R_rev (to 1008) and B_rev (to 2017).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes and presents the two candidate predecessors (1008 and 2017) for W=2016.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "C(2016) = 1 + min(C(1008), C(2017))\n3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Writes the concrete minimization recurrence for W=2016.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "**W = 2017** (odd): We must apply B_rev.\n    C(2017) = 1 + C(2018)\n    Generally, for larger numbers, applying W/2 (R_rev) drastically reduces the number, while W+1 (B_rev) increases it or decreases it slowly (in forward).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the odd-case rule to W=2017 and comments on the general effect of each operation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 35,
+    "sentence": "The greedy choice is to always apply W/2 if W is even, as it generally leads to a faster reduction to 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the greedy rule for even W and its rationale.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "If W is odd, we are forced to apply W+1 to make it even so we can apply W/2 in the next step.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the necessity of applying W+1 for odd W to enable halving next.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 37,
+    "sentence": "This greedy strategy is optimal for this specific type of problem.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates and asserts the optimality of the proposed greedy strategy.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 38,
+    "sentence": "Let's follow the greedy path:\nStart at W = 2015.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to executing the greedy strategy starting from 2015.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 39,
+    "sentence": "1.  **2015** (odd): Must apply B_rev. Current value: 2016.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the first reverse step from 2015 to 2016 and states the result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "Operations: 1 (B pill).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the operation count after the first step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without problem-solving content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 42,
+    "sentence": "**2016** (even): Apply R_rev (2016/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the chosen reverse operation and specifies the computation 2016/2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": "Current value: 1008.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting weight after performing the operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 44,
+    "sentence": "Operations: 1+1=2 (B, R pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the count of operations with an explicit calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 45,
+    "sentence": "3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without problem-solving content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 46,
+    "sentence": "**1008** (even): Apply R_rev (1008/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the reverse operation on 1008 with the computation 1008/2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 47,
+    "sentence": "Current value: 504.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the new weight after the operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 48,
+    "sentence": "Operations: 2+1=3 (B, R, R pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the total number of operations via calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 49,
+    "sentence": "4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without problem-solving content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 50,
+    "sentence": "**504** (even): Apply R_rev (504/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the reverse halving operation on 504.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 51,
+    "sentence": "Current value: 252.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reports the result of the operation (new weight).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 52,
+    "sentence": "Operations: 3+1=4 (B, R, R, R pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates and states the updated operation count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 53,
+    "sentence": "5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without problem-solving content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 54,
+    "sentence": "**252** (even): Apply R_rev (252/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the reverse operation 252/2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "Current value: 126.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting weight after the operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 56,
+    "sentence": "Operations: 4+1=5 (B, R, R, R, R pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the operations count by explicit calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 57,
+    "sentence": "6.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without problem-solving content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 58,
+    "sentence": "**126** (even): Apply R_rev (126/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the reverse halving operation on 126.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 59,
+    "sentence": "Current value: 63.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Reports the result (current weight) after the operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "Operations: 5+1=6 (B, R, R, R, R, R pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Calculates and presents the updated total number of operations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "7.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 62,
+    "sentence": "**63** (odd): Must apply B_rev. Current value: 64.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the reverse operation for an odd value and computes the new current value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "Operations: 6+1=7 (B, R, R, R, R, R, B pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and computes the operation count and sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "8.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 65,
+    "sentence": "**64** (even): Apply R_rev (64/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies R_rev to 64 by halving.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 66,
+    "sentence": "Current value: 32.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed new current value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 67,
+    "sentence": "Operations: 7+1=8 (B, R, R, R, R, R, B, R pills).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and computes the operation count and sequence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 68,
+    "sentence": "9.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 69,
+    "sentence": "**32** (even): Apply R_rev (32/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies R_rev to 32 by halving.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 70,
+    "sentence": "Current value: 16.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed new current value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 71,
+    "sentence": "Operations: 8+1=9.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and computes the operation count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 72,
+    "sentence": "10.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 73,
+    "sentence": "**16** (even): Apply R_rev (16/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies R_rev to 16 by halving.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 74,
+    "sentence": "Current value: 8.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed new current value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 75,
+    "sentence": "Operations: 9+1=10.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and computes the operation count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 76,
+    "sentence": "11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 77,
+    "sentence": "**8** (even): Apply R_rev (8/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies R_rev to 8 by halving.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 78,
+    "sentence": "Current value: 4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed new current value.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 79,
+    "sentence": "Operations: 10+1=11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates and computes the operation count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 80,
+    "sentence": "12.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Just a step number marker without substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 81,
+    "sentence": "**4** (even): Apply R_rev (4/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the reverse step by halving 4 to 2.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 82,
+    "sentence": "Current value: 2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting value after the reverse operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 83,
+    "sentence": "Operations: 11+1=12.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the count of operations with a calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 84,
+    "sentence": "13.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "A list step marker without substantive problem-solving content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 85,
+    "sentence": "**2** (even): Apply R_rev (2/2).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the reverse step by halving 2 to 1.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 86,
+    "sentence": "Current value: 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the resulting value after the reverse operation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 87,
+    "sentence": "Operations: 12+1=13.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Updates the count of operations with a calculation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 88,
+    "sentence": "We have reached 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that the backward process has reached the base value.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 89,
+    "sentence": "The total number of operations is 13.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the final count of operations, giving the result asked.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 90,
+    "sentence": "Let's list the sequence of forward operations based on the reverse path (read from bottom up, reversing the operation type):\nStarting from W=1:\n1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the plan to list the forward sequence from the reverse path.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 91,
+    "sentence": "R: 1 * 2 = 2 (1 pill)\n2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the first forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 92,
+    "sentence": "R: 2 * 2 = 4 (2 pills)\n3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 93,
+    "sentence": "R: 4 * 2 = 8 (3 pills)\n4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 94,
+    "sentence": "R: 8 * 2 = 16 (4 pills)\n5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 95,
+    "sentence": "R: 16 * 2 = 32 (5 pills)\n6.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 96,
+    "sentence": "R: 32 * 2 = 64 (6 pills)\n7.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 97,
+    "sentence": "B: 64 - 1 = 63 (7 pills) (This step corresponds to 63 -> 64 B_rev)\n8.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a forward blue-pill step and notes its reverse correspondence.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 98,
+    "sentence": "R: 63 * 2 = 126 (8 pills)\n9.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 99,
+    "sentence": "R: 126 * 2 = 252 (9 pills)\n10.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 100,
+    "sentence": "R: 252 * 2 = 504 (10 pills)\n11.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the next forward operation with computation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 101,
+    "sentence": "R: 504 * 2 = 1008 (11 pills)\n12.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete operation (doubling 504 to 1008) and updates pill count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 102,
+    "sentence": "R: 1008 * 2 = 2016 (12 pills)\n13.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete operation (doubling 1008 to 2016) and updates pill count.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 103,
+    "sentence": "B: 2016 - 1 = 2015 (13 pills) (This step corresponds to 2015 -> 2016 B_rev)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete operation (subtracting 1 from 2016 to reach 2015), with a note about reverse mapping.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 104,
+    "sentence": "All intermediate weights are positive (the minimum weight reached is 1).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Checks that all intermediate states satisfy the positivity constraint.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 105,
+    "sentence": "The first operation from W=1 must be R as W-1 would lead to 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deductive reasoning about the first operation based on constraints (avoiding 0).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 106,
+    "sentence": "Our sequence starts with R, so this constraint is satisfied.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Confirms that the derived sequence satisfies the identified constraint.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 107,
+    "sentence": "The minimum number of pills Neo must take is 13.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the concluded minimal number of pills.",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 108,
+    "sentence": "The final answer is $\\boxed{13}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly presents the final answer.",
+    "sentence-category": "Answer"
+  }
+]

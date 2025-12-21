@@ -1,0 +1,324 @@
+[
+  {
+    "index": 1,
+    "sentence": "Let $G=(V,E)$ be an undirected graph with $n=10$ nodes and $m$ edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for the graph and sets given parameters; setting notation is an execution step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 2,
+    "sentence": "We are looking for the minimum value of $m$ such that $G$ must contain a nonempty vertex-induced subgraph where all vertices have degree at least 5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of the problem in terms of m and the required subgraph.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "Let $H$ be a vertex-induced subgraph.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces notation for the induced subgraph H.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 4,
+    "sentence": "The condition is that for all $v \\in V(H)$, $deg_H(v) \\ge 5$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the degree condition for vertices in H.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 5,
+    "sentence": "This is the definition of a 5-core.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the condition as the definition of a 5-core.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "The problem can be rephrased as finding the minimum $m$ such that the 5-core of $G$ is guaranteed to be nonempty.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Rephrases the problem equivalently in terms of the 5-core being nonempty.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "To solve this, we find the maximum number of edges $m_{max}$ a graph can have such that its 5-core is empty.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the strategy to find the threshold by maximizing edges with empty 5-core.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 8,
+    "sentence": "If $m = m_{max}+1$, then any graph with $m$ edges must have a nonempty 5-core.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains the implication of exceeding the maximum by one edge.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 9,
+    "sentence": "A graph $G$ has an empty $k$-core if and only if $G$ is $(k-1)$-degenerate.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States a known equivalence between empty k-core and (k\u22121)-degeneracy.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 10,
+    "sentence": "In our case, $k=5$, so we are looking for the maximum number of edges in a graph $G$ that is 4-degenerate.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the equivalence to the case k=5, focusing on 4-degenerate graphs.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "A graph $G$ is $d$-degenerate if there exists an ordering of its vertices $v_1, v_2, \\dots, v_n$ such that for every vertex $v_i$, the number of its neighbours $v_j$ with $j < i$ is at most $d$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives the definition of d-degeneracy via vertex ordering.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "Let $d_i$ be the number of neighbours of $v_i$ that appear before $v_i$ in this ordering (i.e., $deg(v_i, \\{v_1, \\dots, v_{i-1}\\})$).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines d_i as the backward degree in the chosen ordering.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 13,
+    "sentence": "The total number of edges in the graph is $m = \\sum_{i=1}^n d_i$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the formula expressing the number of edges as a sum of backward degrees.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "To maximize $m$ for a $d$-degenerate graph, we choose $d_i$ to be as large as possible, subject to the condition $d_i \\le d$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets the approach to maximize m by choosing each d_i as large as allowed.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 15,
+    "sentence": "Also, $d_i$ cannot exceed $i-1$ (the number of available preceding vertices).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Adds a constraint on d_i based on available preceding vertices.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 16,
+    "sentence": "So, $d_i = \\min(i-1, d)$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes the optimal choice for d_i from the constraints.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 17,
+    "sentence": "For our problem, $n=10$ and $d=4$ (since it's 4-degenerate for an empty 5-core).",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Substitutes specific values n=10 and d=4 for this problem.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 18,
+    "sentence": "The maximum number of edges $m_{max}$ is:\n$m_{max} = \\sum_{i=1}^{10} \\min(i-1, 4)$\nLet's list the values for each $i$:\nFor $i=1$: $\\min(0, 4) = 0$\nFor $i=2$: $\\min(1, 4) = 1$\nFor $i=3$: $\\min(2, 4) = 2$\nFor $i=4$: $\\min(3, 4) = 3$\nFor $i=5$: $\\min(4, 4) = 4$\nFor $i=6$: $\\min(5, 4) = 4$\nFor $i=7$: $\\min(6, 4) = 4$\nFor $i=8$: $\\min(7, 4) = 4$\nFor $i=9$: $\\min(8, 4) = 4$\nFor $i=10$: $\\min(9, 4) = 4$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the computation of m_max by listing and evaluating min(i\u22121,4).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 19,
+    "sentence": "Summing these values:\n$m_{max} = 0 + 1 + 2 + 3 + 4 + 4 + 4 + 4 + 4 + 4$\n$m_{max} = (0+1+2+3) + (6 \\times 4)$\n$m_{max} = 6 + 24 = 30$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sums the listed values to compute m_max = 30.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "So, a 4-degenerate graph on 10 vertices can have at most 30 edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed maximum number of edges for a 4-degenerate graph on 10 vertices.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "This means a graph with 30 edges can have an empty 5-core.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws a logical conclusion from previous results about possibility of empty 5-core with 30 edges.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 22,
+    "sentence": "Let's construct such a graph explicitly to verify.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to construct a graph for verification.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 23,
+    "sentence": "Let $V = \\{v_1, \\dots, v_{10}\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets notation for the vertex set.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 24,
+    "sentence": "We can partition $V$ into two sets: $A=\\{v_1,v_2,v_3,v_4\\}$ and $B=\\{v_5,v_6,v_7,v_8,v_9,v_{10}\\}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Specifies a concrete partition of the vertex set for the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 25,
+    "sentence": "1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Step number marker with no substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 26,
+    "sentence": "Make $A$ a complete graph $K_4$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out a construction step (making A a complete graph).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 27,
+    "sentence": "This adds $\\binom{4}{2} = 6$ edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete edge count calculation for K4.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 28,
+    "sentence": "2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Step number marker with no substantive content.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 29,
+    "sentence": "For each vertex in $B$, connect it to every vertex in $A$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out a construction step connecting B to A.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 30,
+    "sentence": "This adds $6 \\times 4 = 24$ edges.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs a concrete edge count calculation for the bipartite connections.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 31,
+    "sentence": "The total number of edges in this graph $G'$ is $6+24=30$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the total number of edges in the constructed graph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 32,
+    "sentence": "Now, let's determine the 5-core of $G'$:\nCalculate degrees of vertices in $G'$:\n- For $v \\in A$: $v$ is connected to 3 other vertices in $A$ and 6 vertices in $B$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins the procedure to find the 5-core and computes adjacency details for vertices in A.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 33,
+    "sentence": "So $deg_{G'}(v) = 3+6=9$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the degree of a vertex in A.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 34,
+    "sentence": "- For $v \\in B$: $v$ is connected to 4 vertices in $A$ and no other vertices in $B$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States adjacency details for vertices in B.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 35,
+    "sentence": "So $deg_{G'}(v) = 4$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes the degree of a vertex in B.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 36,
+    "sentence": "To find the 5-core, we iteratively remove vertices with degree less than 5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the intended procedure for finding the 5-core.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 37,
+    "sentence": "Initially, the vertices in $B$ all have degree 4, which is less than 5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Infers initial status of vertices in B based on computed degrees.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 38,
+    "sentence": "So, all vertices in $B$ are removed.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Executes the removal step for vertices with degree less than 5.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 39,
+    "sentence": "Let $G_1$ be the graph induced by $V \\setminus B = A$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Defines the resulting induced subgraph after removal.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 40,
+    "sentence": "$G_1$ is $K_4$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the structure of the resulting subgraph.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 41,
+    "sentence": "In $G_1$, all vertices have degree 3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States an intermediate computed property (vertex degrees) of the constructed graph as part of executing the construction/peeling argument.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 42,
+    "sentence": "Since $deg_{G_1}(v)=3$ for all $v \\in A$, and $3 < 5$, all vertices in $A$ are also removed.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies the degree condition (<5) to remove vertices in the k-core peeling process, a concrete step in the construction.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 43,
+    "sentence": "As a result, the 5-core of $G'$ is empty.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Concludes from prior steps that the 5-core is empty, evaluating the outcome of the construction.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 44,
+    "sentence": "Since we can construct a graph with 30 edges that does *not* contain such a subgraph, 30 is not enough to guarantee the property.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Evaluates the implication of the counterexample to assert that 30 edges do not guarantee the property.",
+    "sentence-category": "Verify"
+  },
+  {
+    "index": 45,
+    "sentence": "Therefore, if $m=31$, any graph must contain a nonempty vertex-induced subgraph where all vertices have degree at least 5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Draws the logical implication from the extremal bound to the guaranteed property at m=31.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 46,
+    "sentence": "The final answer is $\\boxed{31}$.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly states the final numeric result.",
+    "sentence-category": "Answer"
+  }
+]

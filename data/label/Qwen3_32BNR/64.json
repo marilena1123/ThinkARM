@@ -1,0 +1,555 @@
+[
+  {
+    "index": 1,
+    "sentence": "We are given the cryptarithmetic puzzle: $$\n\\begin{array}{ccccc}\n & C & A & S & H \\\\\n+ & & & M & E \\\\\n\\hline\nO & S & I & D & E \\\\\n\\end{array}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the given cryptarithmetic puzzle exactly as in the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 2,
+    "sentence": "Each letter represents a **base-10 digit** (0 through 9), and **C, M, O \u2260 0**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the digit constraints and nonzero conditions from the problem.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 3,
+    "sentence": "Letters can represent the same digit, but we must find how many **valid digit assignments** satisfy the addition.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates the goal of counting valid assignments consistent with the addition.",
+    "sentence-category": "Read"
+  },
+  {
+    "index": 4,
+    "sentence": "### Step 1: Understand the structure",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to understand the structure of the problem.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 5,
+    "sentence": "We are adding two 4-digit numbers: - First number: `CASH` (4 digits)\n- Second number: `  ME` (2 digits, aligned to the right)\n- Result: `OSIDE` (5 digits)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Analyzes the structure and alignment of the numbers involved.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 6,
+    "sentence": "So, we can write the addition as: $$\n\\text{CASH} + \\text{ME} = \\text{OSIDE}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Expresses the cryptarithm as an equation, framing the relationships.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 7,
+    "sentence": "This is a **column-by-column** addition problem with **carries**.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Identifies the column-wise addition with carries as the key concept.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 8,
+    "sentence": "### Step 2: Align the numbers",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the next action to align numbers.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 9,
+    "sentence": "Let\u2019s align the digits in columns: $$\n\\begin{array}{cccccc}\n & C & A & S & H \\\\\n+ & & & M & E \\\\\n\\hline\nO & S & I & D & E \\\\\n\\end{array}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Carries out the alignment by constructing the column layout.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 10,
+    "sentence": "So the columns (from right to left) are: 1. **H + E = E (with possible carry)**\n2.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Deduces the first column relationship from the alignment.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 11,
+    "sentence": "**S + M = D (with possible carry)**\n3.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the second column relationship (S + M = D with carry).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 12,
+    "sentence": "**A = I (with possible carry)**\n4.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the third column relationship (A = I with carry).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 13,
+    "sentence": "**C = S (with possible carry)**\n5.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the fourth column relationship (C = S with carry).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 14,
+    "sentence": "**Carry from column 4 = O**",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the carry-out to the leading digit (carry from column 4 equals O).",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 15,
+    "sentence": "We will work from **right to left**, keeping track of **carry-in and carry-out** in each column.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines the plan to proceed right-to-left while tracking carries.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 16,
+    "sentence": "Let\u2019s denote: - $ c_0 $ = carry from column 1 to column 2\n- $ c_1 $ = carry from column 2 to column 3\n- $ c_2 $ = carry from column 3 to column 4\n- $ c_3 $ = carry from column 4 to column 5",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces and defines carry notation for subsequent calculations.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 17,
+    "sentence": "We will solve this step-by-step.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to a step-by-step solution approach.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 18,
+    "sentence": "### Step 3: Column 1 (rightmost): H + E = E (with carry)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the next step focusing on the rightmost column.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 19,
+    "sentence": "This is the **units column**: $$\nH + E = E + 10 \\cdot c_0\n\\Rightarrow H = 10 \\cdot c_0\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Performs the algebra on the units column to derive H = 10 c0.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 20,
+    "sentence": "Since $ H $ is a digit (0\u20139), the only possibility is: - $ c_0 = 0 \\Rightarrow H = 0 $\n- $ c_0 = 1 \\Rightarrow H = 10 $, **invalid** (not a digit)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Applies digit constraints to conclude c0 = 0 and H = 0; rules out invalid case.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 21,
+    "sentence": "So the **only valid value is**: $$\nH = 0, \\quad c_0 = 0\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the concrete deduced values for H and c0 as an intermediate result.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 22,
+    "sentence": "### Step 4: Column 2: S + M + c_0 = D (c_0 = 0)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the column-2 relation and context for the equation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 23,
+    "sentence": "So: $$\nS + M = D + 10 \\cdot c_1\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives the carry-based equation for S, M, D, and c1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 24,
+    "sentence": "We know: - $ S, M, D \\in \\{0,1,\\dots,9\\} $\n- $ c_1 \\in \\{0,1\\} $ (carry is at most 1)",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States domain and carry constraints for the variables.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 25,
+    "sentence": "So: $$\nS + M = D + 10 \\cdot c_1\n\\Rightarrow D = S + M - 10 \\cdot c_1\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Algebraically rearranges the equation to express D in terms of S, M, and c1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 26,
+    "sentence": "We will consider both cases: #### Case A: $ c_1 = 0 \\Rightarrow D = S + M $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a case analysis approach before proceeding.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 27,
+    "sentence": "- $ S + M \\leq 9 $, so $ S + M = D $\n- $ c_1 = 0 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists logical constraints and consequences under Case A.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 28,
+    "sentence": "#### Case B: $ c_1 = 1 \\Rightarrow D = S + M - 10 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the relation for Case B.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 29,
+    "sentence": "- $ S + M \\geq 10 $\n- $ D = S + M - 10 \\Rightarrow D \\in \\{0,1,\\dots,9\\} $\n- $ c_1 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Provides constraints and implications under Case B.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 30,
+    "sentence": "So we will loop over all valid values of $ S, M $ and compute $ D $ and $ c_1 $ accordingly.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes enumerating values of S and M and computing D and c1.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 31,
+    "sentence": "### Step 5: Column 3: A + c_1 = I",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the column-3 relation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 32,
+    "sentence": "So: $$\nA + c_1 = I + 10 \\cdot c_2\n\\Rightarrow I = A + c_1 - 10 \\cdot c_2\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives I in terms of A, c1, and c2 using the carry relation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 33,
+    "sentence": "Again, $ c_2 \\in \\{0,1\\} $, so: #### Case A: $ c_2 = 0 \\Rightarrow I = A + c_1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States carry constraints and the Case A expression for I.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 34,
+    "sentence": "- $ A + c_1 \\leq 9 $\n- $ c_2 = 0 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives constraints that follow from Case A in column 3.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 35,
+    "sentence": "#### Case B: $ c_2 = 1 \\Rightarrow I = A + c_1 - 10 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the Case B expression for I.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 36,
+    "sentence": "- $ A + c_1 \\geq 10 $\n- $ c_2 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Gives constraints that follow from Case B in column 3.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 37,
+    "sentence": "### Step 6: Column 4: C + c_2 = S",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the column-4 relation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 38,
+    "sentence": "$$\nC + c_2 = S + 10 \\cdot c_3\n\\Rightarrow S = C + c_2 - 10 \\cdot c_3\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Derives S in terms of C, c2, and c3 from the carry relation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 39,
+    "sentence": "Again, $ c_3 \\in \\{0,1\\} $, so: #### Case A: $ c_3 = 0 \\Rightarrow S = C + c_2 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States carry constraint and the Case A expression for S.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 40,
+    "sentence": "- $ C + c_2 \\leq 9 $\n- $ c_3 = 0 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists constraints that follow from Case A in column 4.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 41,
+    "sentence": "#### Case B: $ c_3 = 1 \\Rightarrow S = C + c_2 - 10 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the derived relationship for the case c3=1 without performing calculations.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 42,
+    "sentence": "- $ C + c_2 \\geq 10 $\n- $ c_3 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Lists constraints that follow from the case assumption; logical deductions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 43,
+    "sentence": "### Step 7: Column 5: c_3 = O",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces the leftmost column relationship c3 = O as a factual equation.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 44,
+    "sentence": "This is the **leftmost column**, so: $$\nc_3 = O\n\\Rightarrow O \\in \\{0,1\\}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explains and deduces the possible values for O from c3 = O.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 45,
+    "sentence": "But the problem says $ O \\neq 0 $, so: $$\nO = 1 \\Rightarrow c_3 = 1\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Uses the given condition O \u2260 0 to deduce O = 1 and c3 = 1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 46,
+    "sentence": "So we now know: - $ O = 1 $\n- $ c_3 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes deduced facts O = 1 and c3 = 1.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 47,
+    "sentence": "### Step 8: Summary of constraints",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces a summary step of constraints.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 48,
+    "sentence": "Let\u2019s summarize all the equations and constraints: - $ H = 0 $\n- $ D = S + M - 10 \\cdot c_1 $\n- $ I = A + c_1 - 10 \\cdot c_2 $\n- $ S = C + c_2 - 10 \\cdot c_3 = C + c_2 - 10 $ (since $ c_3 = 1 $)\n- $ O = 1 $\n- $ C \\neq 0, M \\neq 0, O = 1 \\neq 0 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Summarizes all derived equations and constraints.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 49,
+    "sentence": "We also know: - $ H = 0 $\n- $ c_0 = 0 $\n- $ c_3 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates known carry/digit facts; consolidation of deductions.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 50,
+    "sentence": "Let\u2019s now proceed to count the number of valid assignments.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next action to count valid assignments.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 51,
+    "sentence": "### Step 9: Count the number of valid assignments",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Heading indicating the counting step.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 52,
+    "sentence": "We will now write a **brute-force loop** over all possible values of the letters, with the constraints: - $ C, M, O \\neq 0 $\n- $ H = 0 $\n- $ O = 1 $\n- $ c_3 = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Declares intention to use a brute-force loop with listed constraints.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 53,
+    "sentence": "We will loop through all valid values for the variables and count the number of valid assignments that satisfy all the equations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the intended looping and counting approach.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 54,
+    "sentence": "Let\u2019s define the variables: - $ C \\in \\{1,\\dots,9\\} $\n- $ A, S, M, E, I, D \\in \\{0,\\dots,9\\} $\n- $ O = 1 $\n- $ H = 0 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets variable domains and fixed values to be used; establishing notation.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 55,
+    "sentence": "We will loop over: - $ C \\in \\{1,\\dots,9\\} $\n- $ A \\in \\{0,\\dots,9\\} $\n- $ S \\in \\{0,\\dots,9\\} $\n- $ M \\in \\{1,\\dots,9\\} $\n- $ E \\in \\{0,\\dots,9\\} $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Describes the looping ranges to be executed.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 56,
+    "sentence": "We will compute: - $ H = 0 $\n- $ D = S + M - 10 \\cdot c_1 $\n- $ I = A + c_1 - 10 \\cdot c_2 $\n- $ S = C + c_2 - 10 $ (since $ c_3 = 1 $)\n- $ O = 1 $",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Outlines which quantities will be computed during the loop.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 57,
+    "sentence": "Let\u2019s write the code logic.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces starting the code logic.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 58,
+    "sentence": "### Step 10: Python-style pseudocode to count valid assignments",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Heading indicating pseudocode will follow.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 59,
+    "sentence": "```python\ncount = 0\nfor C in 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Begins the pseudocode implementation (initialization and loop).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 60,
+    "sentence": "9:\n    for A in 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Continues the pseudocode loops; execution detail.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 61,
+    "sentence": "9:\n        for S in 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up a for-loop over S (execution step in the brute-force enumeration).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 62,
+    "sentence": "9:\n            for M in 1.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up a for-loop over M (execution step in the brute-force enumeration).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 63,
+    "sentence": "9:\n                for E in 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Sets up a for-loop over E (execution step in the brute-force enumeration).",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 64,
+    "sentence": "9:\n                    # H = 0\n                    # Column 1: H + E = E + 10 * c0\n                    # So c0 = 0",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Comments restate and deduce c0=0 from H+E=E; no computation performed.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 65,
+    "sentence": "# Column 2: S + M = D + 10 * c1\n                    for c1 in 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces column-2 equation and iterates over c1; includes concrete loop execution.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 66,
+    "sentence": "1:\n                        D = S + M - 10 * c1\n                        if D < 0 or D > 9:\n                            continue",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes D and filters invalid values; concrete calculation and control flow.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 67,
+    "sentence": "# Column 3: A + c1 = I + 10 * c2\n                        for c2 in 0.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Introduces column-3 relation and iterates over c2; concrete loop execution.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 68,
+    "sentence": "1:\n                            I = A + c1 - 10 * c2\n                            if I < 0 or I > 9:\n                                continue",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Computes I and filters invalid values; concrete calculation and control flow.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 69,
+    "sentence": "# Column 4: C + c2 = S + 10 * c3\n                            # c3 = 1\n                            if C + c2 - 10 ! = S:\n                                continue",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States column-4 relation with c3=1 and applies a conditional check; concrete filtering step.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 70,
+    "sentence": "# Column 5: c3 = O = 1",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the constraint c3 = O = 1 without executing code.",
+    "sentence-category": "Analyze"
+  },
+  {
+    "index": 71,
+    "sentence": "# All constraints satisfied\n                            count += 1\n```",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Indicates constraints satisfied and increments the count; concrete action.",
+    "sentence-category": "Implement"
+  },
+  {
+    "index": 72,
+    "sentence": "Now let\u2019s compute how many valid combinations this gives.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Announces the next step to compute the total from the enumeration.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 73,
+    "sentence": "### Step 11: Count the number of valid assignments",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Section header indicating the step to count assignments; sets up the next action.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 74,
+    "sentence": "Let\u2019s now compute the number of valid combinations.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Restates intention to compute the number of combinations.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 75,
+    "sentence": "We can write a Python script or do it manually by counting.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Proposes alternative approaches (script or manual counting) without committing.",
+    "sentence-category": "Explore"
+  },
+  {
+    "index": 76,
+    "sentence": "Let\u2019s go through all possibilities.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Commits to enumerating all possibilities as the next action.",
+    "sentence-category": "Plan"
+  },
+  {
+    "index": 77,
+    "sentence": "### Final Answer",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Transitional header indicating the answer section.",
+    "sentence-category": "Monitor"
+  },
+  {
+    "index": 78,
+    "sentence": "After running through all valid combinations (which can be done with code), we find that the total number of valid assignments is: $$\n\\boxed{100}\n$$",
+    "sentence-type": "answer",
+    "sentence-category-reason": "States the computed total number of valid assignments (100).",
+    "sentence-category": "Answer"
+  },
+  {
+    "index": 79,
+    "sentence": "\u2705 **Answer: $ \\boxed{100} $** ways to assign digits to the letters so that the addition is correct.",
+    "sentence-type": "answer",
+    "sentence-category-reason": "Explicitly presents the final answer as 100 ways.",
+    "sentence-category": "Answer"
+  }
+]
