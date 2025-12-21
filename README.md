@@ -25,7 +25,21 @@ The repo contains:
 
 ## Overview
 
+Large language models increasingly expose reasoning traces, yet their underlying cognitive structure and steps remain difficult to identify and analyze beyond surface-level statistics. We adopt Schoenfeld's Episode Theory as an inductive, intermediate-scale lens and introduce **ThinkARM** (Anatomy of Reasoning in Models), a scalable framework that **explicitly abstracts reasoning traces into functional reasoning steps** such as Analysis, Explore, Implement, Verify, etc. When applied to mathematical problem solving by diverse models, this abstraction reveals reproducible thinking dynamics and structural differences between reasoning and non-reasoning models, which are not apparent from token-level views. We further present two diagnostic case studies showing that exploration functions as a critical branching step associated with correctness, and that efficiency-oriented methods selectively suppress evaluative feedback steps rather than uniformly shortening responses. Together, our results demonstrate that episode-level representations make reasoning steps explicit, enabling systematic analysis of how reasoning is structured, stabilized, and altered in modern language models.
+
+<p align="center" width="90%">
+<a ><img src="images/intro.pdf" alt="overview" style="width: 90%; min-width: 300px; display: block; margin: auto;"></a>
+</p>
+
 ## Key Findings
+
+* 🔎 When reasoning traces are analyzed at the episode level, \textit{\textbf{a functional progression from abstract reasoning to concrete execution, and finally to evaluative control, consistently emerges.}} Episodes associated with analysis and exploration use more abstract, conceptual language and \textit{\textbf{decrease}} steadily as reasoning progresses, while execution-oriented episodes \textit{\textbf{dominate}} the middle of the trace through sustained concrete operations. In contrast, verification-related episodes are characterized by evaluative and meta-level language and \textit{\textbf{increase}} toward the end of the reasoning process.
+
+* 🔎 Comparing reasoning and non-reasoning models, the difference is not merely how many tokens they generate, but how reasoning is structured. \textit{\textbf{Non-reasoning models allocate most of their response trace to execution}}, with episode transitions largely following a feed-forward pattern toward implementation. In contrast, \textit{\textbf{reasoning models distribute effort across analysis, exploration, execution, and verification, and exhibit frequent iterative Explore-Monitor/Verify loops.}}
+    
+* 🔎 Through our correctness-oriented case study, we find that \textit{\textbf{exploration reflects uncertainty and serves as a critical branching point}}: correct solutions more often route exploration into monitoring or re-analysis, whereas incorrect solutions tend to continue execution or terminate prematurely after exploration. 
+    
+* 🔎 Through our efficiency-oriented case study, we find that \textit{\textbf{different efficient reasoning methods selectively suppress evaluation-oriented episodes and feedback loops, leading to varying degrees of divergence}} from the reasoning patterns of the base model. Episode-level analysis thus reveals which episodes can be removed to gain efficiency, beyond token-level pruning.
 
 ## Setup
 
