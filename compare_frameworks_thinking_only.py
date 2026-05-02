@@ -380,10 +380,24 @@ def compare_frameworks(df, output_dir):
     print(f"  Total samples: {len(df)}")
     print(f"  Correct: {(df['correctness']==1).sum()} | Incorrect: {(df['correctness']==0).sum()}")
 
-    # Split data
-    train_idx, test_idx = train_test_split(
-        range(len(df)), test_size=0.2, random_state=42, stratify=df["correctness"]
+    # Split data - handle small datasets
+    # Check if we can stratify (need at least 2 samples per class)
+    unique_classes = df["correctness"].unique()
+    can_stratify = all(
+        (df["correctness"] == c).sum() >= 2
+        for c in unique_classes
     )
+
+    if can_stratify:
+        train_idx, test_idx = train_test_split(
+            range(len(df)), test_size=0.2, random_state=42, stratify=df["correctness"]
+        )
+    else:
+        # Small dataset: use simple split without stratification
+        test_size = max(1, int(len(df) * 0.2))
+        test_idx = list(range(len(df) - test_size, len(df)))
+        train_idx = list(range(len(df) - test_size))
+        print(f"  Dataset too small for stratified split, using simple split: {len(train_idx)} train, {len(test_idx)} test")
 
     train_df = df.iloc[train_idx].reset_index(drop=True)
     test_df = df.iloc[test_idx].reset_index(drop=True)
