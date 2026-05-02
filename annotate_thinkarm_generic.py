@@ -309,44 +309,52 @@ def annotate_reasoning(llm, sampling_params, question, reasoning, output_path, s
 
 
 def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--input_file', type=str, required=True, help='Path to input JSON file')
-    parser.add_argument('--judge_model_path', type=str, required=True, help='Path to Llama model')
-    parser.add_argument('--output_dir', type=str, default='output_annotated', help='Output directory')
-    parser.add_argument('--reasoning_field', type=str, default='thinking_trace', help='Field name containing reasoning')
-    parser.add_argument('--question_field', type=str, default='question', help='Field name containing question')
-    args = parser.parse_args()
+    try:
+        parser = argparse.ArgumentParser()
+        parser.add_argument('--input_file', type=str, required=True, help='Path to input JSON file')
+        parser.add_argument('--judge_model_path', type=str, required=True, help='Path to Llama model')
+        parser.add_argument('--output_dir', type=str, default='output_annotated', help='Output directory')
+        parser.add_argument('--reasoning_field', type=str, default='thinking_trace', help='Field name containing reasoning')
+        parser.add_argument('--question_field', type=str, default='question', help='Field name containing question')
+        args = parser.parse_args()
 
-    # Initialize vLLM once
-    print(f"Loading model: {args.judge_model_path}")
-    llm = LLM(model=args.judge_model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
-    sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
+        # Initialize vLLM once
+        print(f"Loading model: {args.judge_model_path}", flush=True)
+        llm = LLM(model=args.judge_model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
+        sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
+        print(f"Model loaded successfully", flush=True)
 
-    # Load data
-    print(f"Loading data from: {args.input_file}")
-    with open(args.input_file, "r") as f:
-        data = json.load(f)
+        # Load data
+        print(f"Loading data from: {args.input_file}", flush=True)
+        with open(args.input_file, "r") as f:
+            data = json.load(f)
 
-    results = data.get("results", [])
-    print(f"Found {len(results)} samples to annotate")
+        results = data.get("results", [])
+        print(f"Found {len(results)} samples to annotate", flush=True)
 
-    # Create output directory
-    output_path = args.output_dir
-    os.makedirs(output_path, exist_ok=True)
+        # Create output directory
+        output_path = args.output_dir
+        os.makedirs(output_path, exist_ok=True)
 
-    # Annotate each sample
-    for idx, result in enumerate(results):
-        question = result.get(args.question_field, "")
-        reasoning = result.get(args.reasoning_field, "")
+        # Annotate each sample
+        for idx, result in enumerate(results):
+            question = result.get(args.question_field, "")
+            reasoning = result.get(args.reasoning_field, "")
 
-        if not reasoning:
-            print(f"Skipping {idx+1}/{len(results)}: no reasoning found")
-            continue
+            if not reasoning:
+                print(f"Skipping {idx+1}/{len(results)}: no reasoning found", flush=True)
+                continue
 
-        print(f"Processing {idx+1}/{len(results)}...")
-        annotate_reasoning(llm, sampling_params, question, reasoning, output_path, idx)
+            print(f"Processing {idx+1}/{len(results)}...", flush=True)
+            annotate_reasoning(llm, sampling_params, question, reasoning, output_path, idx)
 
-    print(f"\n✅ Annotation complete. Output saved to {output_path}")
+        print(f"\n✅ Annotation complete. Output saved to {output_path}", flush=True)
+
+    except Exception as e:
+        import traceback
+        print(f"ERROR: {str(e)}", flush=True)
+        traceback.print_exc()
+        raise
 
 
 if __name__ == '__main__':
