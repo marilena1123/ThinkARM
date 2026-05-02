@@ -4,13 +4,20 @@ Compare ThinkARM and BLOOM using THINKING TRACES ONLY.
 Analyzes only the <think> blocks to predict correctness based on
 the reasoning process itself, excluding final answers.
 
-Feature specifications:
-- ThinkARM: 75 features (8 episode ratios + 64 transitions + 2 dynamics)
-- BLOOM: 44 features (1 total tokens + 1 step count + 6 ratios + 36 normalized transitions)
+Feature specifications (published methodology):
+- ThinkARM: 73 features
+  * Total tokens (1)
+  * Episode intensity ratios (8)
+  * Raw transition counts (64)
+
+- BLOOM: 43 features
+  * Total tokens (1)
+  * BLOOM level intensity ratios (6)
+  * Raw transition counts (36)
 
 Trains Lasso logistic regression classifiers using:
 1. ThinkARM episodes (thinking only)
-2. BLOOM cognitive levels (thinking only) - published spec
+2. BLOOM cognitive levels (thinking only)
 3. Combined features
 
 Usage:
@@ -100,7 +107,13 @@ def estimate_tokens(text):
 # ===== ThinkARM Feature Extraction (Thinking Only) =====
 
 def extract_thinkarm_thinking_features(sentences):
-    """Extract features from ThinkARM THINKING TRACES ONLY."""
+    """Extract features from ThinkARM THINKING TRACES ONLY.
+
+    73 features (published spec):
+    - Total tokens (1)
+    - Episode intensity ratios (8)
+    - Raw transition counts between adjacent steps (64)
+    """
     features = {}
 
     # Filter only "think" sentences
@@ -112,7 +125,6 @@ def extract_thinkarm_thinking_features(sentences):
     total_tokens = 0
     cat_token_counts = defaultdict(int)
     transition_counts = defaultdict(int)
-    prev_cat = None
 
     for item in think_sentences:
         text = item.get("sentence", "")
@@ -124,33 +136,27 @@ def extract_thinkarm_thinking_features(sentences):
         if cat in THINKARM_CATEGORIES:
             cat_token_counts[cat] += n_tokens
 
-        if prev_cat is not None:
-            transition_counts[(prev_cat, cat)] += 1
-        prev_cat = cat
-
     safe_total = total_tokens if total_tokens > 0 else 1
 
-    # Global statistics (thinking only)
+    # Feature 1: Total tokens
     features["TA_Think_Total_Tokens"] = total_tokens
 
-    # Episode intensity in thinking
+    # Features 2-9: Episode intensity (token ratios)
     for cat in THINKARM_CATEGORIES:
         cnt = cat_token_counts[cat]
         features[f"TA_Think_Ratio_{cat}"] = cnt / safe_total
 
-    # Transitions within thinking
+    # Features 10-73: Raw transition counts between adjacent steps
+    for i in range(len(think_sentences) - 1):
+        src = think_sentences[i].get("sentence-category", "Monitor")
+        tgt = think_sentences[i + 1].get("sentence-category", "Monitor")
+        if src in THINKARM_CATEGORIES and tgt in THINKARM_CATEGORIES:
+            transition_counts[(src, tgt)] += 1
+
     for src in THINKARM_CATEGORIES:
         for tgt in THINKARM_CATEGORIES:
             count = transition_counts[(src, tgt)]
             features[f"TA_Think_Trans_{src}_to_{tgt}"] = count
-
-    # Compute episode dynamics
-    # How many times does the model return to Explore or Monitor?
-    explore_count = sum(1 for s in think_sentences if s.get("sentence-category") == "Explore")
-    monitor_count = sum(1 for s in think_sentences if s.get("sentence-category") == "Monitor")
-
-    features["TA_Think_Explore_Freq"] = explore_count / max(1, len(think_sentences))
-    features["TA_Think_Monitor_Freq"] = monitor_count / max(1, len(think_sentences))
 
     return features
 
@@ -160,11 +166,10 @@ def extract_thinkarm_thinking_features(sentences):
 def extract_bloom_thinking_features(labels):
     """Extract features from BLOOM THINKING TRACES ONLY.
 
-    44 features (published spec):
+    43 features (published spec):
     - Total tokens (1)
-    - Step count (1)
     - Token proportions per BLOOM level (6)
-    - Normalized pairwise transitions between adjacent steps (36)
+    - Raw transition counts between adjacent steps (36)
     """
     features = {}
 
@@ -172,7 +177,6 @@ def extract_bloom_thinking_features(labels):
         return None
 
     total_tokens = 0
-    step_count = len(labels)
     cat_token_counts = defaultdict(int)
     transition_counts = defaultdict(int)
 
@@ -191,31 +195,22 @@ def extract_bloom_thinking_features(labels):
     # Feature 1: Total tokens
     features["BL_Think_Total_Tokens"] = total_tokens
 
-    # Feature 2: Step count
-    features["BL_Think_Step_Count"] = step_count
-
-    # Features 3-8: Token proportions per cognitive level
+    # Features 2-7: Token proportions per cognitive level
     for cat in BLOOM_CATEGORIES:
         cnt = cat_token_counts[cat]
         features[f"BL_Think_Ratio_{cat}"] = cnt / safe_total
 
-    # Features 9-44: Normalized pairwise transitions between adjacent steps
-    # Count transitions only between consecutive steps
-    total_transitions = 0
+    # Features 8-43: Raw transition counts between adjacent steps
     for i in range(len(labels) - 1):
         src = labels[i].get("bloom_level", "UNDERSTAND")
         tgt = labels[i + 1].get("bloom_level", "UNDERSTAND")
         if src in BLOOM_CATEGORIES and tgt in BLOOM_CATEGORIES:
             transition_counts[(src, tgt)] += 1
-            total_transitions += 1
-
-    # Normalize transitions by total number of transitions
-    norm_factor = total_transitions if total_transitions > 0 else 1
 
     for src in BLOOM_CATEGORIES:
         for tgt in BLOOM_CATEGORIES:
             count = transition_counts[(src, tgt)]
-            features[f"BL_Think_Trans_{src}_to_{tgt}"] = count / norm_factor
+            features[f"BL_Think_Trans_{src}_to_{tgt}"] = count
 
     return features
 
