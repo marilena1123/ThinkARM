@@ -17,6 +17,8 @@ import argparse
 from pathlib import Path
 from vllm import LLM, SamplingParams
 import re
+import torch
+import gc
 
 
 # Load guidebook
@@ -319,27 +321,46 @@ def process_new_data_llama(new_data, sample_index, llm, sampling_params, output_
 
 
 def main():
-    # Initialize vLLM once for all samples
-    print(f"Loading model: {args.judge_model_path}")
-    llm = LLM(model=args.judge_model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
-    sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
+    try:
+        # Initialize vLLM once for all samples
+        print(f"Loading model: {args.judge_model_path}")
+        llm = LLM(model=args.judge_model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
+        sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
 
-    # Load raw data
-    with open(f"data/raw/{args.response_model}.json", "r") as f:
-        new_data = json.load(f)
+        # Load raw data
+        with open(f"data/raw/{args.response_model}.json", "r") as f:
+            new_data = json.load(f)
 
-    output_path = f"{args.output_dir}/{args.response_model}"
+        output_path = f"{args.output_dir}/{args.response_model}"
 
-    print(f"Annotating {args.response_model} with Llama judge...")
-    print(f"Output: {output_path}")
+        print(f"Annotating {args.response_model} with Llama judge...")
+        print(f"Output: {output_path}")
 
-    for idx, data in enumerate(new_data):
-        print(f"Processing {idx+1}/{len(new_data)}...")
+        for idx, data in enumerate(new_data):
+            print(f"Processing {idx+1}/{len(new_data)}...")
+            try:
+                process_new_data_llama(data, idx, llm, sampling_params, output_path)
+            except Exception as e:
+                print(f"Error processing {idx}: {e}")
+                continue
+
+        # Cleanup GPU memory
+        del llm
+        torch.cuda.empty_cache()
+        gc.collect()
+        print(f"✅ Annotation complete for {args.response_model}")
+
+    except Exception as e:
+        import traceback
+        print(f"ERROR: {str(e)}")
+        traceback.print_exc()
+        # Still try to cleanup on error
         try:
-            process_new_data_llama(data, idx, llm, sampling_params, output_path)
-        except Exception as e:
-            print(f"Error processing {idx}: {e}")
-            continue
+            torch.cuda.empty_cache()
+            gc.collect()
+        except:
+            pass
+        raise
 
 
 if __name__ == '__main__':
