@@ -229,8 +229,19 @@ def load_thinking_data(args):
         try:
             with open(correctness_file, "r") as f:
                 correctness_map = json.load(f)
-        except:
+        except Exception as e:
+            print(f"  Error loading correctness: {e}")
             continue
+
+        # Handle different correctness map formats
+        # Convert all keys to integers for consistent lookup
+        correctness_normalized = {}
+        for key, value in correctness_map.items():
+            try:
+                idx = int(key) if isinstance(key, str) else key
+                correctness_normalized[idx] = value
+            except:
+                pass
 
         # Load BLOOM thinking annotations
         bloom_files = list(Path(args.bloom_annotated_dir).glob(f"*{model_name}*.json"))
@@ -247,6 +258,7 @@ def load_thinking_data(args):
 
         print(f"\nProcessing {model_name} (thinking only)...")
         count = 0
+        skipped = 0
 
         # Process each problem
         for json_file in sorted(label_dir.glob("*.json")):
@@ -255,9 +267,10 @@ def load_thinking_data(args):
 
             problem_id = int(json_file.stem)
 
-            # Get correctness
-            is_correct = correctness_map.get(str(problem_id)) or correctness_map.get(problem_id)
+            # Get correctness - try multiple key formats
+            is_correct = correctness_normalized.get(problem_id)
             if is_correct is None:
+                skipped += 1
                 continue
 
             # Load ThinkARM annotations
@@ -292,7 +305,7 @@ def load_thinking_data(args):
             data_points.append(all_features)
             count += 1
 
-        print(f"  Loaded {count} thinking traces for {model_name}")
+        print(f"  Loaded {count} thinking traces for {model_name} (skipped {skipped} without correctness labels)")
 
     return pd.DataFrame(data_points) if data_points else None
 
@@ -314,7 +327,8 @@ def train_and_evaluate(X, y, X_test, y_test, feature_names, framework_name):
         C=0.5,
         solver="liblinear",
         max_iter=2000,
-        random_state=42
+        random_state=42,
+        class_weight="balanced"  # Handle imbalanced classes
     )
     clf.fit(X_scaled, y)
 
