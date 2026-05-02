@@ -25,7 +25,7 @@ import re
 parser = argparse.ArgumentParser()
 parser.add_argument('--response_model', type=str, required=True, help='e.g., deepseekR1')
 parser.add_argument('--judge_model_path', type=str, required=True, help='Path to Llama model')
-parser.add_argument('--output_dir', type=str, default='data/label', help='Output directory')
+parser.add_argument('--output_dir', type=str, default='output_thinkarm_llama', help='Output directory')
 args = parser.parse_args()
 
 
@@ -127,7 +127,7 @@ def main():
     with open(f"data/raw/{args.response_model}.json", "r") as f:
         new_data = json.load(f)
 
-    output_path = f"{args.output_dir}/{args.response_model}/llama-judge"
+    output_path = f"{args.output_dir}/{args.response_model}"
 
     print(f"Annotating {args.response_model} with Llama judge...")
     print(f"Output: {output_path}")
