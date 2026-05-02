@@ -20,7 +20,7 @@ source activate /leonardo_work/EUHPC_D33_216/mzoumpou/cogchains_env
 cd /leonardo_work/EUHPC_D33_216/mzoumpou/ThinkARM
 
 mkdir -p logs
-mkdir -p output_thinkarm_annotated
+mkdir -p output_thinkarm_our_datasets
 
 # Disable torch.compile to avoid dynamo bugs on HPC
 export VLLM_USE_V1=0
@@ -55,7 +55,7 @@ for MODEL in "${MODELS[@]}"; do
 
     for DATASET in "${DATASETS[@]}"; do
         INPUT_FILE="$INPUT_BASE/$MODEL/cot_${MODEL}_${DATASET}.json"
-        OUTPUT_DIR="output_thinkarm_annotated/$MODEL/$DATASET"
+        OUTPUT_DIR="output_thinkarm_our_datasets/$MODEL/$DATASET"
 
         if [ ! -f "$INPUT_FILE" ]; then
             echo "⚠️  File not found: $INPUT_FILE"
@@ -83,5 +83,5 @@ done
 
 echo "=========================================="
 echo "All datasets annotated!"
-echo "Output: output_thinkarm_annotated/"
+echo "Output: output_thinkarm_our_datasets/"
 echo "=========================================="
