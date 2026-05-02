@@ -1,17 +1,17 @@
 """
-Compare ThinkARM and BLOOM using THINKING TRACES ONLY.
+Compare ThinkARM and BLOOM for correctness prediction.
 
-Analyzes only the <think> blocks to predict correctness based on
-the reasoning process itself, excluding final answers.
+- ThinkARM: Analyzes thinking traces only (<think> blocks)
+- BLOOM: Analyzes full reasoning traces (thinking + final answer)
 
 Feature specifications:
-- ThinkARM: 75 features
+- ThinkARM: 75 features (thinking only)
   * Total tokens (1)
   * Episode intensity ratios (8)
   * Raw transition counts (64)
   * Episode frequency metrics (2)
 
-- BLOOM: 49 features
+- BLOOM: 49 features (full traces: thinking + answer)
   * Total tokens (1)
   * BLOOM level intensity ratios (6)
   * Raw transition counts (36)
@@ -23,8 +23,8 @@ Feature specifications:
     - Ideal progression score (LCS with ideal R→U→Appl→Analyze→Eval→Create)
 
 Trains Lasso logistic regression classifiers using:
-1. ThinkARM episodes (thinking only)
-2. BLOOM cognitive levels (thinking only)
+1. ThinkARM episodes (thinking traces only)
+2. BLOOM cognitive levels (full reasoning traces)
 3. Combined features
 
 Usage:
@@ -33,7 +33,7 @@ Usage:
         --bloom_annotated_dir outputs_bloom_annotated \
         --correctness_dir data/correct \
         --models deepseekR1,Phi4R,DeepSeek-R1-Distill-Qwen-7B \
-        --output_dir comparison_thinking_results
+        --output_dir comparison_results_full_traces
 """
 
 import argparse
@@ -372,11 +372,11 @@ def load_thinking_data(args):
             except:
                 continue
 
-            # Load BLOOM thinking annotations
+            # Load BLOOM full trace annotations (thinking + answer)
             bl_features = {}
             if problem_id in bloom_data:
                 bloom_result = bloom_data[problem_id]
-                bl_labels = bloom_result.get("thinking_bloom_labels", [])
+                bl_labels = bloom_result.get("bloom_labels", [])
                 if bl_labels:
                     bl_features = extract_bloom_thinking_features(bl_labels)
 
