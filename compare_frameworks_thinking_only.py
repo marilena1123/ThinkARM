@@ -11,11 +11,16 @@ Feature specifications:
   * Raw transition counts (64)
   * Episode frequency metrics (2)
 
-- BLOOM: 45 features
+- BLOOM: 49 features
   * Total tokens (1)
   * BLOOM level intensity ratios (6)
   * Raw transition counts (36)
   * BLOOM level frequency metrics (2)
+  * Trajectory features (4):
+    - Trajectory complexity (average level jump magnitude)
+    - Regression count (how often steps backward)
+    - Forward count (how often steps forward)
+    - Ideal progression score (LCS with ideal R→U→Appl→Analyze→Eval→Create)
 
 Trains Lasso logistic regression classifiers using:
 1. ThinkARM episodes (thinking only)
@@ -230,7 +235,60 @@ def extract_bloom_thinking_features(labels):
     features["BL_Think_Evaluate_Freq"] = evaluate_count / max(1, len(labels))
     features["BL_Think_Understand_Freq"] = understand_count / max(1, len(labels))
 
+    # Features 46-49: Trajectory features (how cognitive levels progress)
+    # Map levels to numeric values for trajectory analysis
+    level_to_num = {
+        "REMEMBER": 0,
+        "UNDERSTAND": 1,
+        "APPLY": 2,
+        "ANALYZE": 3,
+        "EVALUATE": 4,
+        "CREATE": 5
+    }
+
+    # Get sequence of levels
+    level_sequence = [level_to_num.get(item.get("bloom_level", "UNDERSTAND"), 1) for item in labels]
+
+    if len(level_sequence) > 1:
+        # Feature 46: Trajectory complexity (sum of level jumps)
+        trajectory_complexity = sum(abs(level_sequence[i+1] - level_sequence[i]) for i in range(len(level_sequence)-1))
+        features["BL_Think_Trajectory_Complexity"] = trajectory_complexity / max(1, len(level_sequence)-1)
+
+        # Feature 47: Regression count (how many times go backward)
+        regression_count = sum(1 for i in range(len(level_sequence)-1) if level_sequence[i+1] < level_sequence[i])
+        features["BL_Think_Regression_Count"] = regression_count / max(1, len(level_sequence)-1)
+
+        # Feature 48: Forward progression (how many times go forward)
+        forward_count = sum(1 for i in range(len(level_sequence)-1) if level_sequence[i+1] > level_sequence[i])
+        features["BL_Think_Forward_Count"] = forward_count / max(1, len(level_sequence)-1)
+
+        # Feature 49: Ideal progression score (LCS with ideal trajectory)
+        # Ideal would be monotonic increase: 0→1→2→3→4→5
+        ideal_sequence = list(range(6))
+        lcs_length = longest_common_subsequence_length(level_sequence, ideal_sequence)
+        features["BL_Think_Ideal_Progression_Score"] = lcs_length / max(len(level_sequence), len(ideal_sequence))
+    else:
+        features["BL_Think_Trajectory_Complexity"] = 0
+        features["BL_Think_Regression_Count"] = 0
+        features["BL_Think_Forward_Count"] = 0
+        features["BL_Think_Ideal_Progression_Score"] = 0
+
     return features
+
+
+def longest_common_subsequence_length(seq1, seq2):
+    """Compute length of longest common subsequence."""
+    m, n = len(seq1), len(seq2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if seq1[i-1] == seq2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+
+    return dp[m][n]
 
 
 # ===== Data Loading =====
