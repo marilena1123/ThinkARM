@@ -25,6 +25,9 @@ mkdir -p output_thinkarm_our_datasets
 # Disable torch.compile to avoid dynamo bugs on HPC
 export VLLM_USE_V1=0
 
+# Better GPU memory management to avoid fragmentation
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+
 echo "Starting ThinkARM annotation for multiple datasets..."
 
 # Path to Llama model

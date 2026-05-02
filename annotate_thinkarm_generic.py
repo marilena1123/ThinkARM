@@ -26,6 +26,8 @@ import argparse
 from pathlib import Path
 from vllm import LLM, SamplingParams
 import re
+import torch
+import gc
 
 
 # Load guidebook
@@ -350,10 +352,21 @@ def main():
 
         print(f"\n✅ Annotation complete. Output saved to {output_path}", flush=True)
 
+        # Cleanup GPU memory
+        del llm
+        torch.cuda.empty_cache()
+        gc.collect()
+
     except Exception as e:
         import traceback
         print(f"ERROR: {str(e)}", flush=True)
         traceback.print_exc()
+        # Still try to cleanup on error
+        try:
+            torch.cuda.empty_cache()
+            gc.collect()
+        except:
+            pass
         raise
 
 
