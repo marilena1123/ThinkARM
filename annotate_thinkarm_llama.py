@@ -229,12 +229,8 @@ parser.add_argument('--output_dir', type=str, default='output_thinkarm_llama', h
 args = parser.parse_args()
 
 
-def process_new_data_llama(new_data, sample_index, model_path, output_path):
+def process_new_data_llama(new_data, sample_index, llm, sampling_params, output_path):
     """Process data using local Llama judge (instead of OpenAI)."""
-
-    # Initialize vLLM
-    llm = LLM(model=model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
-    sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
 
     new_instruction = new_data['Instruction']
     new_response = new_data['Response']
@@ -323,6 +319,11 @@ def process_new_data_llama(new_data, sample_index, model_path, output_path):
 
 
 def main():
+    # Initialize vLLM once for all samples
+    print(f"Loading model: {args.judge_model_path}")
+    llm = LLM(model=args.judge_model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
+    sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
+
     # Load raw data
     with open(f"data/raw/{args.response_model}.json", "r") as f:
         new_data = json.load(f)
@@ -335,7 +336,7 @@ def main():
     for idx, data in enumerate(new_data):
         print(f"Processing {idx+1}/{len(new_data)}...")
         try:
-            process_new_data_llama(data, idx, args.judge_model_path, output_path)
+            process_new_data_llama(data, idx, llm, sampling_params, output_path)
         except Exception as e:
             print(f"Error processing {idx}: {e}")
             continue
