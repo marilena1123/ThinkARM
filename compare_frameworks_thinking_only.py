@@ -298,14 +298,24 @@ def load_thinking_data(args):
 
             # Combine features
             all_features = {**ta_features, **bl_features}
-            all_features["correctness"] = 1 if is_correct else 0
+
+            # Ensure correctness is 0 or 1
+            correctness_label = 1 if is_correct else 0
+            all_features["correctness"] = correctness_label
             all_features["model"] = model_name
             all_features["problem_id"] = problem_id
 
             data_points.append(all_features)
             count += 1
 
-        print(f"  Loaded {count} thinking traces for {model_name} (skipped {skipped} without correctness labels)")
+            # Debug output for first few samples
+            if count <= 3:
+                print(f"    Sample {problem_id}: is_correct={is_correct} -> label={correctness_label}")
+
+        correct_count = sum(1 for d in data_points if d.get("correctness") == 1)
+        incorrect_count = len(data_points) - correct_count if data_points else 0
+        print(f"  Loaded {count} thinking traces for {model_name}")
+        print(f"    Correct: {correct_count}, Incorrect: {incorrect_count} (skipped {skipped})")
 
     return pd.DataFrame(data_points) if data_points else None
 
