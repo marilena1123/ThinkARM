@@ -1,0 +1,353 @@
+"""
+Annotate reasoning traces with ThinkARM episodes using local Llama judge.
+
+Works with any dataset in the format:
+{
+  "results": [
+    {
+      "question": "...",
+      "thinking_trace": "..." (or any field containing the reasoning)
+    },
+    ...
+  ]
+}
+
+Usage:
+    python annotate_thinkarm_generic.py \
+        --input_file path/to/dataset.json \
+        --judge_model_path /path/to/Llama-3.3-70B-Instruct \
+        --output_dir output_annotated \
+        --reasoning_field thinking_trace
+"""
+
+import os
+import json
+import argparse
+from pathlib import Path
+from vllm import LLM, SamplingParams
+import re
+
+
+# Load guidebook
+with open("guidebook/sentence_guide.md", "r") as f:
+    guidebook_sentence_prompt = f.read()
+
+
+def split_response_into_paragraphs(response):
+    return [p.strip() for p in response.split('\n\n')]
+
+
+def split_paragraph_into_sentences(paragraph):
+    splits = []
+    current = ''
+    i = 0
+    in_math_block = False
+    math_delimiter = None
+
+    abbreviations = {
+        'e.g.', 'i.e.', 'v.s.', 'cf.', 'et al.', 'ibid.', 'etc.', 'vs.', 'viz.',
+        'Dr.', 'Mr.', 'Mrs.', 'Ms.', 'Prof.', 'Rev.', 'St.', 'Jr.', 'Sr.',
+        'Inc.', 'Ltd.', 'Corp.', 'Co.', 'LLC.', 'Ph.D.', 'M.D.', 'B.A.', 'M.A.',
+        'U.S.', 'U.K.', 'U.S.A.', 'N.Y.', 'L.A.', 'D.C.', 'a.m.', 'p.m.',
+        'No.', 'Vol.', 'pp.', 'Fig.', 'Eq.', 'Ref.', 'Sec.', 'Ch.', 'App.'
+    }
+
+    def is_abbreviation_context(text, position):
+        for abbrev in abbreviations:
+            abbrev_len = len(abbrev)
+            start_pos = position - abbrev_len + 1
+            if start_pos >= 0 and position + 1 <= len(text):
+                potential_abbrev = text[start_pos:position + 1]
+                if potential_abbrev.lower() == abbrev.lower():
+                    if start_pos == 0 or not text[start_pos - 1].isalnum():
+                        return True
+
+        for abbrev in abbreviations:
+            abbrev_len = len(abbrev)
+            for start_offset in range(abbrev_len):
+                start_pos = position - start_offset
+                end_pos = start_pos + abbrev_len
+                if (start_pos >= 0 and end_pos <= len(text) and
+                    start_pos <= position < end_pos):
+                    potential_abbrev = text[start_pos:end_pos]
+                    if potential_abbrev.lower() == abbrev.lower():
+                        if start_pos == 0 or not text[start_pos - 1].isalnum():
+                            return True
+        return False
+
+    while i < len(paragraph):
+        char = paragraph[i]
+        current += char
+
+        if char == '$':
+            if not in_math_block:
+                if i + 1 < len(paragraph) and paragraph[i + 1] == '$':
+                    math_delimiter = '$$'
+                    current += '$'
+                    i += 1
+                else:
+                    math_delimiter = '$'
+                in_math_block = True
+            else:
+                if math_delimiter == '$$' and i + 1 < len(paragraph) and paragraph[i + 1] == '$':
+                    current += '$'
+                    i += 1
+                    in_math_block = False
+                    math_delimiter = None
+                elif math_delimiter == '$':
+                    in_math_block = False
+                    math_delimiter = None
+
+        elif not in_math_block:
+            if char == '.' and i + 2 < len(paragraph) and paragraph[i+1:i+3] == '..':
+                current += paragraph[i+1:i+3]
+                i += 2
+
+                context_before = current[-20:] if len(current) >= 20 else current
+                context_after = paragraph[i+1:i+21] if i+1 < len(paragraph) else ""
+
+                math_indicators = ['+', '-', '*', '/', '=', '(', ')', '[', ']', 'g(', 'f(', 'h(', 'times', 'integer', 'induction']
+
+                is_math_context = any(indicator in context_before.lower() or indicator in context_after.lower()
+                                    for indicator in math_indicators)
+
+                if not is_math_context:
+                    splits.append(current.strip())
+                    current = ''
+            elif char in '.?!':
+                if char == '.' and is_abbreviation_context(paragraph, i):
+                    pass
+                elif char == '.' and i > 0 and i < len(paragraph)-1:
+                    prev_char = paragraph[i-1]
+                    next_char = paragraph[i+1]
+                    if prev_char.isdigit() and next_char.isdigit():
+                        pass
+                    elif i == 1 and prev_char.isdigit():
+                        pass
+                    else:
+                        splits.append(current.strip())
+                        current = ''
+                else:
+                    splits.append(current.strip())
+                    current = ''
+
+        i += 1
+
+    if current:
+        splits.append(current.strip())
+    return splits
+
+
+def is_valid_sentence(sentence):
+    if not sentence or not sentence.strip():
+        return False
+
+    cleaned = sentence.strip()
+
+    if all(c == '-' for c in cleaned):
+        return False
+
+    alphanumeric_chars = ''.join(c for c in cleaned if c.isalnum())
+    return bool(alphanumeric_chars)
+
+
+def process_section(section_text, section_type):
+    paragraphs = split_response_into_paragraphs(section_text)
+    sentences = []
+
+    for paragraph in paragraphs:
+        paragraph_sentences = split_paragraph_into_sentences(paragraph)
+        for sentence in paragraph_sentences:
+            if is_valid_sentence(sentence):
+                sentences.append({
+                    'sentence': sentence,
+                    'type': section_type
+                })
+    return sentences
+
+
+def merge_colon_and_equals_sentences(sentences):
+    merged = []
+    i = 0
+    while i < len(sentences):
+        current_sentence = sentences[i].copy()
+        current_sentence['sentence'] = current_sentence['sentence'].replace('<think>', '').strip()
+
+        while (current_sentence['sentence'].rstrip().endswith(':') and
+               i + 1 < len(sentences)):
+            next_sentence = sentences[i + 1].copy()
+            next_sentence['sentence'] = next_sentence['sentence'].replace('<think>', '').strip()
+
+            if current_sentence['type'] == next_sentence['type']:
+                current_sentence['sentence'] = current_sentence['sentence'] + ' ' + next_sentence['sentence']
+                i += 1
+            else:
+                break
+
+        merged.append(current_sentence)
+        i += 1
+
+    final_merged = []
+    for i, sentence in enumerate(merged):
+        sentence_copy = sentence.copy()
+        sentence_copy['sentence'] = sentence_copy['sentence'].replace('<think>', '').strip()
+
+        if (sentence_copy['sentence'].lstrip().startswith('=') and
+            len(final_merged) > 0 and
+            final_merged[-1]['type'] == sentence_copy['type']):
+            final_merged[-1]['sentence'] = final_merged[-1]['sentence'] + ' ' + sentence_copy['sentence']
+        else:
+            final_merged.append(sentence_copy)
+
+    return final_merged
+
+
+def process_response_to_sentences(response, apply_merging=True):
+    """Process a response into structured sentences."""
+    if '</think>' in response:
+        parts = response.split('</think>', 1)
+        thinking_part = parts[0].strip()
+        answer_part = parts[1].strip()
+
+        thinking_sentences = process_section(thinking_part, 'think')
+        answer_sentences = process_section(answer_part, 'answer')
+
+        all_sentences = thinking_sentences + answer_sentences
+    else:
+        all_sentences = process_section(response, 'answer')
+
+    if apply_merging:
+        processed_sentences = merge_colon_and_equals_sentences(all_sentences)
+    else:
+        processed_sentences = all_sentences
+
+    result = []
+    for i, sentence_data in enumerate(processed_sentences):
+        result.append({
+            'id': str(i),
+            'sentence': sentence_data['sentence'],
+            'type': sentence_data['type']
+        })
+
+    return result
+
+
+def build_annotation_prompt(question, reasoning, sentence_list):
+    """Build annotation prompt using original ThinkARM format."""
+    general_instruction = """In this project, we aim to analyze the reasoning process of current large language models (LLMs) with advanced reasoning capabilities, i.e., Large Reasoning Models, LRMs, based on a modified version of Alan Schoenfeld's (1985) "Episode-Timeline" framework for problem-solving. Given the model response you need to annotate the sentence-level behavior of the model response with the eight categories: Read, Analyze, Explore, Plan, Implement, Verify, Monitor, and Answer.
+
+The [Guidebook] - [End of the Guidebook] section provides the detailed introduction and definition of each category.
+
+The [Math Problem] - [End of the Math Problem] section provides a math problem.
+The [Overall Response] - [End of the Overall Response] section provides the overall response of the model to the math problem.
+The [Previous Context] - [End of the Previous Context] section provides all the previous context of the response that has been annotated and their corresponding labels.
+The [Input] - [End of the Input] section provides the sentences that need to be annotated.
+The [Format] - [End of the Format] section provides the format of the output."""
+
+    format_instruction = (
+        "You should format the output in json format regarding the index, a short reasonale and the fine-grained class of the indexed sentence. "
+        "The format is as follows:\n"
+        "{\n"
+        "  'sentences': [\n"
+        "    {'index': 'The index of the sentence', 'reason': 'The short reason of the classification', 'category': 'The fine-grained class of the sentence'},\n"
+        "    {'index': 'The index of the sentence', 'reason': 'The short reason of the classification', 'category': 'The fine-grained class of the sentence'},\n"
+        "    ...\n"
+        "  ]\n"
+        "}"
+        "You should strictly follow the index number of the sentence in the [Input] - [End of the Input] section."
+    )
+
+    batch_size = 20
+    indexed_input_list = [f"[{idx+1}] {split['sentence']}" for idx, split in enumerate(sentence_list)]
+    new_input_str = "\n".join(indexed_input_list)
+    new_input_prompt = f"The following sentences which you need to classify:\n{new_input_str}"
+
+    combined_prompt = f"{general_instruction}"
+    combined_prompt += f"\n\n[Guidebook]\n{guidebook_sentence_prompt}\n[End of the Guidebook]"
+    combined_prompt += f"\n\n[Math Problem]\n{question}\n[End of the Math Problem]\n\n[Previous Context]\nThere is no previous sentences.\n[End of the Previous Context]\n\n[Input]\n{new_input_prompt}\n[End of the Input]\n\n[Format]\n{format_instruction}\n[End of the Format]\n\nNow, annotate the sentences in the [Input] - [End of the Input] section. Refer to the guidebook to make the decision. Strictly follow the index number of the sentence in the [Input] - [End of the Input] section for labeling. You should output the label for {len(sentence_list)} sentences."
+
+    return combined_prompt
+
+
+def annotate_reasoning(llm, sampling_params, question, reasoning, output_path, sample_idx):
+    """Annotate a single reasoning trace."""
+    sentence_list = process_response_to_sentences(reasoning, apply_merging=True)
+
+    if not sentence_list:
+        return None
+
+    prompt = build_annotation_prompt(question, reasoning, sentence_list)
+
+    try:
+        outputs = llm.generate([prompt], sampling_params)
+        result = outputs[0].outputs[0].text.strip()
+
+        # Parse JSON response
+        json_match = re.search(r'\{[\s\S]*\}', result)
+        if json_match:
+            response_json = json.loads(json_match.group())['sentences']
+        else:
+            response_json = []
+
+        # Add sentence text to annotations
+        for item in response_json:
+            group_index = int(item['index'].strip('[]')) - 1
+            if group_index < len(sentence_list):
+                item['sentence'] = sentence_list[group_index]['sentence']
+                item['sentence_type'] = sentence_list[group_index]['type']
+
+        # Save output
+        os.makedirs(output_path, exist_ok=True)
+        with open(f"{output_path}/{sample_idx + 1}.json", "w") as f:
+            json.dump(response_json, f, indent=2)
+
+        return response_json
+
+    except Exception as e:
+        print(f"Error annotating sample {sample_idx}: {e}")
+        return None
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--input_file', type=str, required=True, help='Path to input JSON file')
+    parser.add_argument('--judge_model_path', type=str, required=True, help='Path to Llama model')
+    parser.add_argument('--output_dir', type=str, default='output_annotated', help='Output directory')
+    parser.add_argument('--reasoning_field', type=str, default='thinking_trace', help='Field name containing reasoning')
+    parser.add_argument('--question_field', type=str, default='question', help='Field name containing question')
+    args = parser.parse_args()
+
+    # Initialize vLLM once
+    print(f"Loading model: {args.judge_model_path}")
+    llm = LLM(model=args.judge_model_path, tensor_parallel_size=1, gpu_memory_utilization=0.90)
+    sampling_params = SamplingParams(temperature=0.0, max_tokens=8192)
+
+    # Load data
+    print(f"Loading data from: {args.input_file}")
+    with open(args.input_file, "r") as f:
+        data = json.load(f)
+
+    results = data.get("results", [])
+    print(f"Found {len(results)} samples to annotate")
+
+    # Create output directory
+    output_path = args.output_dir
+    os.makedirs(output_path, exist_ok=True)
+
+    # Annotate each sample
+    for idx, result in enumerate(results):
+        question = result.get(args.question_field, "")
+        reasoning = result.get(args.reasoning_field, "")
+
+        if not reasoning:
+            print(f"Skipping {idx+1}/{len(results)}: no reasoning found")
+            continue
+
+        print(f"Processing {idx+1}/{len(results)}...")
+        annotate_reasoning(llm, sampling_params, question, reasoning, output_path, idx)
+
+    print(f"\n✅ Annotation complete. Output saved to {output_path}")
+
+
+if __name__ == '__main__':
+    main()
