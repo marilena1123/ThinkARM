@@ -4,16 +4,18 @@ Compare ThinkARM and BLOOM using THINKING TRACES ONLY.
 Analyzes only the <think> blocks to predict correctness based on
 the reasoning process itself, excluding final answers.
 
-Feature specifications (published methodology):
-- ThinkARM: 73 features
+Feature specifications:
+- ThinkARM: 75 features
   * Total tokens (1)
   * Episode intensity ratios (8)
   * Raw transition counts (64)
+  * Episode frequency metrics (2)
 
-- BLOOM: 43 features
+- BLOOM: 45 features
   * Total tokens (1)
   * BLOOM level intensity ratios (6)
   * Raw transition counts (36)
+  * BLOOM level frequency metrics (2)
 
 Trains Lasso logistic regression classifiers using:
 1. ThinkARM episodes (thinking only)
@@ -109,10 +111,11 @@ def estimate_tokens(text):
 def extract_thinkarm_thinking_features(sentences):
     """Extract features from ThinkARM THINKING TRACES ONLY.
 
-    73 features (published spec):
+    75 features:
     - Total tokens (1)
     - Episode intensity ratios (8)
     - Raw transition counts between adjacent steps (64)
+    - Episode frequency metrics (2)
     """
     features = {}
 
@@ -158,6 +161,13 @@ def extract_thinkarm_thinking_features(sentences):
             count = transition_counts[(src, tgt)]
             features[f"TA_Think_Trans_{src}_to_{tgt}"] = count
 
+    # Features 74-75: Episode frequency metrics
+    explore_count = sum(1 for s in think_sentences if s.get("sentence-category") == "Explore")
+    monitor_count = sum(1 for s in think_sentences if s.get("sentence-category") == "Monitor")
+
+    features["TA_Think_Explore_Freq"] = explore_count / max(1, len(think_sentences))
+    features["TA_Think_Monitor_Freq"] = monitor_count / max(1, len(think_sentences))
+
     return features
 
 
@@ -166,10 +176,11 @@ def extract_thinkarm_thinking_features(sentences):
 def extract_bloom_thinking_features(labels):
     """Extract features from BLOOM THINKING TRACES ONLY.
 
-    43 features (published spec):
+    45 features:
     - Total tokens (1)
     - Token proportions per BLOOM level (6)
     - Raw transition counts between adjacent steps (36)
+    - BLOOM level frequency metrics (2)
     """
     features = {}
 
@@ -211,6 +222,13 @@ def extract_bloom_thinking_features(labels):
         for tgt in BLOOM_CATEGORIES:
             count = transition_counts[(src, tgt)]
             features[f"BL_Think_Trans_{src}_to_{tgt}"] = count
+
+    # Features 44-45: BLOOM level frequency metrics
+    evaluate_count = sum(1 for item in labels if item.get("bloom_level") == "EVALUATE")
+    understand_count = sum(1 for item in labels if item.get("bloom_level") == "UNDERSTAND")
+
+    features["BL_Think_Evaluate_Freq"] = evaluate_count / max(1, len(labels))
+    features["BL_Think_Understand_Freq"] = understand_count / max(1, len(labels))
 
     return features
 
