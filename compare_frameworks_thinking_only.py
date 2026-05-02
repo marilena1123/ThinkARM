@@ -4,9 +4,14 @@ Compare ThinkARM and BLOOM using THINKING TRACES ONLY.
 Analyzes only the <think> blocks to predict correctness based on
 the reasoning process itself, excluding final answers.
 
+Feature specifications:
+- ThinkARM: 75 features (8 episode ratios + 64 transitions + 2 dynamics)
+- BLOOM: 44 features (1 total tokens + 1 step count + 6 ratios + 36 normalized transitions)
+
 Trains Lasso logistic regression classifiers using:
 1. ThinkARM episodes (thinking only)
-2. BLOOM cognitive levels (thinking only)
+2. BLOOM cognitive levels (thinking only) - published spec
+3. Combined features
 
 Usage:
     python compare_frameworks_thinking_only.py \
@@ -153,16 +158,23 @@ def extract_thinkarm_thinking_features(sentences):
 # ===== BLOOM Feature Extraction (Thinking Only) =====
 
 def extract_bloom_thinking_features(labels):
-    """Extract features from BLOOM THINKING TRACES ONLY."""
+    """Extract features from BLOOM THINKING TRACES ONLY.
+
+    44 features (published spec):
+    - Total tokens (1)
+    - Step count (1)
+    - Token proportions per BLOOM level (6)
+    - Normalized pairwise transitions between adjacent steps (36)
+    """
     features = {}
 
     if not labels:
         return None
 
     total_tokens = 0
+    step_count = len(labels)
     cat_token_counts = defaultdict(int)
     transition_counts = defaultdict(int)
-    prev_cat = None
 
     for item in labels:
         step_text = item.get("step", "")
@@ -174,32 +186,36 @@ def extract_bloom_thinking_features(labels):
         if cat in BLOOM_CATEGORIES:
             cat_token_counts[cat] += n_tokens
 
-        if prev_cat is not None:
-            transition_counts[(prev_cat, cat)] += 1
-        prev_cat = cat
-
     safe_total = total_tokens if total_tokens > 0 else 1
 
-    # Global statistics
+    # Feature 1: Total tokens
     features["BL_Think_Total_Tokens"] = total_tokens
 
-    # Cognitive level intensity
+    # Feature 2: Step count
+    features["BL_Think_Step_Count"] = step_count
+
+    # Features 3-8: Token proportions per cognitive level
     for cat in BLOOM_CATEGORIES:
         cnt = cat_token_counts[cat]
         features[f"BL_Think_Ratio_{cat}"] = cnt / safe_total
 
-    # Transitions
+    # Features 9-44: Normalized pairwise transitions between adjacent steps
+    # Count transitions only between consecutive steps
+    total_transitions = 0
+    for i in range(len(labels) - 1):
+        src = labels[i].get("bloom_level", "UNDERSTAND")
+        tgt = labels[i + 1].get("bloom_level", "UNDERSTAND")
+        if src in BLOOM_CATEGORIES and tgt in BLOOM_CATEGORIES:
+            transition_counts[(src, tgt)] += 1
+            total_transitions += 1
+
+    # Normalize transitions by total number of transitions
+    norm_factor = total_transitions if total_transitions > 0 else 1
+
     for src in BLOOM_CATEGORIES:
         for tgt in BLOOM_CATEGORIES:
             count = transition_counts[(src, tgt)]
-            features[f"BL_Think_Trans_{src}_to_{tgt}"] = count
-
-    # Compute cognitive dynamics
-    evaluate_count = sum(1 for item in labels if item.get("bloom_level") == "EVALUATE")
-    understand_count = sum(1 for item in labels if item.get("bloom_level") == "UNDERSTAND")
-
-    features["BL_Think_Evaluate_Freq"] = evaluate_count / max(1, len(labels))
-    features["BL_Think_Understand_Freq"] = understand_count / max(1, len(labels))
+            features[f"BL_Think_Trans_{src}_to_{tgt}"] = count / norm_factor
 
     return features
 
