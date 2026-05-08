@@ -6,8 +6,9 @@ ThinkARM episode categories using local Llama judge model.
 
 Episode categories: Read, Analyze, Plan, Implement, Explore, Verify, Monitor, Answer
 
-Output schema:
-  thinkarm_episodes — list of { index, sentence, sentence_type, sentence_category, sentence_category_reason }
+Output schema (per model):
+  output_dir/{model_name}.json — list of annotated samples
+    Each sample: list of { index, sentence, sentence_type, sentence_category, sentence_category_reason }
 
 Usage:
     python annotate_thinkarm_thinking_episodes.py \
@@ -292,7 +293,7 @@ def parse_args():
     return args
 
 
-def annotate_thinking(llm, sampling_params, instruction, thinking_text, output_path, sample_idx):
+def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_idx):
     """Annotate a single thinking trace with ThinkARM episodes."""
     sentence_list = process_response_to_sentences(thinking_text, apply_merging=True)
 
@@ -329,11 +330,6 @@ def annotate_thinking(llm, sampling_params, instruction, thinking_text, output_p
                 'sentence_category': item.get('category', ''),
                 'sentence_category_reason': item.get('reason', ''),
             })
-
-        # Save output
-        os.makedirs(output_path, exist_ok=True)
-        with open(f"{output_path}/{sample_idx + 1}.json", "w") as f:
-            json.dump(formatted, f, indent=2)
 
         return formatted
 
@@ -398,8 +394,8 @@ def main():
 
             print(f"Found {len(results)} samples")
 
-            output_model_dir = output_dir / model_name
-            output_model_dir.mkdir(parents=True, exist_ok=True)
+            # Collect all annotations for this model
+            all_annotations = []
 
             # Process each sample
             for idx, result in enumerate(tqdm(results, desc=model_name)):
@@ -410,20 +406,17 @@ def main():
                 if not thinking.strip():
                     continue
 
-                annotate_thinking(llm, sampling_params, instruction, thinking,
-                                str(output_model_dir), idx)
+                annotations = annotate_thinking(llm, sampling_params, instruction, thinking, idx)
+                if annotations:
+                    all_annotations.append(annotations)
 
-            # Checkpoint save
-            if isinstance(data, dict):
-                out_data = {**data, "results": results}
-            else:
-                out_data = results
-
-            output_file = output_dir / input_file.name
+            # Save aggregated results to single JSON file per model
+            output_file = output_dir / f"{model_name}.json"
             with open(output_file, "w") as f:
-                json.dump(out_data, f, indent=2)
+                json.dump(all_annotations, f, indent=2)
 
-            print(f"✅ Completed: {model_name}")
+            print(f"✅ Completed: {model_name} ({len(all_annotations)} annotated samples)")
+            print(f"   Output: {output_file}")
 
         # Cleanup GPU memory
         del llm
