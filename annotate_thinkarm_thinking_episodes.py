@@ -368,6 +368,7 @@ def main():
             tensor_parallel_size=args.tensor_parallel_size,
             gpu_memory_utilization=0.90,
             dtype="bfloat16",
+            enforce_eager=True,
         )
         sampling_params = SamplingParams(temperature=0.0, max_tokens=args.max_new_tokens)
         print("Model loaded successfully")
