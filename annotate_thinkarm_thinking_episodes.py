@@ -231,40 +231,42 @@ def process_response_to_sentences(response, apply_merging=True):
 
 
 def build_annotation_prompt(instruction, response_text, sentence_list):
-    """Build annotation prompt using exact ThinkARM format from repository."""
-    general_instruction = """In this project, we aim to analyze the reasoning process of current large language models (LLMs) with advanced reasoning capabilities, i.e., Large Reasoning Models, LRMs, based on a modified version of Alan Schoenfeld's (1985) "Episode-Timeline" framework for problem-solving. Given the model response you need to annotate the sentence-level behavior of the model response with the eight categories: Read, Analyze, Explore, Plan, Implement, Verify, Monitor, and Answer.
+    """Build annotation prompt using simplified format."""
 
-The [Guidebook] - [End of the Guidebook] section provides the detailed introduction and definition of each category.
+    format_instruction = """You are a data annotation expert. Classify each sentence according to ThinkARM's 8 episode categories:
+- Read: Extract/restate given information and problem goal
+- Analyze: Logical inference and relationship deduction
+- Plan: State intended next step or strategy
+- Implement: Execute procedures and calculations
+- Explore: Tentative reasoning and possibilities
+- Verify: Check correctness or validity
+- Monitor: Meta-commentary (e.g., "Let me think")
+- Answer: Deliver the final answer
 
-The [Math Problem] - [End of the Math Problem] section provides a math problem.
-The [Overall Response] - [End of the Overall Response] section provides the overall response of the model to the math problem.
-The [Previous Context] - [End of the Previous Context] section provides all the previous context of the response that has been annotated and their corresponding labels.
-The [Input] - [End of the Input] section provides the sentences that need to be annotated.
-The [Format] - [End of the Format] section provides the format of the output."""
+Output ONLY valid JSON with no other text:
+{
+  "sentences": [
+    {"index": "1", "reason": "brief reason", "category": "CATEGORY"},
+    {"index": "2", "reason": "brief reason", "category": "CATEGORY"}
+  ]
+}"""
 
-    format_instruction = (
-        "You should format the output in json format regarding the index, a short reason and the fine-grained class of the indexed sentence. "
-        "The format is as follows:\n"
-        "{\n"
-        "  'sentences': [\n"
-        "    {'index': 'The index of the sentence', 'reason': 'The short reason of the classification', 'category': 'The fine-grained class of the sentence'},\n"
-        "    {'index': 'The index of the sentence', 'reason': 'The short reason of the classification', 'category': 'The fine-grained class of the sentence'},\n"
-        "    ...\n"
-        "  ]\n"
-        "}"
-        "You should strictly follow the index number of the sentence in the [Input] - [End of the Input] section."
-    )
-
-    batch_size = 20
     indexed_input_list = [f"[{idx+1}] {split['sentence']}" for idx, split in enumerate(sentence_list)]
     new_input_str = "\n".join(indexed_input_list)
-    new_input_prompt = f"The following sentences which you need to classify:\n{new_input_str}"
 
-    combined_prompt = f"{general_instruction}"
-    combined_prompt += f"\n\n[Guidebook]\n{guidebook_sentence_prompt}\n[End of the Guidebook]"
-    combined_prompt += f"\n\n[Math Problem]\n{instruction}\n[End of the Math Problem]\n\n[Previous Context]\nThere is no previous sentences.\n[End of the Previous Context]\n\n[Input]\n{new_input_prompt}\n[End of the Input]\n\n[Format]\n{format_instruction}\n[End of the Format]\n\nNow, annotate the sentences in the [Input] - [End of the Input] section. Refer to the guidebook to make the decision. Strictly follow the index number of the sentence in the [Input] - [End of the Input] section for labeling. You should output the label for {len(sentence_list)} sentences."
+    prompt = f"""Question: {instruction}
 
-    return combined_prompt
+Reasoning to annotate:
+{response_text}
+
+Sentences to classify:
+{new_input_str}
+
+{format_instruction}
+
+Classify {len(sentence_list)} sentences. Output ONLY the JSON object, nothing else."""
+
+    return prompt
 
 
 def parse_args():
