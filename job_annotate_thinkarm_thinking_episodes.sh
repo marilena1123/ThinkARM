@@ -52,7 +52,8 @@ python annotate_thinkarm_thinking_episodes.py \
     --models "${MODELS[@]}" \
     --batch_size 16 \
     --max_new_tokens 8192 \
-    --save_every 50
+    --save_every 50 \
+    --tensor_parallel_size 4
 
 if [ $? -eq 0 ]; then
     echo "✅ All thinking traces annotated!"

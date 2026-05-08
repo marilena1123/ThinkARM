@@ -289,6 +289,8 @@ def parse_args():
                         help="Checkpoint every N samples")
     parser.add_argument("--batch_size", type=int, default=16,
                         help="Number of prompts to send to vLLM at once")
+    parser.add_argument("--tensor_parallel_size", type=int, default=1,
+                        help="Number of GPUs for tensor parallelism")
     args = parser.parse_args()
     return args
 
@@ -363,7 +365,7 @@ def main():
         print(f"Loading model: {args.judge_model_path}")
         llm = LLM(
             model=args.judge_model_path,
-            tensor_parallel_size=1,
+            tensor_parallel_size=args.tensor_parallel_size,
             gpu_memory_utilization=0.90,
             dtype="bfloat16",
         )
