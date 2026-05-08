@@ -308,19 +308,41 @@ def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_i
         outputs = llm.generate([prompt], sampling_params)
         result = outputs[0].outputs[0].text.strip()
 
-        # Parse JSON response
-        json_match = re.search(r'\{[\s\S]*\}', result)
-        if json_match:
-            response_json = json.loads(json_match.group())['sentences']
-        else:
-            response_json = []
+        # Parse JSON response - try multiple approaches
+        response_json = None
+
+        # Try to extract JSON from markdown code blocks first
+        code_block_match = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', result)
+        if code_block_match:
+            try:
+                response_json = json.loads(code_block_match.group(1))['sentences']
+            except (json.JSONDecodeError, KeyError):
+                pass
+
+        # If that fails, try to find JSON object in the response
+        if not response_json:
+            json_match = re.search(r'\{[\s\S]*\}', result)
+            if json_match:
+                try:
+                    response_json = json.loads(json_match.group())['sentences']
+                except json.JSONDecodeError as e:
+                    print(f"  [warn] Sample {sample_idx}: JSON parse error - {str(e)[:50]}")
+                    print(f"  [warn] First 200 chars of response: {result[:200]}")
+                    return None
+
+        if not response_json:
+            print(f"  [warn] Sample {sample_idx}: No valid JSON found in response")
+            return None
 
         # Add sentence text and type to annotations
         for item in response_json:
-            group_index = int(item['index'].strip('[]')) - 1
-            if group_index < len(sentence_list):
-                item['sentence'] = sentence_list[group_index]['sentence']
-                item['sentence_type'] = sentence_list[group_index]['type']
+            try:
+                group_index = int(item['index'].strip('[]')) - 1
+                if group_index < len(sentence_list):
+                    item['sentence'] = sentence_list[group_index]['sentence']
+                    item['sentence_type'] = sentence_list[group_index]['type']
+            except (KeyError, ValueError, TypeError):
+                pass
 
         # Reformat to match ThinkARM output format
         formatted = []
@@ -336,7 +358,7 @@ def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_i
         return formatted
 
     except Exception as e:
-        print(f"Error annotating sample {sample_idx}: {e}")
+        print(f"  [error] Sample {sample_idx}: {str(e)[:100]}")
         return None
 
 
@@ -399,6 +421,8 @@ def main():
 
             # Collect all annotations for this model
             all_annotations = []
+            processed = 0
+            skipped = 0
 
             # Process each sample
             for idx, result in enumerate(tqdm(results, desc=model_name)):
@@ -407,18 +431,23 @@ def main():
                 thinking = extract_thinking_trace(response)
 
                 if not thinking.strip():
+                    skipped += 1
                     continue
 
                 annotations = annotate_thinking(llm, sampling_params, instruction, thinking, idx)
                 if annotations:
                     all_annotations.append(annotations)
+                    processed += 1
+                else:
+                    skipped += 1
 
             # Save aggregated results to single JSON file per model
             output_file = output_dir / f"{model_name}.json"
             with open(output_file, "w") as f:
                 json.dump(all_annotations, f, indent=2)
 
-            print(f"✅ Completed: {model_name} ({len(all_annotations)} annotated samples)")
+            print(f"✅ Completed: {model_name}")
+            print(f"   Processed: {processed}, Skipped: {skipped}/{len(results)}")
             print(f"   Output: {output_file}")
 
         # Cleanup GPU memory
