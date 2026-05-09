@@ -243,16 +243,12 @@ The [Input] - [End of the Input] section provides the sentences that need to be 
 The [Format] - [End of the Format] section provides the format of the output."""
 
     format_instruction = (
-        "You should format the output in json format regarding index, reason (single line, max 10 words), and category. "
-        "Output ONLY valid JSON, nothing else. "
-        "The format is:\n"
-        "{\n"
-        "  \"sentences\": [\n"
-        "    {\"index\": \"1\", \"reason\": \"short reason\", \"category\": \"Read\"},\n"
-        "    {\"index\": \"2\", \"reason\": \"short reason\", \"category\": \"Analyze\"},\n"
-        "    ...\n"
-        "  ]\n"
-        "}"
+        "You should format the output as follows. One line per sentence. "
+        "Each line: SENTENCE <index>: <sentence text> | <CATEGORY> | REASON: <reason (1 line)>\n"
+        "Example:\n"
+        "SENTENCE 1: introduces the problem | Read | REASON: states problem\n"
+        "SENTENCE 2: analyzes the condition | Analyze | REASON: logical deduction\n"
+        "Output ONLY these lines, nothing else."
     )
 
     indexed_input_list = [f"[{idx+1}] {split['sentence']}" for idx, split in enumerate(sentence_list)]
@@ -294,6 +290,42 @@ def parse_args():
     return args
 
 
+def parse_judge_response(response_text, sentence_list):
+    """Parse judge response in text format: SENTENCE N: text | CATEGORY | REASON: reason"""
+    categories = ["Read", "Analyze", "Plan", "Implement", "Explore", "Verify", "Monitor", "Answer"]
+    categories_pattern = "|".join(categories)
+
+    # Find all sentence numbers
+    sentence_numbers = [int(n) for n in re.findall(r"SENTENCE\s+(\d+)", response_text)]
+    if not sentence_numbers:
+        return []
+
+    max_sentence = max(sentence_numbers)
+    annotations = []
+
+    for i in range(1, max_sentence + 1):
+        pattern = (
+            rf"SENTENCE\s+{i}(?!\d)\s*:\s*(.*?)"
+            rf"\s*\|\s*({categories_pattern})"
+            rf"\s*\|\s*REASON\s*:\s*(.*?)"
+            rf"(?=\n\s*SENTENCE\s+\d+\s*:|\Z)"
+        )
+        match = re.search(pattern, response_text, re.IGNORECASE | re.DOTALL)
+        if match:
+            sentence_text = match.group(1).strip()
+            category = match.group(2).strip()
+            reason = match.group(3).strip().split('\n')[0]  # Take first line only
+
+            annotations.append({
+                "index": str(i),
+                "sentence": sentence_text,
+                "category": category,
+                "reason": reason,
+            })
+
+    return annotations
+
+
 def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_idx):
     """Annotate a single thinking trace with ThinkARM episodes."""
     sentence_list = process_response_to_sentences(thinking_text, apply_merging=True)
@@ -307,57 +339,26 @@ def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_i
         outputs = llm.generate([prompt], sampling_params)
         result = outputs[0].outputs[0].text.strip()
 
-        # Parse JSON response - try multiple approaches
-        response_json = None
+        # Parse text-based response
+        response_annotations = parse_judge_response(result, sentence_list)
 
-        # Try to extract JSON from markdown code blocks first
-        code_block_match = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', result)
-        if code_block_match:
-            json_str = code_block_match.group(1)
-            try:
-                response_json = json.loads(json_str)['sentences']
-            except (json.JSONDecodeError, KeyError):
-                # Try fixing common issues: unescaped newlines in strings
-                json_str = re.sub(r':\s*"([^"]*)\n([^"]*)"', r': "\1 \2"', json_str)
-                try:
-                    response_json = json.loads(json_str)['sentences']
-                except (json.JSONDecodeError, KeyError):
-                    pass
-
-        # If that fails, try to find JSON object in the response
-        if not response_json:
-            json_match = re.search(r'\{[\s\S]*\}', result)
-            if json_match:
-                json_str = json_match.group()
-                try:
-                    response_json = json.loads(json_str)['sentences']
-                except json.JSONDecodeError as e:
-                    # Try fixing common issues: unescaped newlines in strings
-                    json_str = re.sub(r':\s*"([^"]*)\n([^"]*)"', r': "\1 \2"', json_str)
-                    try:
-                        response_json = json.loads(json_str)['sentences']
-                    except json.JSONDecodeError:
-                        print(f"  [warn] Sample {sample_idx}: JSON parse error - {str(e)[:50]}")
-                        print(f"  [warn] First 200 chars of response: {result[:200]}")
-                        return None
-
-        if not response_json:
-            print(f"  [warn] Sample {sample_idx}: No valid JSON found in response")
+        if not response_annotations:
+            print(f"  [warn] Sample {sample_idx}: No annotations parsed from response")
+            print(f"  [warn] First 200 chars of response: {result[:200]}")
             return None
 
         # Add sentence text and type to annotations
-        for item in response_json:
+        for item in response_annotations:
             try:
-                group_index = int(item['index'].strip('[]')) - 1
+                group_index = int(item['index']) - 1
                 if group_index < len(sentence_list):
-                    item['sentence'] = sentence_list[group_index]['sentence']
                     item['sentence_type'] = sentence_list[group_index]['type']
-            except (KeyError, ValueError, TypeError):
-                pass
+            except (KeyError, ValueError, TypeError, IndexError):
+                item['sentence_type'] = 'think'
 
         # Reformat to match ThinkARM output format
         formatted = []
-        for i, item in enumerate(response_json):
+        for i, item in enumerate(response_annotations):
             formatted.append({
                 'index': i + 1,
                 'sentence': item.get('sentence', ''),
