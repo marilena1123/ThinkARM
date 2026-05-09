@@ -243,11 +243,11 @@ def build_annotation_prompt(instruction, response_text, sentence_list):
 - Monitor: Meta-commentary (e.g., "Let me think")
 - Answer: Deliver the final answer
 
-Output ONLY valid JSON with no other text:
+Output ONLY valid JSON with no other text. Keep reasons VERY SHORT (1-2 words):
 {
   "sentences": [
-    {"index": "1", "reason": "brief reason", "category": "CATEGORY"},
-    {"index": "2", "reason": "brief reason", "category": "CATEGORY"}
+    {"index": "1", "reason": "introduces problem", "category": "Read"},
+    {"index": "2", "reason": "states condition", "category": "Read"}
   ]
 }"""
 
@@ -264,7 +264,7 @@ Sentences to classify:
 
 {format_instruction}
 
-Classify {len(sentence_list)} sentences. Output ONLY the JSON object, nothing else."""
+Classify {len(sentence_list)} sentences. Output ONLY the JSON object, nothing else. Keep reasons SHORT."""
 
     return prompt
 
@@ -316,21 +316,33 @@ def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_i
         # Try to extract JSON from markdown code blocks first
         code_block_match = re.search(r'```(?:json)?\s*(\{[\s\S]*?\})\s*```', result)
         if code_block_match:
+            json_str = code_block_match.group(1)
             try:
-                response_json = json.loads(code_block_match.group(1))['sentences']
+                response_json = json.loads(json_str)['sentences']
             except (json.JSONDecodeError, KeyError):
-                pass
+                # Try fixing common issues: unescaped newlines in strings
+                json_str = re.sub(r':\s*"([^"]*)\n([^"]*)"', r': "\1 \2"', json_str)
+                try:
+                    response_json = json.loads(json_str)['sentences']
+                except (json.JSONDecodeError, KeyError):
+                    pass
 
         # If that fails, try to find JSON object in the response
         if not response_json:
             json_match = re.search(r'\{[\s\S]*\}', result)
             if json_match:
+                json_str = json_match.group()
                 try:
-                    response_json = json.loads(json_match.group())['sentences']
+                    response_json = json.loads(json_str)['sentences']
                 except json.JSONDecodeError as e:
-                    print(f"  [warn] Sample {sample_idx}: JSON parse error - {str(e)[:50]}")
-                    print(f"  [warn] First 200 chars of response: {result[:200]}")
-                    return None
+                    # Try fixing common issues: unescaped newlines in strings
+                    json_str = re.sub(r':\s*"([^"]*)\n([^"]*)"', r': "\1 \2"', json_str)
+                    try:
+                        response_json = json.loads(json_str)['sentences']
+                    except json.JSONDecodeError:
+                        print(f"  [warn] Sample {sample_idx}: JSON parse error - {str(e)[:50]}")
+                        print(f"  [warn] First 200 chars of response: {result[:200]}")
+                        return None
 
         if not response_json:
             print(f"  [warn] Sample {sample_idx}: No valid JSON found in response")
