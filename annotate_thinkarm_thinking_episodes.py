@@ -243,13 +243,13 @@ The [Input] - [End of the Input] section provides the sentences that need to be 
 The [Format] - [End of the Format] section provides the format of the output."""
 
     format_instruction = (
-        "You should format the output in json format with index and category. "
+        "You should format the output in json format regarding index, reason (single line, max 10 words), and category. "
         "Output ONLY valid JSON, nothing else. "
         "The format is:\n"
         "{\n"
         "  \"sentences\": [\n"
-        "    {\"index\": \"1\", \"category\": \"Read\"},\n"
-        "    {\"index\": \"2\", \"category\": \"Analyze\"},\n"
+        "    {\"index\": \"1\", \"reason\": \"short reason\", \"category\": \"Read\"},\n"
+        "    {\"index\": \"2\", \"reason\": \"short reason\", \"category\": \"Analyze\"},\n"
         "    ...\n"
         "  ]\n"
         "}"
@@ -363,7 +363,7 @@ def annotate_thinking(llm, sampling_params, instruction, thinking_text, sample_i
                 'sentence': item.get('sentence', ''),
                 'sentence_type': item.get('sentence_type', 'think'),
                 'sentence_category': item.get('category', ''),
-                'sentence_category_reason': '',
+                'sentence_category_reason': item.get('reason', ''),
             })
 
         return formatted
