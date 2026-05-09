@@ -231,7 +231,7 @@ def process_response_to_sentences(response, apply_merging=True):
 
 
 def build_annotation_prompt(instruction, response_text, sentence_list):
-    """Build annotation prompt using repository's exact content, simplified output format."""
+    """Build annotation prompt using repository's exact content, text-based output format."""
     general_instruction = """In this project, we aim to analyze the reasoning process of current large language models (LLMs) with advanced reasoning capabilities, i.e., Large Reasoning Models, LRMs, based on a modified version of Alan Schoenfeld's (1985) "Episode-Timeline" framework for problem-solving. Given the model response you need to annotate the sentence-level behavior of the model response with the eight categories: Read, Analyze, Explore, Plan, Implement, Verify, Monitor, and Answer.
 
 The [Guidebook] - [End of the Guidebook] section provides the detailed introduction and definition of each category.
@@ -257,7 +257,7 @@ The [Format] - [End of the Format] section provides the format of the output."""
 
     combined_prompt = f"{general_instruction}"
     combined_prompt += f"\n\n[Guidebook]\n{guidebook_sentence_prompt}\n[End of the Guidebook]"
-    combined_prompt += f"\n\n[Math Problem]\n{instruction}\n[End of the Math Problem]\n\n[Previous Context]\nThere is no previous sentences.\n[End of the Previous Context]\n\n[Input]\n{new_input_prompt}\n[End of the Input]\n\n[Format]\n{format_instruction}\n[End of the Format]\n\nNow, annotate the sentences in the [Input] - [End of the Input] section. Refer to the guidebook to make the decision. Output ONLY the JSON object with no other text. Strictly follow the index number of the sentence in the [Input] - [End of the Input] section for labeling. You should output the label for {len(sentence_list)} sentences."
+    combined_prompt += f"\n\n[Math Problem]\n{instruction}\n[End of the Math Problem]\n\n[Previous Context]\nThere is no previous sentences.\n[End of the Previous Context]\n\n[Input]\n{new_input_prompt}\n[End of the Input]\n\n[Format]\n{format_instruction}\n[End of the Format]\n\nNow, annotate the sentences in the [Input] - [End of the Input] section. Refer to the guidebook to make the decision. Output ONLY the lines as specified in [Format]. Strictly follow the index number of the sentence in the [Input] - [End of the Input] section for labeling. You should output the label for {len(sentence_list)} sentences."
 
     return combined_prompt
 
